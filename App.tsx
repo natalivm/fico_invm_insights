@@ -50,7 +50,83 @@ interface Stock {
   verdictColor?: string;
 }
 
+const DASH_HIST = [
+  { y: "FY23", rev: 6.6, fcf: 1.55, ebitdaM: 10, eps: 0.8 },
+  { y: "FY24", rev: 8.6, fcf: 1.80, ebitdaM: 14, eps: 1.2 },
+  { y: "FY25", rev: 10.7, fcf: 2.67, ebitdaM: 18, eps: 2.1 },
+  { y: "FY26E", rev: 13.8, fcf: 3.48, ebitdaM: 21, eps: 3.4 },
+  { y: "FY27E", rev: 17.9, fcf: 4.58, ebitdaM: 24, eps: 4.8 },
+];
+
+const AMAT_HIST = [
+  { y: "FY22", rev: 25.8, eps: 7.70, fcf: 4.61, ebitdaM: 30.0 },
+  { y: "FY23", rev: 26.5, eps: 8.11, fcf: 4.90, ebitdaM: 29.5 },
+  { y: "FY24", rev: 27.2, eps: 8.65, fcf: 5.20, ebitdaM: 31.0 },
+  { y: "FY25", rev: 28.4, eps: 9.42, fcf: 5.70, ebitdaM: 32.5 },
+  { y: "FY26E", rev: 31.3, eps: 11.10, fcf: 6.40, ebitdaM: 34.0 },
+  { y: "FY27E", rev: 37.1, eps: 13.71, fcf: 7.80, ebitdaM: 35.0 },
+];
+
+const AVGO_HIST = [
+  { y: "FY22", rev: 33.2, eps: 3.76, fcf: 17.6, ebitdaM: 60 },
+  { y: "FY23", rev: 35.8, eps: 3.92, fcf: 17.6, ebitdaM: 62 },
+  { y: "FY24", rev: 51.6, eps: 4.80, fcf: 19.9, ebitdaM: 64 },
+  { y: "FY25", rev: 63.9, eps: 6.82, fcf: 26.9, ebitdaM: 67 },
+  { y: "FY26E", rev: 76.0, eps: 10.27, fcf: 33.0, ebitdaM: 70 },
+  { y: "FY27E", rev: 91.0, eps: 14.46, fcf: 40.0, ebitdaM: 75 },
+];
+
+const FN_HIST = [
+  { y: "FY22", rev: 2.26, fcf: 0.034, eps: 6.13, ebitdaM: 9.5 },
+  { y: "FY23", rev: 2.71, fcf: 0.200, eps: 7.40, ebitdaM: 10.0 },
+  { y: "FY24", rev: 3.01, fcf: 0.366, eps: 8.80, ebitdaM: 10.5 },
+  { y: "FY25", rev: 3.42, fcf: 0.207, eps: 10.17, ebitdaM: 11.0 },
+  { y: "FY26E", rev: 4.10, fcf: 0.442, eps: 13.58, ebitdaM: 11.5 },
+  { y: "FY27E", rev: 4.85, fcf: 0.540, eps: 16.26, ebitdaM: 12.0 },
+];
+
 const INITIAL_STOCKS: Stock[] = [
+  {
+    id: 'tln',
+    ticker: 'TLN',
+    name: 'Talen Energy Corp.',
+    price: '$238.00',
+    change: '+0.4%',
+    color: '#f59e0b',
+    logo: 'T',
+    typeLabel: "Power / AI Infrastructure",
+    typeDesc: "North Star KPI: adj FCF/share. Унікальний ядерний актив Susquehanna (2.5GW) + колокація з AWS. Deal uplift: +$4/share.",
+    marketCap: "$13.4B",
+    grossMargin: "~32.5%",
+    ebitMargin: "21.0%",
+    moat: "9.5/10",
+    forwardPE: "7.0x (P/FCF '27)",
+    stats: [
+      { label: "ЦІНА", value: "$238.00", color: "text-white" },
+      { label: "2027 TARGET FCF", value: "$34+", color: "text-amber-400" },
+      { label: "EXIT P/FCF", value: "9.0x", color: "text-purple-400" }
+    ],
+    hist: [
+      { y: "FY23", rev: 3.12, fcf: 0.08, eps: 2.15, ebitdaM: 25 },
+      { y: "FY24", rev: 3.45, fcf: 5.10, eps: 3.80, ebitdaM: 28 }, // Management: "Slightly over $5"
+      { y: "FY25E", rev: 4.10, fcf: 14.5, eps: 6.42, ebitdaM: 32 },
+      { y: "FY26E", rev: 5.25, fcf: 24.5, eps: 9.85, ebitdaM: 38 },
+      { y: "FY27E", rev: 6.10, fcf: 34.0, eps: 12.5, ebitdaM: 42 } // Target with deal uplift
+    ],
+    scenarios: [
+      { label: "Bull", color: "#22c55e", cagr: 18.8, pe: 11, eps5: 51.2, price5: 563, ret: 18.8, prob: 40, driver: "FCF/share 10% CAGR (28-31) + exit 11x P/FCF. PJM tightness триває." },
+      { label: "Base", color: "#f59e0b", cagr: 8.9, pe: 9, eps5: 40.4, price5: 364, ret: 8.9, prob: 45, driver: "FCF/share 6% CAGR + exit 9x. Нормалізація циклу при успішному buyback." },
+      { label: "Bear", color: "#ef4444", cagr: -13.4, pe: 6, eps5: 19.5, price5: 117, ret: -13.4, prob: 15, driver: "FCF/share -5% CAGR + exit 6x. Power prices просідають, регуляторний тиск." }
+    ],
+    risks: [
+      { r: "FERC / Regulatory ISA", prob: "45%", impact: "Високий", detail: "Ризик блокування прямих підключень (ISA) для AWS. Критично для $4/share uplift." },
+      { r: "Cycle Reversal", prob: "30%", impact: "Високий", detail: "Падіння цін на енергію в PJM. $30-35 target сильно залежить від spark spreads." },
+      { r: "Deleverage Execution", prob: "25%", impact: "Помірний", detail: "Ринок може штрафувати за leverage, якщо FCF піде на debt замість buybacks." }
+    ],
+    strengths: ["Unique Susquehanna nuclear asset", "Colocation agreements with AWS", "Zero-carbon baseload power", "Aggressive buyback flywheel"],
+    weaknesses: ["Regulatory sensitivity", "Geographic concentration (PJM)", "High cyclicality dependency"],
+    verdict: "TLN — це ставка на дефіцит енергії та FCF/share flywheel. Щоб мати 15%+ CAGR, потрібен Bull-сценарій (exit 11x). Base-сценарій дає ~9% річних. Це High-Quality Execution Bet з сильним, але циклічним фундаментом."
+  },
   { 
     id: 'wwd', 
     ticker: 'WWD', 
@@ -92,7 +168,7 @@ const INITIAL_STOCKS: Stock[] = [
     ],
     strengths: ["Industrial moat: сертифікації", "Довгі програми 10–20 років", "Органічний EPS ріст", "Margin expansion", "Низький ризик дизрапції"],
     weaknesses: ["P/E 57x premium", "FCF yield лише 1.4%", "Gross margin ~27%", "Perfection priced in"],
-    verdict: "WWD — це якісний industrial compounder з реальним moat, органічним ростом і expanding margins. Але це вже не early compounder — це розкручений winner за P/E 57x. Очікувана зважена ~4.3% річних. Це ставка на execution + aerospace апцикл без margin of safety. Ідеальна точка входу — корекція до $260–300."
+    verdict: "WWD — це якісний industrial compounder з реальним moat, органічним ростом і expanding margins. Але это вже не early compounder — це розкручений winner за P/E 57x. Очікувана зважена ~4.3% річних. Це ставка на execution + aerospace апцикл без margin of safety. Ідеальна точка входу — корекція до $260–300."
   },
   { 
     id: 'fico', 
@@ -102,11 +178,27 @@ const INITIAL_STOCKS: Stock[] = [
     change: '+1.2%', 
     color: '#3b82f6', 
     logo: 'F',
+    typeLabel: "Structural Compounder",
+    typeDesc: "Домінуючий стандарт кредитного скорингу з переходом на платформенну SaaS-модель (DLP).",
+    marketCap: "$32.4B",
+    grossMargin: "~27.2%",
+    ebitMargin: "18.5%",
+    moat: "9.5/10",
+    forwardPE: "30x",
+    strengths: ["Unmatched pricing power in Scores", "Deep integration into lending workflows", "Platform SaaS transition (DLP)", "Regulatory standard (B3 requirements)", "Expanding margins"],
+    weaknesses: ["Valuation at historically high P/E", "Mortgage market cyclicality", "VantageScore competition", "Slow FCF conversion in Q1"],
     stats: [
       { label: "ЦІНА", value: "$1,351.60", color: "text-white" },
       { label: "NTM P/E", value: "30.0x", color: "text-purple-400" },
       { label: "ВІД ПІКУ", value: "-35%", color: "text-rose-500" }
-    ]
+    ],
+    hist: HIST_DATA.map(d => ({ ...d, eps: d.epsN, ebitdaM: 42 })),
+    scenarios: [
+      { label: "Bull", cagr: 22, pe: 28, price5: 2548, ret: 14, prob: 55, color: "#22c55e", driver: "DLP live + FICO 10T + AI lending" },
+      { label: "Base", cagr: 17, pe: 25, price5: 1825, ret: 6,  prob: 32, color: "#f59e0b", driver: "FCF $1B підтверджено, органічний ріст" },
+      { label: "Bear", cagr: 11, pe: 22, price5: 1100, ret: -4, prob: 13, color: "#ef4444", driver: "Mortgage cycle + DLP delay + compression" },
+    ],
+    risks: RISKS.map(r => ({ ...r, impact: r.impact === "Дуже Високий" ? "Високий" : r.impact }))
   },
   { 
     id: 'dash', 
@@ -116,11 +208,21 @@ const INITIAL_STOCKS: Stock[] = [
     change: '-0.8%', 
     color: '#ef4444', 
     logo: 'D',
+    typeLabel: "Growth / Scaler",
+    typeDesc: "Лідер ринку доставки в США, що масштабується в нові вертикалі ритейлу та логістики.",
+    marketCap: "$71.2B",
+    grossMargin: "~44.8%",
+    ebitMargin: "12.2%",
+    moat: "7/10",
+    forwardPE: "28x",
+    strengths: ["US market leader in delivery", "Improving unit economics", "Expansion into grocery/retail", "Strong network effect", "Efficient logistics platform"],
+    weaknesses: ["Intense competition (Uber/Instacart)", "Regulatory labor risk", "Thin net margins", "High customer acquisition costs"],
     stats: [
       { label: "ЦІНА", value: "$173.42", color: "text-white" },
       { label: "FWD P/E", value: "28x", color: "text-amber-400" },
       { label: "ВІД ПІКУ", value: "-39%", color: "text-rose-500" }
-    ]
+    ],
+    hist: DASH_HIST
   },
   { 
     id: 'amat', 
@@ -130,11 +232,21 @@ const INITIAL_STOCKS: Stock[] = [
     change: '+0.5%', 
     color: '#06b6d4', 
     logo: 'A',
+    typeLabel: "Cyclical Leader",
+    typeDesc: "Ключовий постачальник обладнання для виробництва напівпровідників, бенефіціар ШІ-буму.",
+    marketCap: "$291.5B",
+    grossMargin: "~47.5%",
+    ebitMargin: "31.0%",
+    moat: "8/10",
+    forwardPE: "33x",
+    strengths: ["Semi-cap equipment leader", "Critical logic/memory role", "Expanding service revenue", "High barriers to entry", "AI-driven demand tailwinds"],
+    weaknesses: ["Cyclical semiconductor industry", "China export restrictions", "R&D cost intensity", "High inventory volatility"],
     stats: [
       { label: "ЦІНА", value: "$368.00", color: "text-white" },
       { label: "FWD P/E", value: "33x", color: "text-cyan-400" },
       { label: "MKT CAP", value: "$291B", color: "text-purple-400" }
-    ]
+    ],
+    hist: AMAT_HIST
   },
   { 
     id: 'avgo', 
@@ -144,11 +256,21 @@ const INITIAL_STOCKS: Stock[] = [
     change: '+0.2%', 
     color: '#6366f1', 
     logo: 'B',
+    typeLabel: "Portfolio Compounder",
+    typeDesc: "Глобальний технологічний конгломерат, що поєднує напівпровідники та критичне корпоративне ПЗ.",
+    marketCap: "$1.64T",
+    grossMargin: "~74.2%",
+    ebitMargin: "61.0%",
+    moat: "9/10",
+    forwardPE: "34x",
+    strengths: ["Diversified semi/software portfolio", "Best-in-class operational efficiency", "VMware integration synergy", "Dominant networking position", "Strong dividend/FCF growth"],
+    weaknesses: ["Large-scale integration risk", "High customer concentration (Apple)", "Cyclicality in specific segments", "Debt level from M&A"],
     stats: [
       { label: "ЦІНА", value: "$175.40", color: "text-white" },
       { label: "FWD P/E", value: "34x", color: "text-indigo-400" },
       { label: "MKT CAP", value: "$1.64T", color: "text-purple-400" }
-    ]
+    ],
+    hist: AVGO_HIST
   },
   { 
     id: 'fn', 
@@ -158,47 +280,22 @@ const INITIAL_STOCKS: Stock[] = [
     change: '+0.4%', 
     color: '#14b8a6', 
     logo: 'N',
+    typeLabel: "Supply Chain Specialist",
+    typeDesc: "Спеціалізований виробник оптичних компонентів для дата-центрів та ШІ-інфраструктури.",
+    marketCap: "$18.4B",
+    grossMargin: "~12.5%",
+    ebitMargin: "10.5%",
+    moat: "8.5/10",
+    forwardPE: "38x",
+    strengths: ["Sole source for 800G optical", "Strong NVIDIA/Cisco partnership", "Operational excellence in low-cost regions", "AI data center buildout beneficiary", "Asset-light high-precision model"],
+    weaknesses: ["Geographic concentration (Thailand)", "Customer concentration risk", "Cyclicality of optical networking", "Sensitivity to semi supply chain"],
     stats: [
       { label: "ЦІНА", value: "$515.00", color: "text-white" },
       { label: "FWD P/E", value: "38x", color: "text-teal-400" },
       { label: "TRAILING", value: "50x", color: "text-amber-400" }
-    ]
+    ],
+    hist: FN_HIST
   },
-];
-
-const DASH_HIST = [
-  { y: "FY23", rev: 6.6, fcf: 1.55, ebitdaM: 10, eps: 0.8 },
-  { y: "FY24", rev: 8.6, fcf: 1.80, ebitdaM: 14, eps: 1.2 },
-  { y: "FY25", rev: 10.7, fcf: 2.67, ebitdaM: 18, eps: 2.1 },
-  { y: "FY26E", rev: 13.8, fcf: 3.48, ebitdaM: 21, eps: 3.4 },
-  { y: "FY27E", rev: 17.9, fcf: 4.58, ebitdaM: 24, eps: 4.8 },
-];
-
-const AMAT_HIST = [
-  { y: "FY22", rev: 25.8, eps: 7.70, fcf: 4.61, ebitdaM: 30.0 },
-  { y: "FY23", rev: 26.5, eps: 8.11, fcf: 4.90, ebitdaM: 29.5 },
-  { y: "FY24", rev: 27.2, eps: 8.65, fcf: 5.20, ebitdaM: 31.0 },
-  { y: "FY25", rev: 28.4, eps: 9.42, fcf: 5.70, ebitdaM: 32.5 },
-  { y: "FY26E", rev: 31.3, eps: 11.10, fcf: 6.40, ebitdaM: 34.0 },
-  { y: "FY27E", rev: 37.1, eps: 13.71, fcf: 7.80, ebitdaM: 35.0 },
-];
-
-const AVGO_HIST = [
-  { y: "FY22", rev: 33.2, eps: 3.76, fcf: 17.6, ebitdaM: 60 },
-  { y: "FY23", rev: 35.8, eps: 3.92, fcf: 17.6, ebitdaM: 62 },
-  { y: "FY24", rev: 51.6, eps: 4.80, fcf: 19.9, ebitdaM: 64 },
-  { y: "FY25", rev: 63.9, eps: 6.82, fcf: 26.9, ebitdaM: 67 },
-  { y: "FY26E", rev: 76.0, eps: 10.27, fcf: 33.0, ebitdaM: 70 },
-  { y: "FY27E", rev: 91.0, eps: 14.46, fcf: 40.0, ebitdaM: 75 },
-];
-
-const FN_HIST = [
-  { y: "FY22", rev: 2.26, fcf: 0.034, eps: 6.13, ebitdaM: 9.5 },
-  { y: "FY23", rev: 2.71, fcf: 0.200, eps: 7.40, ebitdaM: 10.0 },
-  { y: "FY24", rev: 3.01, fcf: 0.366, eps: 8.80, ebitdaM: 10.5 },
-  { y: "FY25", rev: 3.42, fcf: 0.207, eps: 10.17, ebitdaM: 11.0 },
-  { y: "FY26E", rev: 4.10, fcf: 0.442, eps: 13.58, ebitdaM: 11.5 },
-  { y: "FY27E", rev: 4.85, fcf: 0.540, eps: 16.26, ebitdaM: 12.0 },
 ];
 
 const TooltipStyle = { 
@@ -207,7 +304,7 @@ const TooltipStyle = {
 };
 
 const Chip: React.FC<{ label: string; val: string; color: string; sub?: string }> = ({ label, val, color, sub }) => (
-  <div className="bg-slate-900 border-t-2 rounded-xl p-4 transition-all hover:bg-slate-800" style={{ borderColor: color }}>
+  <div className="bg-slate-900 border-t-2 rounded-xl p-4 transition-all hover:bg-slate-800 shadow-lg" style={{ borderColor: color }}>
     <div className="text-slate-500 text-[10px] uppercase font-bold tracking-widest mb-1">{label}</div>
     <div className="text-2xl font-black" style={{ color }}>{val}</div>
     {sub && <div className="text-slate-600 text-[10px] mt-1 font-medium">{sub}</div>}
@@ -254,7 +351,6 @@ export default function App() {
     setGenProgress(5);
     setGenError("");
 
-    // Simulated progress increment
     const progressInterval = setInterval(() => {
       setGenProgress(prev => {
         if (prev >= 92) {
@@ -301,8 +397,8 @@ export default function App() {
         "risks": [
           {"r":"Назва ризику","prob":"XX%","impact":"Високий/Помірний/Низький","detail":"Опис ризику"}
         ],
-        "strengths": ["Перевага 1", "Перевага 2"],
-        "weaknesses": ["Недолік 1", "Недолік 2"],
+        "strengths": ["Перевага 1", "Перевага 2", "Перевага 3"],
+        "weaknesses": ["Недолік 1", "Недолік 2", "Недолік 3"],
         "verdict": "Фінальний висновок аналітика одним абзацом."
       }
 
@@ -354,8 +450,8 @@ export default function App() {
       <div className="max-w-6xl mx-auto">
         <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
-            <h2 className="text-4xl md:text-5xl font-black text-white mb-4 tracking-tight">Портфель Аналітика</h2>
-            <p className="text-slate-500 text-lg">Оберіть актив або згенеруйте новий аналіз</p>
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-4 tracking-tight">Investment Insights</h2>
+            <p className="text-slate-500 text-lg">Stocks evaluation are done with real life data from tikr.com</p>
           </div>
           <button onClick={handleRefresh} disabled={isRefreshing} className="flex items-center gap-3 px-6 py-3 bg-slate-900 border border-slate-700 rounded-2xl text-sm font-bold text-slate-300 hover:text-white hover:border-blue-500 transition-all">
             <svg className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
@@ -379,7 +475,7 @@ export default function App() {
                   <div className={`text-[11px] font-bold ${stock.change.startsWith('+') ? 'text-emerald-400' : 'text-rose-500'}`}>{stock.change}</div>
                 </div>
               </div>
-              {(stock.id.startsWith('gen-') || stock.id === 'wwd') && (
+              {(stock.id.startsWith('gen-') || stock.id === 'wwd' || stock.id === 'tln') && (
                 <div className="absolute -right-6 -top-6 w-12 h-12 bg-blue-500/10 rotate-45 flex items-center justify-center pt-6 pr-6">
                    <div className="text-[8px] text-blue-400 font-black uppercase tracking-widest -rotate-45">MODEL</div>
                 </div>
@@ -458,12 +554,6 @@ export default function App() {
               </div>
               <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
             </button>
-            
-            {!genLoading && (
-              <p className="mt-4 text-center text-slate-600 text-[10px] font-medium uppercase tracking-widest">
-                ШІ створить сценарії, аналіз ризиків та фінансовий вердикт
-              </p>
-            )}
           </div>
         </div>
       </div>
@@ -473,7 +563,6 @@ export default function App() {
   const renderAnalysis = () => {
     if (!selectedStock) return null;
     
-    // Prioritize embedded data for standardized modeling
     const histData = selectedStock.hist || (
       selectedStock.id === 'fico' ? HIST_DATA : 
       selectedStock.id === 'dash' ? DASH_HIST : 
@@ -495,10 +584,30 @@ export default function App() {
               <p className="text-slate-500 text-lg">{selectedStock.typeLabel || "Deep Fundamental Analysis"}</p>
             </div>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              <Chip label={selectedStock.marketCap ? "Market Cap" : "EPS FY26E"} val={selectedStock.marketCap || (selectedStock.id === 'fico' ? "$41.22" : "$8.75")} color="#22c55e" sub={selectedStock.marketCap ? "" : "+38% Growth"} />
-              <Chip label={selectedStock.grossMargin ? "Gross Margin" : "FCF FY26E"} val={selectedStock.grossMargin || "$1,008M"} color="#22c55e" sub={selectedStock.ebitMargin ? `EBIT: ${selectedStock.ebitMargin}` : "Quality Cash Flow"} />
-              <Chip label="Moat" val={selectedStock.moat || "9.5/10"} color="#a855f7" sub="Competitive Edge" />
-              <Chip label="P/E" val={selectedStock.forwardPE || "30x"} color="#3b82f6" sub="NTM Multiplier" />
+              <Chip 
+                label="Market Cap" 
+                val={selectedStock.marketCap || "N/A"} 
+                color="#3b82f6" 
+                sub="Капіталізація" 
+              />
+              <Chip 
+                label="Gross Margin" 
+                val={selectedStock.grossMargin || "N/A"} 
+                color="#22c55e" 
+                sub={selectedStock.ebitMargin ? `EBIT: ${selectedStock.ebitMargin}` : "Маржинальність"} 
+              />
+              <Chip 
+                label="Moat" 
+                val={selectedStock.moat || "N/A"} 
+                color="#a855f7" 
+                sub="Перевага" 
+              />
+              <Chip 
+                label="P/E" 
+                val={selectedStock.forwardPE || "N/A"} 
+                color="#f59e0b" 
+                sub="Оцінка" 
+              />
             </div>
             {selectedStock.typeDesc && (
               <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800 text-slate-400 text-sm leading-relaxed italic border-l-4" style={{borderLeftColor: selectedStock.color}}>
@@ -527,7 +636,7 @@ export default function App() {
                     {histData?.map((h: any, j: number) => <td key={j} className="p-4 text-right text-slate-200">{h.rev}</td>)}
                   </tr>
                   <tr>
-                    <td className="p-4 text-slate-400 font-bold">FCF ($B)</td>
+                    <td className="p-4 text-slate-400 font-bold">FCF ($B/share)</td>
                     {histData?.map((h: any, j: number) => <td key={j} className="p-4 text-right text-emerald-400 font-bold">{h.fcf}</td>)}
                   </tr>
                   <tr>
@@ -586,7 +695,7 @@ export default function App() {
                       <div className="text-sm font-bold text-white">${s.price5}</div>
                     </div>
                     <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 shadow-inner">
-                      <div className="text-[9px] text-slate-600 uppercase font-bold tracking-widest">EPS CAGR</div>
+                      <div className="text-[9px] text-slate-600 uppercase font-bold tracking-widest">CAGR</div>
                       <div className="text-sm font-bold text-white">{s.cagr}%</div>
                     </div>
                   </div>
@@ -627,7 +736,7 @@ export default function App() {
               <div className="bg-emerald-950/20 border border-emerald-500/30 p-6 rounded-2xl">
                 <h4 className="text-emerald-400 font-black text-xs uppercase tracking-widest mb-4">✅ Strengths & Moats</h4>
                 <ul className="space-y-2">
-                  {(selectedStock.strengths || ["Pricing Power", "Regulatory Moat", "Execution Excellence"]).map((s, i) => (
+                  {(selectedStock.strengths || ["Pricing Power", "Moat Integrity", "Market Dominance"]).map((s, i) => (
                     <li key={i} className="text-slate-400 text-sm flex gap-2"><span className="text-emerald-500">→</span> {s}</li>
                   ))}
                 </ul>
@@ -635,7 +744,7 @@ export default function App() {
               <div className="bg-rose-950/20 border border-rose-500/30 p-6 rounded-2xl">
                 <h4 className="text-rose-400 font-black text-xs uppercase tracking-widest mb-4">⛔ Critical Weaknesses</h4>
                 <ul className="space-y-2">
-                  {(selectedStock.weaknesses || ["Valuation Premium", "Macro Cycle Risk", "Competition Pressure"]).map((w, i) => (
+                  {(selectedStock.weaknesses || ["Valuation Risk", "Macro Dependency", "Execution Risk"]).map((w, i) => (
                     <li key={i} className="text-slate-400 text-sm flex gap-2"><span className="text-rose-500">→</span> {w}</li>
                   ))}
                 </ul>
@@ -661,7 +770,7 @@ export default function App() {
               </div>
               <div className="bg-slate-900/80 backdrop-blur-md p-6 rounded-3xl border border-slate-800 min-w-[140px] shadow-xl">
                 <div className="text-[10px] text-slate-600 font-black uppercase tracking-widest mb-2">Target 5Y</div>
-                <div className="text-2xl font-black text-blue-400">${selectedStock.scenarios?.[1]?.price5 || (selectedStock.id === 'fico' ? "2,548" : "480")}</div>
+                <div className="text-2xl font-black text-blue-400">${selectedStock.scenarios?.[1]?.price5 || "N/A"}</div>
               </div>
             </div>
             <button onClick={backToHome} className="bg-blue-600 px-10 py-4 rounded-2xl font-black text-white shadow-lg hover:bg-blue-500 hover:shadow-blue-500/30 transition-all uppercase tracking-widest text-sm relative z-10">
