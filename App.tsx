@@ -103,7 +103,96 @@ const INITIAL_STOCKS: Stock[] = [
     ],
     strengths: ["AI networking x2 growth guide", "47% FCF margin"],
     weaknesses: ["Margin compression in 2026", "High valuation premium"],
-    verdict: "ANET — це найякісніший play на AI networking. Висока бета (1.42) означає, що при підтвердженні AI-тези у 2026, ціль $200+ може быть досягнута за 18 місяців."
+    verdict: "ANET — це найякісніший play на AI networking. Висока бета (1.42) означає, що при підтвердженні AI-тези у 2026, ціль $200+ може бути досягнута за 18 місяців."
+  },
+  {
+    id: 'spot',
+    ticker: 'SPOT',
+    name: 'Spotify Technology S.A.',
+    price: '$478.00',
+    change: '+0.5%',
+    color: '#1DB954',
+    logo: 'S',
+    rs: 89,
+    rating: 'Strong Buy',
+    beta: 1.25,
+    accelerationProb: "65%",
+    timeToMilestone: "2.5 - 3.5 Years",
+    momentumUpside1Y: "+20%",
+    typeLabel: "Structural Compounder",
+    typeDesc: "Early cash machine stage. Structural improvement in margins.",
+    marketCap: "$95.3B",
+    grossMargin: "32.4%",
+    ebitMargin: "13.0%",
+    stats: [
+      { label: "ЦІНА", value: "$478.00", color: "text-white" },
+      { label: "EV/FCF", value: "25.2x", color: "text-emerald-400" },
+      { label: "NET CASH", value: "$9B", color: "text-blue-400" }
+    ],
+    hist: [
+      { y: "2022", rev: 11.7, fcf: 0.30, eps: -1.51 },
+      { y: "2023", rev: 13.2, fcf: 0.80, eps: -0.90 },
+      { y: "2024", rev: 16.1, fcf: 2.20, eps: 3.40 },
+      { y: "2025", rev: 20.4, fcf: 3.42, eps: 5.27 },
+    ],
+    scenarios: [
+      { label: "Bull", color: "#22c55e", cagr: 20.9, pe: 28, price5: 840, ret: 18.5, prob: 30, driver: "Gross margin → 35–37%, Ads step-up 2H'26+, AI efficiency" },
+      { label: "Base", color: "#60a5fa", cagr: 16.5, pe: 22, price5: 550, ret: 12.5, prob: 45, driver: "Realistic execution, rev 12% CAGR, FCF margin 20.5%" },
+      { label: "Bear", color: "#f87171", cagr: 8.0, pe: 16, price5: 400, ret: 6.0, prob: 25, driver: "Rev slowdown · Margin stagnates ~18%" }
+    ],
+    risks: [
+      { r: "Margin Stagnation", prob: "40%", impact: "Високий", detail: "FCF margin fails to reach 22-24%, staying at ~18%." },
+      { r: "Ads Recovery Miss", prob: "30%", impact: "Помірний", detail: "Ads recovery fails to provide the expected multi-year tailwind." }
+    ],
+    strengths: ["Structural cash machine shift", "Ads revenue step-up in 2026"],
+    weaknesses: ["Tax normalization drag", "EV/FCF multiple compression risk"],
+    verdict: "SPOT — це structural compounder, що перетворюється на cash machine. Ставка на виконання (Ads, Gross Margin 35%+), а не просто на цикл. Прогноз дохідності 15%+ IRR має 60-65% ймовірності."
+  },
+  {
+    id: 'cls',
+    ticker: 'CLS',
+    name: 'Celestica, Inc.',
+    price: '$293.90',
+    change: '+1.5%',
+    color: '#f59e0b',
+    logo: 'C',
+    rs: 92,
+    rating: 'Hold',
+    beta: 1.85,
+    accelerationProb: "28%",
+    timeToMilestone: "3.0 - 4.0 Years",
+    momentumUpside1Y: "+15%",
+    typeLabel: "B) Циклічний Growth",
+    typeDesc: "EMS з AI-інфраструктурним tailwind. Execution + operating leverage.",
+    marketCap: "$34B",
+    grossMargin: "11.5%",
+    ebitMargin: "7.5%",
+    forwardPE: "33.6x",
+    stats: [
+      { label: "ЦІНА", value: "$293.90", color: "text-white" },
+      { label: "FWD P/E", value: "33.6x", color: "text-amber-400" },
+      { label: "CAPEX 2026", value: "$1B", color: "text-rose-400" }
+    ],
+    hist: [
+      { y: "FY22",  rev: 7.20,  fcf: 0.18, eps: 2.50, opM: 5.5 },
+      { y: "FY23",  rev: 9.20,  fcf: 0.28, eps: 3.88, opM: 6.3 },
+      { y: "FY24",  rev: 10.20, fcf: 0.35, eps: 4.72, opM: 7.2 },
+      { y: "FY25A", rev: 12.40, fcf: 0.45, eps: 6.05, opM: 7.5 },
+      { y: "FY26E", rev: 17.00, fcf: 0.50, eps: 8.75, opM: 7.8 },
+    ],
+    scenarios: [
+      { label: "Bull", cagr: 20, pe: 28, price5: 610, ret: 16, prob: 28, color: "#22c55e", driver: "1.6T рамп 2027–28 + next-gen compute + capex $1B 'відбивається' в EBIT" },
+      { label: "Base", cagr: 12, pe: 20, price5: 308, ret: 1,  prob: 47, color: "#f59e0b", driver: "AI cycle продовжується, але margin pressure зростає, P/E нормалізується" },
+      { label: "Bear", cagr: 3,  pe: 15, price5: 153, ret: -12, prob: 25, color: "#ef4444", driver: "Hyperscaler capex pause + клієнт №1 перерозподіляє share + P/E collapses" },
+    ],
+    risks: [
+      { r: "Валюація / P/E De-rating", prob: "55–65%", impact: "Дуже Високий", detail: "Trailing P/E ~49x, forward ~34x для EMS. Hist. range 15–25x. Downside -40% без погіршення бізнесу." },
+      { r: "Концентрація: Топ-3 = 63%", prob: "40–50%", impact: "Дуже Високий", detail: "Клієнт №1 = 36%, №2 = 15%, №3 = 12%. Разом 63% revenue. Один сигнал — і quarterly miss." },
+      { r: "CapEx $1B у 2026", prob: "35–45%", impact: "Високий", detail: "CapEx стрибає з $201M до $1B. Execution bet на 2027. Якщо замовлення сповільнюються — burn без return." }
+    ],
+    strengths: ["EPS guide $8.75: +45% YoY", "ROIC 43% — пікова ефективність"],
+    weaknesses: ["FCF yield лише ~1.7%", "Екстремальна концентрація клієнтів"],
+    verdict: "Celestica — це найкращий EMS виконавець в AI infrastructure. Але оцінка P/E 34x для EMS компанії — це historical anomaly. Це не ставка на compounder — це ставка на те, що AI capex cycle продовжується до 2028 без паузи. Ідеальна точка входу: $180–200 (P/E ~22x)."
   },
   {
     id: 'tln',
@@ -273,17 +362,37 @@ const INITIAL_STOCKS: Stock[] = [
     accelerationProb: "10%",
     timeToMilestone: "5.0+ Years",
     momentumUpside1Y: "+5%",
+    typeLabel: "Credit Scoring Monopoly",
+    typeDesc: "Дуополія кредитного скорингу · Pricing Power · FCF Machine",
+    marketCap: "$34.2B",
+    grossMargin: "82.9%",
+    ebitMargin: "59.7%",
+    moat: "9.5/10",
     stats: [
       { label: "ЦІНА", value: "$1,351.60", color: "text-white" },
-      { label: "RS", value: "16", color: "text-rose-500" },
-      { label: "NTM P/E", value: "30x", color: "text-purple-400" }
+      { label: "NTM P/E", value: "30.0x", color: "text-purple-400" },
+      { label: "від піку", value: "-35%", color: "text-rose-500" }
     ],
-    hist: [],
-    scenarios: [{label:"Base",cagr:17,pe:25,price5:1825,ret:6,prob:32,color:"#f59e0b",driver:"FCF confirmed"}],
-    risks: [{r:"Mortgage Cycle",prob:"30%",impact:"Високий",detail:"Slowdown hurts scores."}],
-    strengths: ["Scores pricing power"],
-    weaknesses: ["Valuation at peaks"],
-    verdict: "RS 16 каже все — акція в даунтреді. Прискорення вгору наразі неможливе. Ризик падіння вищий за апсайд."
+    hist: [
+      { y: "FY23", rev: 1513, fcf: 465, eps: 19.71 },
+      { y: "FY24", rev: 1717, fcf: 607, eps: 23.74 },
+      { y: "FY25", rev: 1991, fcf: 739, eps: 29.88 },
+      { y: "FY26E", rev: 2458, fcf: 1008, eps: 41.22 },
+    ],
+    scenarios: [
+      { label: "Bull", cagr: 22, pe: 28, price5: 2548, ret: 14, prob: 55, color: "#22c55e", driver: "DLP live + FICO 10T + AI lending" },
+      { label: "Base", cagr: 17, pe: 25, price5: 1825, ret: 6,  prob: 32, color: "#f59e0b", driver: "FCF $1B підтверджено, органічний ріст" },
+      { label: "Bear", cagr: 11, pe: 22, price5: 1100, ret: -4, prob: 13, color: "#ef4444", driver: "Mortgage cycle + DLP delay + compression" },
+    ],
+    risks: [
+      { r: "VantageScore parity (FHFA)", prob: "10–15%", impact: "Дуже Високий", detail: "Якщо FHFA надасть рівний LLPA grid — тиск на pricing power. CEO: відмінності 20%+ у 30% випадків." },
+      { r: "Mortgage Cycle Down", prob: "25–30%", impact: "Помірний", detail: "Mortgage = 42% Scores revenue. При -30% volume → -12–15% Scores revenue. DLP частково ізолює." },
+      { r: "FCF H2 Miss", prob: "30–35%", impact: "Помірний", detail: "Q1 annualized ~$660M vs $1.008B est. H2 має дати $843M — більше за весь FY25. Q2 = тригер." },
+      { r: "DLP / 10T Delay", prob: "40–50%", impact: "Низький", detail: "Затримка — не відміна. Але стискає timing каталізатора і short-term sentiment." },
+    ],
+    strengths: ["Scores дуополія — de facto стандарт США", "FCF margin: 31% → 41% за 3 роки", "EBITDA margin expansion: 51% → 61%", "Platform NRR 122% — recurring росте", "DLP: 70–80% ринку підписано"],
+    weaknesses: ["Mortgage = 42% Scores (циклічність)", "FCF Q1 annualized $660M vs $1.008B est.", "FHFA/VantageScore tail risk"],
+    verdict: "FICO — де-факто стандарт кредитного ризику США з FCF 26% CAGR і EBITDA margin що йде до 61%. P/E compression з 56x до 30x вже відбулась. При ~15% очікуваної зваженої дохідності — це обґрунтована інвестиція. Головний ризик — не фундаментал, а виконання: DLP go-live і підтвердження FCF $1B у H2 FY26."
   },
   { 
     id: 'dash', 
@@ -582,8 +691,8 @@ export default function App() {
                     <XAxis dataKey="y" axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} />
                     <YAxis axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} />
                     <Tooltip {...TooltipStyle} />
-                    <Bar dataKey="rev" name="Revenue" fill="#3b82f6" radius={[4, 4, 0, 0]} />
-                    <Bar dataKey="fcf" name="FCF" fill="#10b981" radius={[4, 4, 0, 0]} />
+                    <Bar name="Revenue" dataKey="rev" fill="#3b82f6" radius={[4, 4, 0, 0]} />
+                    <Bar name="FCF" dataKey="fcf" fill="#10b981" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
              </div>
@@ -643,9 +752,9 @@ export default function App() {
         {slide === 4 && (
           <div className="bg-gradient-to-br from-[#1e1b4b] to-slate-950 p-12 rounded-3xl text-center border border-blue-500/30 shadow-2xl relative overflow-hidden">
             <h3 className="text-4xl font-black mb-6 text-white uppercase tracking-tight">Investment Verdict</h3>
-            <p className="text-slate-400 max-w-2xl mx-auto mb-10 text-lg leading-relaxed">
+            <div className="text-slate-400 max-w-2xl mx-auto mb-10 text-lg leading-relaxed">
               {selectedStock.verdict}
-            </p>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
               <div className="bg-slate-900/80 p-8 rounded-3xl border border-slate-800">
                 <div className="text-[10px] text-slate-500 font-black uppercase tracking-widest mb-3">5Y Expected Target</div>
