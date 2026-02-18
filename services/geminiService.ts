@@ -18,7 +18,7 @@ export async function getAiAnalystInsight(slideContext: string, data: any) {
 
   try {
     const response = await ai.models.generateContent({
-      model: 'gemini-2.0-flash-exp', // Fast and capable for this task
+      model: 'gemini-3-flash-preview',
       contents: prompt,
       config: {
         temperature: 0.7,
