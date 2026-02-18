@@ -103,7 +103,7 @@ const INITIAL_STOCKS: Stock[] = [
     ],
     strengths: ["AI networking x2 growth guide", "47% FCF margin"],
     weaknesses: ["Margin compression in 2026", "High valuation premium"],
-    verdict: "ANET — це найякісніший play на AI networking. Висока бета (1.42) означає, що при підтвердженні AI-тези у 2026, ціль $200+ може бути досягнута за 18 місяців."
+    verdict: "ANET — це найякісніший play на AI networking. Висока бета (1.42) означає, що при підтвердженні AI-тези у 2026, ціль $200+ може быть досягнута за 18 місяців."
   },
   {
     id: 'spot',
@@ -398,27 +398,43 @@ const INITIAL_STOCKS: Stock[] = [
     id: 'dash', 
     ticker: 'DASH', 
     name: 'DoorDash Inc', 
-    price: '$173.42', 
-    change: '-0.8%', 
+    price: '$165.00', 
+    change: '-7.5%', 
     color: '#ef4444', 
     logo: 'D',
     rs: 14,
-    rating: 'Buy',
+    rating: 'Hold',
     beta: 1.48,
-    accelerationProb: "25%",
-    timeToMilestone: "3.5 - 4.5 Years",
-    momentumUpside1Y: "+15%",
+    accelerationProb: "10%",
+    timeToMilestone: "5.0+ Years",
+    momentumUpside1Y: "-25%",
+    typeLabel: "Logistics Marketplace / Cyclical Growth",
+    typeDesc: "US market leader. High beta, low margin structural profile. Post-earnings sentiment shift.",
+    marketCap: "$64.2B",
     stats: [
-      { label: "ЦІНА", value: "$173.42", color: "text-white" },
-      { label: "RS", value: "14", color: "text-rose-500" },
-      { label: "BETA", value: "1.48", color: "text-rose-400" }
+      { label: "ЦІНА", value: "$165.00", color: "text-white" },
+      { label: "FAIR VALUE", value: "$115-125", color: "text-rose-500" },
+      { label: "2026E EPS", value: "$6.00", color: "text-amber-400" }
     ],
-    hist: [],
-    scenarios: [{label:"Bull",color:"#22c55e",cagr:35,pe:35,eps5:15,price5:525,ret:25,prob:30,driver:"Grocery expansion"}],
-    risks: [{r:"Regulation",prob:"40%",impact:"Високий",detail:"Labor costs."}],
-    strengths: ["US market leader"],
-    weaknesses: ["Thin margins"],
-    verdict: "Висока бета (1.48) дає шанс на волатильний ріст, але тренд (RS 14) поки негативний."
+    hist: [
+      { y: "2023", rev: 8.63, eps: -1.42 },
+      { y: "2024", rev: 10.12, eps: 0.85 },
+      { y: "Q4'25A", rev: 3.955, eps: 0.48 },
+      { y: "2026E", rev: 15.2, eps: 6.00 },
+    ],
+    scenarios: [
+      { label: "Bull", color: "#22c55e", cagr: 22.5, pe: 24, price5: 415, ret: 19, prob: 20, driver: "23% EPS CAGR. Market maintains optimism. Ads & Grocery scale beyond expectations." },
+      { label: "Base", color: "#f59e0b", cagr: 15.5, pe: 20, price5: 240, ret: 10, prob: 45, driver: "15-16% EPS growth. Margin plateau concerns. Multiple normalizes to 20x historical norms." },
+      { label: "Bear", color: "#ef4444", cagr: 12.0, pe: 18, price5: 190, ret: 3, prob: 35, driver: "Growth slows to 12%. P/E collapses. Margin contraction due to competition." }
+    ],
+    risks: [
+      { r: "Valuation Gap (DASH-gap)", prob: "70%", impact: "Дуже Високий", detail: "Fair value is $120. At $165, market implies Bull case. Negative margin of safety." },
+      { r: "Margin Plateau", prob: "60%", impact: "Високий", detail: "Structural limits of delivery marketplace. Potential stall at 15-18% FCF margins." },
+      { r: "RS 14 / Momentum Breakdown", prob: "80%", impact: "Високий", detail: "Broken 50 MA and RS 14 signal a major shift from 'momentum story' to 'execution story'." }
+    ],
+    strengths: ["38% Revenue Growth YoY"],
+    weaknesses: ["EPS Miss (-17%)", "Weak Technical Indicators (RS 14)", "High execution sensitivity"],
+    verdict: "Звіт Q4 2025 зламав momentum-кейс DASH. Не дивлячись на ріст виручки +38%, просадка по EPS (-17%) вказує на проблеми з маржею. При базовому сценарії (15% ріст) справедлива ціна становить ~$120. Ймовірність 15% CAGR впала з 50% до 35%. Downside значно перевищує Upside."
   },
 ];
 
@@ -734,14 +750,14 @@ export default function App() {
                 {risksData.map((risk: any, i: number) => (
                   <div 
                     key={i} 
-                    onClick={() => setActiveRisk(activeRisk === i ? null : i)}
-                    className={`p-6 rounded-2xl border transition-all cursor-pointer ${activeRisk === i ? 'bg-slate-800 border-blue-500' : 'bg-slate-900 border-slate-800'}`}
+                    onClick={() => setActiveRisk(risk.r === activeRisk ? null : risk.r)}
+                    className={`p-6 rounded-2xl border transition-all cursor-pointer ${activeRisk === risk.r ? 'bg-slate-800 border-blue-500' : 'bg-slate-900 border-slate-800'}`}
                   >
                     <div className="flex justify-between items-center mb-2">
                       <h4 className="font-bold text-slate-100">{risk.r}</h4>
-                      <span className={`text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-widest ${risk.impact === 'Високий' ? 'bg-rose-500 text-white' : 'bg-amber-500 text-white'}`}>{risk.impact}</span>
+                      <span className={`text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-widest ${risk.impact === 'Дуже Високий' || risk.impact === 'Високий' ? 'bg-rose-500 text-white' : 'bg-amber-500 text-white'}`}>{risk.impact}</span>
                     </div>
-                    {activeRisk === i && <p className="text-sm text-slate-400 mt-4 leading-relaxed animate-in slide-in-from-top-1 duration-300">{risk.detail}</p>}
+                    {activeRisk === risk.r && <p className="text-sm text-slate-400 mt-4 leading-relaxed animate-in fade-in slide-in-from-top-1 duration-300">{risk.detail}</p>}
                   </div>
                 ))}
              </div>
