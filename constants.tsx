@@ -1,68 +1,24 @@
 
-import React from 'react';
-import { Slide, Scenario, CompressionPoint, FCFDataPoint, ReturnMatrixPoint } from './types';
+import { HistDataPoint, Scenario, Risk } from './types';
 
-export const SLIDES: Slide[] = [
-  { id: 0, label: "Вступ" },
-  { id: 1, label: "Поточна оцінка" },
-  { id: 2, label: "Звідки 38%?" },
-  { id: 3, label: "Три сценарії" },
-  { id: 4, label: "Через FCF" },
-  { id: 5, label: "Compression ризик" },
-  { id: 6, label: "Ймовірнісна модель" },
-  { id: 7, label: "Висновок" },
+export const SLIDES = ["Snapshot", "Фінансові дані", "Сценарії", "Ризики", "Висновок"];
+
+export const HIST_DATA: HistDataPoint[] = [
+  { y: "FY23", rev: 1513, fcf: 465, epsN: 19.71 },
+  { y: "FY24", rev: 1717, fcf: 607, epsN: 23.74 },
+  { y: "FY25", rev: 1991, fcf: 739, epsN: 29.88 },
+  { y: "FY26E", rev: 2458, fcf: 1008, epsN: 41.22 },
 ];
 
-export const SCENARIO_DATA: Scenario[] = [
-  { 
-    name: "Bull Case", 
-    eps5y: 121, 
-    price5y: 3388, 
-    cagr: 21, 
-    prob: 50, 
-    color: "#22c55e",
-    description: "22% EPS CAGR / P/E 28"
-  },
-  { 
-    name: "Base Case", 
-    eps5y: 94, 
-    price5y: 2350, 
-    cagr: 12.6, 
-    prob: 35, 
-    color: "#f59e0b",
-    description: "16% EPS CAGR / P/E 25"
-  },
-  { 
-    name: "Bear Case", 
-    eps5y: 79, 
-    price5y: 1738, 
-    cagr: 6, 
-    prob: 15, 
-    color: "#ef4444",
-    description: "12% EPS CAGR / P/E 22"
-  },
+export const SCENARIOS: Scenario[] = [
+  { label: "Bull", cagr: 22, pe: 28, price5: 2548, ret: 14, prob: 55, color: "#22c55e", driver: "DLP live + FICO 10T + AI lending" },
+  { label: "Base", cagr: 17, pe: 25, price5: 1825, ret: 6,  prob: 32, color: "#f59e0b", driver: "FCF $1B підтверджено, органічний ріст" },
+  { label: "Bear", cagr: 11, pe: 22, price5: 1100, ret: -4, prob: 13, color: "#ef4444", driver: "Mortgage cycle + DLP delay + compression" },
 ];
 
-export const COMPRESSION_DATA: CompressionPoint[] = [
-  { scenario: "EPS +20%", future: 1188, change: -8.6 },
-  { scenario: "EPS +15%", future: 1140, change: -12 },
-  { scenario: "EPS +10%", future: 1089, change: -16 },
-  { scenario: "EPS flat", future: 990, change: -24 },
-];
-
-export const FCF_DATA: FCFDataPoint[] = [
-  { year: "2025", fcf: 1.0 },
-  { year: "2026E", fcf: 1.2 },
-  { year: "2027E", fcf: 1.45 },
-  { year: "2028E", fcf: 1.65 },
-  { year: "2029E", fcf: 1.85 },
-  { year: "2030E", fcf: 2.1 },
-];
-
-export const RETURN_MATRIX: ReturnMatrixPoint[] = [
-  { growth: "25% CAGR", ret: 24, color: "#16a34a" },
-  { growth: "22% CAGR", ret: 21, color: "#22c55e" },
-  { growth: "18% CAGR", ret: 15, color: "#84cc16" },
-  { growth: "15% CAGR", ret: 9, color: "#f59e0b" },
-  { growth: "12% CAGR", ret: 4, color: "#ef4444" },
+export const RISKS: Risk[] = [
+  { r: "VantageScore parity (FHFA)", prob: "10–15%", impact: "Дуже Високий", c: "#ef4444", detail: "Якщо FHFA надасть рівний LLPA grid — тиск на pricing power. CEO: відмінності 20%+ у 30% випадків." },
+  { r: "Mortgage Cycle Down", prob: "25–30%", impact: "Помірний", c: "#f59e0b", detail: "Mortgage = 42% Scores revenue. При -30% volume → -12–15% Scores revenue. DLP частково ізолює." },
+  { r: "FCF H2 Miss", prob: "30–35%", impact: "Помірний", c: "#f59e0b", detail: "Q1 annualized ~$660M vs $1.008B est. H2 має дати $843M — більше за весь FY25. Q2 = тригер." },
+  { r: "DLP / 10T Delay", prob: "40–50%", impact: "Низький", c: "#84cc16", detail: "Затримка — не відміна. Але стискає timing каталізатора і short-term sentiment." },
 ];

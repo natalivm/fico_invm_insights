@@ -1,39 +1,34 @@
 
-export interface Slide {
-  id: number;
-  label: string;
-}
-
-export interface Metric {
-  label: string;
-  val: string;
-  sub: string;
-  color: string;
+export interface HistDataPoint {
+  y: string;
+  rev: number;
+  fcf: number;
+  epsN: number;
 }
 
 export interface Scenario {
-  name: string;
-  eps5y: number;
-  price5y: number;
+  label: string;
   cagr: number;
+  pe: number;
+  price5: number;
+  ret: number;
   prob: number;
   color: string;
-  description: string;
+  driver: string;
 }
 
-export interface CompressionPoint {
-  scenario: string;
-  future: number;
-  change: number;
+export interface Risk {
+  r: string;
+  prob: string;
+  impact: string;
+  c: string;
+  detail: string;
 }
 
-export interface FCFDataPoint {
-  year: string;
-  fcf: number;
-}
-
-export interface ReturnMatrixPoint {
-  growth: string;
-  ret: number;
-  color: string;
+export interface FinancialRow {
+  m: string;
+  v: string[];
+  cagr: string;
+  sub?: boolean;
+  bold?: boolean;
 }
