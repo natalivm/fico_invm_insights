@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
-  Cell, AreaChart, Area
+  Cell, LineChart, Line
 } from 'recharts';
 import { SLIDES, HIST_DATA, RISKS } from './constants';
 import { AiInsightBox } from './components/AiInsightBox';
@@ -64,14 +64,6 @@ const ANET_HIST = [
   { y: "FY26E", rev: 11.25, fcf: 5.30, eps: 3.43, ebitdaM: 46 },
 ];
 
-const DASH_HIST = [
-  { y: "FY23", rev: 6.6, fcf: 1.55, ebitdaM: 10, eps: 0.8 },
-  { y: "FY24", rev: 8.6, fcf: 1.80, ebitdaM: 14, eps: 1.2 },
-  { y: "FY25", rev: 10.7, fcf: 2.67, ebitdaM: 18, eps: 2.1 },
-  { y: "FY26E", rev: 13.8, fcf: 3.48, ebitdaM: 21, eps: 3.4 },
-  { y: "FY27E", rev: 17.9, fcf: 4.58, ebitdaM: 24, eps: 4.8 },
-];
-
 const INITIAL_STOCKS: Stock[] = [
   {
     id: 'anet',
@@ -111,7 +103,7 @@ const INITIAL_STOCKS: Stock[] = [
     ],
     strengths: ["AI networking x2 growth guide", "47% FCF margin"],
     weaknesses: ["Margin compression in 2026", "High valuation premium"],
-    verdict: "ANET — це найякісніший play на AI networking. Висока бета (1.42) означає, що при підтвердженні AI-тези у 2026, ціль $200+ може бути досягнута за 18 місяців."
+    verdict: "ANET — це найякісніший play на AI networking. Висока бета (1.42) означає, що при підтвердженні AI-тези у 2026, ціль $200+ може быть досягнута за 18 місяців."
   },
   {
     id: 'tln',
@@ -709,19 +701,24 @@ export default function App() {
           </div>
         </div>
         {view === 'ANALYSIS' && selectedStock && (
-           <div className="flex gap-4">
-             {selectedStock.stats.slice(0, 2).map(s => (
-                <div key={s.label} className="text-right hidden sm:block">
-                  <div className="text-[9px] text-slate-500 font-black uppercase">{s.label}</div>
-                  <div className={`text-sm font-bold ${s.color}`}>{s.value}</div>
-                </div>
-             ))}
-           </div>
+           <div className="flex items-center gap-6">
+             <div className="flex items-center gap-3 bg-slate-950/50 border border-slate-800 px-4 py-2 rounded-2xl">
+               <span className="text-xl font-black text-white tracking-tighter">{selectedStock.ticker}</span>
+               <div className="h-6 w-px bg-slate-800"></div>
+               <div className="flex flex-col items-start leading-none">
+                 <span className="text-lg font-black text-emerald-400 mb-0.5">{selectedStock.price}</span>
+                 <span className={`text-[10px] font-black uppercase tracking-widest ${selectedStock.change.startsWith('+') ? 'text-emerald-500' : 'text-rose-500'}`}>
+                   {selectedStock.change}
+                 </span>
+               </div>
+             </div>
+             <div className="hidden sm:flex w-8 h-8 rounded-full bg-slate-800 items-center justify-center text-[10px] font-black text-blue-400 border border-slate-700">AI</div>
+          </div>
         )}
       </header>
       
       {view === 'ANALYSIS' && (
-        <nav className="flex gap-2 p-3 bg-[#0e1829] border-b border-[#1e3251] overflow-x-auto no-scrollbar shrink-0 shadow-md">
+        <nav className="flex gap-2 p-3 bg-[#0e1829] border-b border-[#1e3251] overflow-x-auto no-scrollbar shrink-0 shadow-md items-center">
           {SLIDES.map((s, i) => (
             <button 
               key={i} 
