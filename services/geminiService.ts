@@ -1,12 +1,13 @@
+
 import { GoogleGenAI } from "@google/genai";
 
-export async function getAiAnalystInsight(slideContext: string, data: any) {
+export async function getAiAnalystInsight(ticker: string, slideContext: string, data: any) {
   // Always use a named parameter for apiKey and obtain exclusively from process.env.API_KEY
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   
   const prompt = `
     Ви — старший інвестиційний аналітик (Senior Associate) у провідному хедж-фонді.
-    Ваше завдання: проаналізувати дані компанії FICO для розділу: "${slideContext}".
+    Ваше завдання: проаналізувати дані компанії ${ticker} для розділу: "${slideContext}".
     
     Дані для аналізу: ${JSON.stringify(data)}
     

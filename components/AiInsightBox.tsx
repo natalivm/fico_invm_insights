@@ -6,12 +6,13 @@ interface AiInsightBoxProps {
   slideTitle: string;
   slideData: any;
   stockId: string;
+  ticker: string;
 }
 
 // Module-level cache to persist insights across component re-mounts
 const insightCache: Record<string, string> = {};
 
-export const AiInsightBox: React.FC<AiInsightBoxProps> = ({ slideTitle, slideData, stockId }) => {
+export const AiInsightBox: React.FC<AiInsightBoxProps> = ({ slideTitle, slideData, stockId, ticker }) => {
   const [insight, setInsight] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -28,7 +29,7 @@ export const AiInsightBox: React.FC<AiInsightBoxProps> = ({ slideTitle, slideDat
       setLoading(true);
       setInsight('');
       
-      const result = await getAiAnalystInsight(slideTitle, slideData);
+      const result = await getAiAnalystInsight(ticker, slideTitle, slideData);
       const formattedResult = result || '';
       
       // Store in cache
@@ -39,7 +40,7 @@ export const AiInsightBox: React.FC<AiInsightBoxProps> = ({ slideTitle, slideDat
     };
 
     fetchInsight();
-  }, [slideTitle, stockId]); // Only re-run if the stock or the slide changes, ignore data updates to keep the insight stable
+  }, [slideTitle, stockId, ticker]); // Include ticker in dependencies
 
   return (
     <div className="mt-6 bg-indigo-950/30 border border-indigo-500/30 rounded-xl p-5">

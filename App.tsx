@@ -11,6 +11,8 @@ import { GoogleGenAI } from "@google/genai";
 
 // --- Types & Data ---
 
+type InvestmentRating = 'Strong Buy' | 'Buy' | 'Hold' | 'Sell';
+
 interface StockStat {
   label: string;
   value: string;
@@ -26,6 +28,8 @@ interface Stock {
   color: string;
   logo: string;
   stats: StockStat[];
+  rs?: number; // Relative Strength Rating
+  rating: InvestmentRating; // Professional consensus rating
   // Extended fields for dynamic models
   type?: string;
   typeLabel?: string;
@@ -49,6 +53,14 @@ interface Stock {
   verdict?: string;
   verdictColor?: string;
 }
+
+const ANET_HIST = [
+  { y: "FY22",  rev: 4.38, fcf: 0.45, eps: 1.07, ebitdaM: 41 },
+  { y: "FY23",  rev: 5.86, fcf: 2.00, eps: 1.73, ebitdaM: 44 },
+  { y: "FY24",  rev: 7.05, fcf: 3.10, eps: 2.33, ebitdaM: 46 },
+  { y: "FY25A", rev: 9.00, fcf: 4.25, eps: 2.98, ebitdaM: 48.2 },
+  { y: "FY26E", rev: 11.25, fcf: 5.30, eps: 3.43, ebitdaM: 46 },
+];
 
 const DASH_HIST = [
   { y: "FY23", rev: 6.6, fcf: 1.55, ebitdaM: 10, eps: 0.8 },
@@ -87,6 +99,43 @@ const FN_HIST = [
 
 const INITIAL_STOCKS: Stock[] = [
   {
+    id: 'anet',
+    ticker: 'ANET',
+    name: 'Arista Networks, Inc.',
+    price: '$140.00',
+    change: '+0.2%',
+    color: '#10b981',
+    logo: 'A',
+    rs: 81,
+    rating: 'Buy',
+    typeLabel: "Structural Compounder",
+    typeDesc: "Найякісніший pure-play AI networking compounder. EOS lock-in moat та домінуюче положення в Ethernet для AI кластерів.",
+    marketCap: "$44.2B",
+    grossMargin: "64.6%",
+    ebitMargin: "48.2%",
+    moat: "9/10",
+    forwardPE: "42x",
+    stats: [
+      { label: "ЦІНА", value: "$140.00", color: "text-white" },
+      { label: "FWD P/E", value: "42x", color: "text-emerald-400" },
+      { label: "AI REV '26", value: "$3.25B", color: "text-blue-400" }
+    ],
+    hist: ANET_HIST,
+    scenarios: [
+      { label: "Bull", color: "#22c55e", cagr: 22, pe: 40, eps5: 8.96, price5: 358, ret: 21, prob: 30, driver: "AI buildout без спаду, memory вирішується, AI revenue >$5B у 2028" },
+      { label: "Base", color: "#f59e0b", cagr: 14, pe: 32, eps5: 6.54, price5: 209, ret: 8, prob: 45, driver: "Lumpy execution через deferred/acceptance, memory тисне маржу до 46%" },
+      { label: "Bear", color: "#ef4444", cagr: 8,  pe: 25, eps5: 4.52, price5: 113, ret: -4, prob: 25, driver: "AI capex digestion, shipment delay, multiple стискається до 25x" }
+    ],
+    risks: [
+      { r: "Multiple Compression", prob: "45%", impact: "Дуже Високий", detail: "Forward P/E ~42x. При нормалізації до 30x downside складає -27%." },
+      { r: "Customer Concentration", prob: "35%", impact: "Високий", detail: "Customer A (26%) + Customer B (16%) = 42% revenue. Ризик квартального miss." },
+      { r: "Memory Price Pressure", prob: "55%", impact: "Помірний", detail: "CEO: DDR4 prices 'horrendous'. Тисне на операційну маржу (guide 46% vs 48%)." }
+    ],
+    strengths: ["AI networking x2 growth guide", "EOS ecosystem lock-in", "47% FCF margin", "$10.7B cash pile"],
+    weaknesses: ["Margin compression in 2026", "Lumpy deferred revenue recognition", "High valuation premium"],
+    verdict: "ANET — це найякісніший pure-play AI networking compounder із 47% FCF margin і EOS moat. Q4 call підтвердив: попит є. Але виявлено нові ризики: margin compression та memory crisis. Зважена дохідність +10.6% — привабливо, але execution ризик зріс."
+  },
+  {
     id: 'tln',
     ticker: 'TLN',
     name: 'Talen Energy Corp.',
@@ -94,6 +143,8 @@ const INITIAL_STOCKS: Stock[] = [
     change: '+0.4%',
     color: '#f59e0b',
     logo: 'T',
+    rs: 83,
+    rating: 'Buy',
     typeLabel: "Power / AI Infrastructure",
     typeDesc: "North Star KPI: adj FCF/share. Унікальний ядерний актив Susquehanna (2.5GW) + колокація з AWS. Deal uplift: +$4/share.",
     marketCap: "$13.4B",
@@ -108,10 +159,10 @@ const INITIAL_STOCKS: Stock[] = [
     ],
     hist: [
       { y: "FY23", rev: 3.12, fcf: 0.08, eps: 2.15, ebitdaM: 25 },
-      { y: "FY24", rev: 3.45, fcf: 5.10, eps: 3.80, ebitdaM: 28 }, // Management: "Slightly over $5"
+      { y: "FY24", rev: 3.45, fcf: 5.10, eps: 3.80, ebitdaM: 28 }, 
       { y: "FY25E", rev: 4.10, fcf: 14.5, eps: 6.42, ebitdaM: 32 },
       { y: "FY26E", rev: 5.25, fcf: 24.5, eps: 9.85, ebitdaM: 38 },
-      { y: "FY27E", rev: 6.10, fcf: 34.0, eps: 12.5, ebitdaM: 42 } // Target with deal uplift
+      { y: "FY27E", rev: 6.10, fcf: 34.0, eps: 12.5, ebitdaM: 42 } 
     ],
     scenarios: [
       { label: "Bull", color: "#22c55e", cagr: 18.8, pe: 11, eps5: 51.2, price5: 563, ret: 18.8, prob: 40, driver: "FCF/share 10% CAGR (28-31) + exit 11x P/FCF. PJM tightness триває." },
@@ -125,7 +176,7 @@ const INITIAL_STOCKS: Stock[] = [
     ],
     strengths: ["Unique Susquehanna nuclear asset", "Colocation agreements with AWS", "Zero-carbon baseload power", "Aggressive buyback flywheel"],
     weaknesses: ["Regulatory sensitivity", "Geographic concentration (PJM)", "High cyclicality dependency"],
-    verdict: "TLN — це ставка на дефіцит енергії та FCF/share flywheel. Щоб мати 15%+ CAGR, потрібен Bull-сценарій (exit 11x). Base-сценарій дає ~9% річних. Це High-Quality Execution Bet з сильним, але циклічним фундаментом."
+    verdict: "TLN — це чиста ставка на дефіцит енергії та FCF/share flywheel. Щоб мати 15%+ CAGR, потрібен Bull-сценарій (exit 11x). Base-сценарій дає ~9% річних. Це High-Quality Execution Bet з сильним, але циклічним фундаментом."
   },
   { 
     id: 'wwd', 
@@ -135,6 +186,8 @@ const INITIAL_STOCKS: Stock[] = [
     change: '+0.4%', 
     color: '#a78bfa', 
     logo: 'W',
+    rs: 95,
+    rating: 'Hold',
     typeLabel: "Structural Compounder",
     typeDesc: "Industrial compounder з aerospace tailwind. Довгі програми 10–20 років, certification moat, без buyback-driven росту.",
     marketCap: "$23.6B",
@@ -158,7 +211,7 @@ const INITIAL_STOCKS: Stock[] = [
     scenarios: [
       { label: "Bull", color: "#22c55e", cagr: 22, pe: 38, eps5: 22, price5: 836, ret: 16, prob: 30, driver: "Revenue 14%, margin 20%+, aerospace apцикл без перерви" },
       { label: "Base", color: "#f59e0b", cagr: 17, pe: 32, eps5: 15, price5: 480, ret: 4,  prob: 45, driver: "Revenue 10–12%, margin expansion помірна, execution без помилок" },
-      { label: "Bear", color: "#ef4444", cagr: 8,  pe: 24, eps5: 10, price5: 240, ret: -9, prob: 25, driver: "Aerospace cycle slow, margin flat, P/E нормалізується до 24x" }
+      { label: "Bear", color: "#ef4444", cagr: 8,  pe: 24, eps5: 10, price5: 240, ret: -9, prob: 25, driver: "Aerospace cycle slow, margin flat, P/E normalлізується до 24x" }
     ],
     risks: [
       { r: "Valuation Compression", prob: "55%", impact: "Дуже Високий", detail: "Trailing P/E 57x — vs historical 20–30x. Downside -44% без погіршення бізнесу." },
@@ -178,6 +231,8 @@ const INITIAL_STOCKS: Stock[] = [
     change: '+1.2%', 
     color: '#3b82f6', 
     logo: 'F',
+    rs: 16,
+    rating: 'Hold',
     typeLabel: "Structural Compounder",
     typeDesc: "Домінуючий стандарт кредитного скорингу з переходом на платформенну SaaS-модель (DLP).",
     marketCap: "$32.4B",
@@ -198,7 +253,8 @@ const INITIAL_STOCKS: Stock[] = [
       { label: "Base", cagr: 17, pe: 25, price5: 1825, ret: 6,  prob: 32, color: "#f59e0b", driver: "FCF $1B підтверджено, органічний ріст" },
       { label: "Bear", cagr: 11, pe: 22, price5: 1100, ret: -4, prob: 13, color: "#ef4444", driver: "Mortgage cycle + DLP delay + compression" },
     ],
-    risks: RISKS.map(r => ({ ...r, impact: r.impact === "Дуже Високий" ? "Високий" : r.impact }))
+    risks: RISKS.map(r => ({ ...r, impact: r.impact === "Дуже Високий" ? "Високий" : r.impact })),
+    verdict: "Fair Isaac continues to leverage its unmatched pricing power. The market already reflects high expectations, making execution in DLP critical. Valuation compression remains the primary risk."
   },
   { 
     id: 'dash', 
@@ -208,6 +264,8 @@ const INITIAL_STOCKS: Stock[] = [
     change: '-0.8%', 
     color: '#ef4444', 
     logo: 'D',
+    rs: 14,
+    rating: 'Buy',
     typeLabel: "Growth / Scaler",
     typeDesc: "Лідер ринку доставки в США, що масштабується в нові вертикалі ритейлу та логістики.",
     marketCap: "$71.2B",
@@ -222,7 +280,17 @@ const INITIAL_STOCKS: Stock[] = [
       { label: "FWD P/E", value: "28x", color: "text-amber-400" },
       { label: "ВІД ПІКУ", value: "-39%", color: "text-rose-500" }
     ],
-    hist: DASH_HIST
+    hist: DASH_HIST,
+    scenarios: [
+      { label: "Bull", color: "#22c55e", cagr: 35, pe: 35, eps5: 15, price5: 525, ret: 25, prob: 30, driver: "Grocery/Retail expansion > 50% revenue share" },
+      { label: "Base", color: "#f59e0b", cagr: 25, pe: 28, eps5: 10, price5: 280, ret: 12, prob: 50, driver: "Core delivery remains stable, unit economics improve" },
+      { label: "Bear", color: "#ef4444", cagr: 15, pe: 22, eps5: 6, price5: 132, ret: -2, prob: 20, driver: "Regulatory labor costs spike, Uber Eats gains market share" }
+    ],
+    risks: [
+      { r: "Labor Regulation", prob: "40%", impact: "Високий", detail: "Classification of Dashers as employees could destroy margins." },
+      { r: "Competitive Intensity", prob: "35%", impact: "Помірний", detail: "Uber and Instacart fighting for the same vertical expansion." }
+    ],
+    verdict: "DASH is a massive scale game. If they win retail delivery, the upside is significant. Current improving unit economics support a Buy thesis."
   },
   { 
     id: 'amat', 
@@ -232,6 +300,8 @@ const INITIAL_STOCKS: Stock[] = [
     change: '+0.5%', 
     color: '#06b6d4', 
     logo: 'A',
+    rs: 97,
+    rating: 'Buy',
     typeLabel: "Cyclical Leader",
     typeDesc: "Ключовий постачальник обладнання для виробництва напівпровідників, бенефіціар ШІ-буму.",
     marketCap: "$291.5B",
@@ -246,7 +316,17 @@ const INITIAL_STOCKS: Stock[] = [
       { label: "FWD P/E", value: "33x", color: "text-cyan-400" },
       { label: "MKT CAP", value: "$291B", color: "text-purple-400" }
     ],
-    hist: AMAT_HIST
+    hist: AMAT_HIST,
+    scenarios: [
+      { label: "Bull", color: "#22c55e", cagr: 20, pe: 40, eps5: 25, price5: 1000, ret: 22, prob: 35, driver: "AI semi-cap supercycle + high-margin services" },
+      { label: "Base", color: "#f59e0b", cagr: 12, pe: 30, eps5: 18, price5: 540, ret: 10, prob: 50, driver: "Steady 2nm/3nm node transition continues" },
+      { label: "Bear", color: "#ef4444", cagr: 5, pe: 20, eps5: 12, price5: 240, ret: -5, prob: 15, driver: "China restrictions + semi industry inventory glut" }
+    ],
+    risks: [
+      { r: "Geopolitical Tensions", prob: "50%", impact: "Високий", detail: "Restrictions on selling advanced equipment to China." },
+      { r: "Cyclical Downturn", prob: "30%", impact: "Високий", detail: "Sudden drop in logic/memory demand cycles." }
+    ],
+    verdict: "AMAT is the ultimate pick-and-shovel play for AI. While cyclical, the node transition tailwinds support a Buy at these levels."
   },
   { 
     id: 'avgo', 
@@ -256,6 +336,8 @@ const INITIAL_STOCKS: Stock[] = [
     change: '+0.2%', 
     color: '#6366f1', 
     logo: 'B',
+    rs: 78,
+    rating: 'Strong Buy',
     typeLabel: "Portfolio Compounder",
     typeDesc: "Глобальний технологічний конгломерат, що поєднує напівпровідники та критичне корпоративне ПЗ.",
     marketCap: "$1.64T",
@@ -270,7 +352,17 @@ const INITIAL_STOCKS: Stock[] = [
       { label: "FWD P/E", value: "34x", color: "text-indigo-400" },
       { label: "MKT CAP", value: "$1.64T", color: "text-purple-400" }
     ],
-    hist: AVGO_HIST
+    hist: AVGO_HIST,
+    scenarios: [
+      { label: "Bull", color: "#22c55e", cagr: 25, pe: 40, eps5: 25, price5: 1000, ret: 35, prob: 40, driver: "VMware synergies exceed expectations + AI networking dominance" },
+      { label: "Base", color: "#f59e0b", cagr: 15, pe: 32, eps5: 16, price5: 512, ret: 15, prob: 45, driver: "Standard networking + storage cycle execution" },
+      { label: "Bear", color: "#ef4444", cagr: 5, pe: 22, eps5: 10, price5: 220, ret: 2, prob: 15, driver: "Integration of VMware stalls, Apple insourcing chips" }
+    ],
+    risks: [
+      { r: "M&A Integration", prob: "35%", impact: "Помірний", detail: "Difficulty extracting value from massive software acquisitions." },
+      { r: "Client Concentration", prob: "25%", impact: "Високий", detail: "Apple insourcing components is a long-term headwind." }
+    ],
+    verdict: "Broadcom is an operational machine. Dominant positioning in AI networking coupled with massive FCF from software makes it a Strong Buy."
   },
   { 
     id: 'fn', 
@@ -280,6 +372,8 @@ const INITIAL_STOCKS: Stock[] = [
     change: '+0.4%', 
     color: '#14b8a6', 
     logo: 'N',
+    rs: 95,
+    rating: 'Strong Buy',
     typeLabel: "Supply Chain Specialist",
     typeDesc: "Спеціалізований виробник оптичних компонентів для дата-центрів та ШІ-інфраструктури.",
     marketCap: "$18.4B",
@@ -287,14 +381,22 @@ const INITIAL_STOCKS: Stock[] = [
     ebitMargin: "10.5%",
     moat: "8.5/10",
     forwardPE: "38x",
-    strengths: ["Sole source for 800G optical", "Strong NVIDIA/Cisco partnership", "Operational excellence in low-cost regions", "AI data center buildout beneficiary", "Asset-light high-precision model"],
-    weaknesses: ["Geographic concentration (Thailand)", "Customer concentration risk", "Cyclicality of optical networking", "Sensitivity to semi supply chain"],
     stats: [
       { label: "ЦІНА", value: "$515.00", color: "text-white" },
       { label: "FWD P/E", value: "38x", color: "text-teal-400" },
       { label: "TRAILING", value: "50x", color: "text-amber-400" }
     ],
-    hist: FN_HIST
+    hist: FN_HIST,
+    scenarios: [
+      { label: "Bull", color: "#22c55e", cagr: 30, pe: 45, eps5: 35, price5: 1575, ret: 28, prob: 35, driver: "800G and 1.6T transceiver supercycle" },
+      { label: "Base", color: "#f59e0b", cagr: 20, pe: 35, eps5: 25, price5: 875, ret: 15, prob: 50, driver: "AI cluster buildout continues at current pace" },
+      { label: "Bear", color: "#ef4444", cagr: 8, pe: 25, eps5: 15, price5: 375, ret: -5, prob: 15, driver: "NVIDIA insourcing or diversifying manufacturing" }
+    ],
+    risks: [
+      { r: "Thailand Concentration", prob: "20%", impact: "Помірний", detail: "Most operations are in one geography, though risk is well-managed." },
+      { r: "Customer Concentration", prob: "45%", impact: "Високий", detail: "Heavily reliant on a few key optical networking clients." }
+    ],
+    verdict: "FN is the secret engine of the AI cluster. Sole-source provider status for critical NVIDIA components justifies a Strong Buy conviction."
   },
 ];
 
@@ -345,6 +447,16 @@ export default function App() {
     setIsRefreshing(false);
   };
 
+  const getRatingColor = (rating: InvestmentRating) => {
+    switch (rating) {
+      case 'Strong Buy': return 'text-emerald-400';
+      case 'Buy': return 'text-blue-400';
+      case 'Hold': return 'text-amber-400';
+      case 'Sell': return 'text-rose-500';
+      default: return 'text-white';
+    }
+  };
+
   const generateModel = async () => {
     if (!rawText.trim()) return;
     setGenLoading(true);
@@ -382,6 +494,8 @@ export default function App() {
         "fromPeak": "-XX%",
         "beta": "X.XX",
         "moat": "Опис переваги (moat)",
+        "rs": 90,
+        "rating": "Strong Buy | Buy | Hold | Sell",
         "verdictColor": "Hex-код (напр. #3b82f6)",
         "hist": [
           {"y":"FY23","rev":1.5,"fcf":0.4,"eps":10.5,"ebitdaM":30},
@@ -445,6 +559,75 @@ export default function App() {
     }
   };
 
+  // --- Render Methods ---
+
+  /**
+   * Renders the Generator view where users can input raw text to generate a stock model
+   */
+  const renderGenerator = () => (
+    <div className="flex-1 overflow-y-auto px-6 py-12 md:px-10 animate-in fade-in duration-700">
+      <div className="max-w-4xl mx-auto">
+        <div className="mb-10 text-center">
+          <h2 className="text-4xl font-black text-white mb-4">AI Model Generator</h2>
+          <p className="text-slate-500">Paste raw analysis text from TIKR, Seeking Alpha, or an analyst report to generate a structured model.</p>
+        </div>
+
+        <div className="bg-[#0e1829] border border-[#1e3251] rounded-3xl p-8 shadow-2xl">
+          <textarea
+            value={rawText}
+            onChange={(e) => setRawText(e.target.value)}
+            placeholder="Вставте текст аналізу тут... (наприклад: 'NVDA is the leader in AI chips with 70% gross margins...')"
+            className="w-full h-64 bg-slate-950 border border-slate-800 rounded-2xl p-6 text-slate-300 focus:outline-none focus:border-blue-500 transition-all resize-none mb-6 font-mono text-sm"
+          />
+
+          {genError && (
+            <div className="mb-6 p-4 bg-rose-950/30 border border-rose-500/30 rounded-xl text-rose-400 text-sm italic">
+              {genError}
+            </div>
+          )}
+
+          <div className="flex flex-col gap-4">
+            <button
+              onClick={generateModel}
+              disabled={genLoading || !rawText.trim()}
+              className="w-full py-4 bg-blue-600 hover:bg-blue-500 disabled:bg-slate-800 disabled:text-slate-600 rounded-2xl font-black text-white uppercase tracking-widest transition-all shadow-lg flex items-center justify-center gap-3"
+            >
+              {genLoading ? (
+                <>
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                  Генерація моделі... {Math.round(genProgress)}%
+                </>
+              ) : (
+                'Згенерувати структуру'
+              )}
+            </button>
+            <button
+              onClick={backToHome}
+              disabled={genLoading}
+              className="w-full py-4 bg-transparent border border-slate-700 hover:border-slate-500 rounded-2xl font-bold text-slate-400 hover:text-white transition-all"
+            >
+              Скасувати
+            </button>
+          </div>
+        </div>
+
+        {genLoading && (
+          <div className="mt-8">
+            <div className="h-1 w-full bg-slate-900 rounded-full overflow-hidden">
+              <div 
+                className="h-full bg-blue-500 transition-all duration-300 ease-out" 
+                style={{ width: `${genProgress}%` }}
+              />
+            </div>
+            <p className="text-center text-slate-500 text-xs mt-3 italic">
+              ШІ аналізує текст, витягує метрики та формує фінансові сценарії...
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
   const renderHome = () => (
     <div className="flex-1 overflow-y-auto px-6 py-12 md:px-10 animate-in fade-in duration-700">
       <div className="max-w-6xl mx-auto">
@@ -475,7 +658,12 @@ export default function App() {
                   <div className={`text-[11px] font-bold ${stock.change.startsWith('+') ? 'text-emerald-400' : 'text-rose-500'}`}>{stock.change}</div>
                 </div>
               </div>
-              {(stock.id.startsWith('gen-') || stock.id === 'wwd' || stock.id === 'tln') && (
+              <div className="mt-4 flex items-center gap-2">
+                <div className={`text-[10px] font-black uppercase tracking-widest ${getRatingColor(stock.rating)}`}>
+                  {stock.rating}
+                </div>
+              </div>
+              {(stock.id.startsWith('gen-') || stock.id === 'wwd' || stock.id === 'tln' || stock.id === 'anet') && (
                 <div className="absolute -right-6 -top-6 w-12 h-12 bg-blue-500/10 rotate-45 flex items-center justify-center pt-6 pr-6">
                    <div className="text-[8px] text-blue-400 font-black uppercase tracking-widest -rotate-45">MODEL</div>
                 </div>
@@ -497,81 +685,12 @@ export default function App() {
     </div>
   );
 
-  const renderGenerator = () => (
-    <div className="flex-1 overflow-y-auto px-6 py-12 md:px-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-10">
-          <div className="text-blue-500 text-[10px] font-black uppercase tracking-widest mb-2">AI-Powered Extraction</div>
-          <h2 className="text-5xl font-black text-white mb-4">Stock Model Generator</h2>
-          <p className="text-slate-500 text-lg">Вставте текст аналізу, і ШІ автоматично побудує інтерактивну модель</p>
-        </div>
-
-        <div className="bg-[#0e1829] border border-[#1e3251] rounded-3xl p-8 shadow-2xl relative overflow-hidden">
-          {genLoading && (
-            <div className="absolute top-0 left-0 w-full h-1 bg-slate-900 z-50">
-              <div 
-                className="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-500 transition-all duration-300"
-                style={{ width: `${genProgress}%` }}
-              />
-            </div>
-          )}
-          
-          <textarea
-            value={rawText}
-            onChange={(e) => setRawText(e.target.value)}
-            disabled={genLoading}
-            placeholder="Вставте текст аналізу акції (ChatGPT, TIKR, нотатки)..."
-            className="w-full h-80 bg-[#080d1a] border border-[#1e3251] rounded-2xl p-6 text-slate-300 font-mono text-sm outline-none focus:border-blue-500 transition-all resize-none shadow-inner disabled:opacity-50"
-          />
-          
-          {genError && <div className="mt-4 p-4 bg-rose-500/10 border border-rose-500/30 rounded-xl text-rose-500 text-xs font-bold">{genError}</div>}
-          
-          <div className="mt-8">
-            {genLoading && (
-               <div className="mb-4 flex items-center justify-between text-[10px] uppercase font-bold tracking-widest text-slate-500">
-                  <span className="animate-pulse">Аналізуємо дані через Gemini 3 Flash...</span>
-                  <span>{Math.round(genProgress)}%</span>
-               </div>
-            )}
-            
-            <button 
-              onClick={generateModel}
-              disabled={genLoading || !rawText.trim()}
-              className="w-full py-5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl text-white font-black shadow-lg hover:shadow-blue-500/20 disabled:opacity-50 transition-all active:scale-[0.98] relative overflow-hidden group"
-            >
-              <div className="relative z-10 flex items-center justify-center gap-3">
-                {genLoading ? (
-                  <>
-                    <svg className="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                    <span>Генерація моделі...</span>
-                  </>
-                ) : (
-                  <>
-                    <svg className="w-5 h-5 text-white group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                    <span>Згенерувати інтерактивну модель</span>
-                  </>
-                )}
-              </div>
-              <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
   const renderAnalysis = () => {
     if (!selectedStock) return null;
     
-    const histData = selectedStock.hist || (
-      selectedStock.id === 'fico' ? HIST_DATA : 
-      selectedStock.id === 'dash' ? DASH_HIST : 
-      selectedStock.id === 'amat' ? AMAT_HIST : 
-      selectedStock.id === 'avgo' ? AVGO_HIST :
-      selectedStock.id === 'fn' ? FN_HIST :
-      HIST_DATA
-    );
-    const risksData = selectedStock.risks || RISKS;
+    const histData = selectedStock.hist || [];
+    const risksData = selectedStock.risks || [];
+    const scenariosData = selectedStock.scenarios || [];
 
     return (
       <div className="max-w-6xl mx-auto space-y-10">
@@ -614,7 +733,7 @@ export default function App() {
                 {selectedStock.typeDesc}
               </div>
             )}
-            <AiInsightBox slideTitle={`${selectedStock.ticker} Snapshot`} slideData={histData} stockId={selectedStock.id} />
+            <AiInsightBox slideTitle={`${selectedStock.ticker} Snapshot`} slideData={histData} stockId={selectedStock.id} ticker={selectedStock.ticker} />
           </div>
         )}
 
@@ -627,21 +746,25 @@ export default function App() {
                 <thead className="bg-slate-950 text-slate-500 font-black text-[10px]">
                   <tr>
                     <th className="p-4">METRIC</th>
-                    {histData?.map((h: any) => <th key={h.y} className="p-4 text-right uppercase tracking-widest">{h.y}</th>)}
+                    {histData.length > 0 ? (
+                      histData.map((h: any) => <th key={h.y} className="p-4 text-right uppercase tracking-widest">{h.y}</th>)
+                    ) : (
+                      <th className="p-4 text-slate-700 italic">No data available</th>
+                    )}
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800">
                   <tr>
                     <td className="p-4 text-slate-400 font-bold">Revenue ($B)</td>
-                    {histData?.map((h: any, j: number) => <td key={j} className="p-4 text-right text-slate-200">{h.rev}</td>)}
+                    {histData.map((h: any, j: number) => <td key={j} className="p-4 text-right text-slate-200">{h.rev}</td>)}
                   </tr>
                   <tr>
                     <td className="p-4 text-slate-400 font-bold">FCF ($B/share)</td>
-                    {histData?.map((h: any, j: number) => <td key={j} className="p-4 text-right text-emerald-400 font-bold">{h.fcf}</td>)}
+                    {histData.map((h: any, j: number) => <td key={j} className="p-4 text-right text-emerald-400 font-bold">{h.fcf}</td>)}
                   </tr>
                   <tr>
                     <td className="p-4 text-slate-400 font-bold">EPS ($)</td>
-                    {histData?.map((h: any, j: number) => <td key={j} className="p-4 text-right text-blue-400 font-bold">{h.eps || h.epsN}</td>)}
+                    {histData.map((h: any, j: number) => <td key={j} className="p-4 text-right text-blue-400 font-bold">{h.eps || h.epsN}</td>)}
                   </tr>
                 </tbody>
               </table>
@@ -677,32 +800,34 @@ export default function App() {
           <div className="space-y-6">
             <h2 className="text-3xl font-black text-white">Сценарії · 5 років</h2>
             <div className="grid md:grid-cols-3 gap-6">
-              {(selectedStock.scenarios || [
-                { label: "Bull", cagr: 22, pe: 28, price5: 2548, ret: 14, prob: 55, color: "#22c55e", driver: "DLP live + FICO 10T + AI lending" },
-                { label: "Base", cagr: 17, pe: 25, price5: 1825, ret: 6,  prob: 32, color: "#f59e0b", driver: "FCF $1B підтверджено, органічний ріст" },
-                { label: "Bear", cagr: 11, pe: 22, price5: 1100, ret: -4, prob: 13, color: "#ef4444", driver: "Mortgage cycle + DLP delay + compression" },
-              ])?.map((s: any, i: number) => (
-                <div key={i} className="bg-slate-900 p-8 rounded-3xl border-t-4 shadow-xl transition-all hover:scale-105" style={{ borderTopColor: s.color || '#3b82f6' }}>
-                  <div className="flex justify-between items-center mb-4">
-                    <span className="text-xl font-black">{s.label} Case</span>
-                    <span className="text-[10px] bg-slate-800/80 px-2 py-1 rounded text-slate-400 font-bold uppercase tracking-widest">P={s.prob}%</span>
-                  </div>
-                  <div className="text-5xl font-black mb-6" style={{color: s.color || '#3b82f6'}}>{s.ret}%</div>
-                  <p className="text-xs text-slate-500 leading-relaxed mb-6 h-12 overflow-hidden">{s.driver}</p>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 shadow-inner">
-                      <div className="text-[9px] text-slate-600 uppercase font-bold tracking-widest">Target Price</div>
-                      <div className="text-sm font-bold text-white">${s.price5}</div>
+              {scenariosData.length > 0 ? (
+                scenariosData.map((s: any, i: number) => (
+                  <div key={i} className="bg-slate-900 p-8 rounded-3xl border-t-4 shadow-xl transition-all hover:scale-105" style={{ borderTopColor: s.color || '#3b82f6' }}>
+                    <div className="flex justify-between items-center mb-4">
+                      <span className="text-xl font-black">{s.label} Case</span>
+                      <span className="text-[10px] bg-slate-800/80 px-2 py-1 rounded text-slate-400 font-bold uppercase tracking-widest">P={s.prob}%</span>
                     </div>
-                    <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 shadow-inner">
-                      <div className="text-[9px] text-slate-600 uppercase font-bold tracking-widest">CAGR</div>
-                      <div className="text-sm font-bold text-white">{s.cagr}%</div>
+                    <div className="text-5xl font-black mb-6" style={{color: s.color || '#3b82f6'}}>{s.ret}%</div>
+                    <p className="text-xs text-slate-500 leading-relaxed mb-6 h-12 overflow-hidden">{s.driver}</p>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 shadow-inner">
+                        <div className="text-[9px] text-slate-600 uppercase font-bold tracking-widest">Target Price</div>
+                        <div className="text-sm font-bold text-white">${s.price5}</div>
+                      </div>
+                      <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 shadow-inner">
+                        <div className="text-[9px] text-slate-600 uppercase font-bold tracking-widest">CAGR</div>
+                        <div className="text-sm font-bold text-white">{s.cagr}%</div>
+                      </div>
                     </div>
                   </div>
+                ))
+              ) : (
+                <div className="col-span-3 text-center text-slate-600 italic py-12 bg-slate-900 rounded-3xl">
+                  No scenarios defined for this stock.
                 </div>
-              ))}
+              )}
             </div>
-            <AiInsightBox slideTitle="Financial Scenarios" slideData={selectedStock.scenarios || []} stockId={selectedStock.id} />
+            <AiInsightBox slideTitle="Financial Scenarios" slideData={scenariosData} stockId={selectedStock.id} ticker={selectedStock.ticker} />
           </div>
         )}
 
@@ -711,42 +836,56 @@ export default function App() {
           <div className="space-y-6">
             <h2 className="text-3xl font-black text-white">Аналіз ризиків</h2>
             <div className="grid md:grid-cols-2 gap-4">
-              {risksData?.map((risk: any, i: number) => (
-                <div 
-                  key={i} 
-                  onClick={() => setActiveRisk(activeRisk === i ? null : i)}
-                  className={`p-6 rounded-2xl border transition-all cursor-pointer hover:bg-slate-800/80 ${activeRisk === i ? 'bg-slate-800 border-blue-500 shadow-lg' : 'bg-slate-900 border-slate-800'}`}
-                >
-                  <div className="flex justify-between items-center mb-3">
-                    <h4 className="font-bold text-slate-200">{risk.r}</h4>
-                    <span className={`text-[9px] font-black px-2 py-0.5 rounded uppercase tracking-widest ${risk.impact === 'Високий' || risk.impact === 'Дуже Високий' ? 'bg-rose-500 text-white' : 'bg-amber-500 text-white'}`}>
-                      {risk.impact}
-                    </span>
-                  </div>
-                  <div className="text-[10px] text-slate-500 font-bold mb-4 uppercase tracking-widest">Ймовірність: {risk.prob}</div>
-                  {activeRisk === i && (
-                    <div className="text-sm text-slate-400 leading-relaxed animate-in slide-in-from-top-2 duration-300">
-                      {risk.detail}
+              {risksData.length > 0 ? (
+                risksData.map((risk: any, i: number) => (
+                  <div 
+                    key={i} 
+                    onClick={() => setActiveRisk(activeRisk === i ? null : i)}
+                    className={`p-6 rounded-2xl border transition-all cursor-pointer hover:bg-slate-800/80 ${activeRisk === i ? 'bg-slate-800 border-blue-500 shadow-lg' : 'bg-slate-900 border-slate-800'}`}
+                  >
+                    <div className="flex justify-between items-center mb-3">
+                      <h4 className="font-bold text-slate-200">{risk.r}</h4>
+                      <span className={`text-[9px] font-black px-2 py-0.5 rounded uppercase tracking-widest ${risk.impact === 'Високий' || risk.impact === 'Дуже Високий' ? 'bg-rose-500 text-white' : 'bg-amber-500 text-white'}`}>
+                        {risk.impact}
+                      </span>
                     </div>
-                  )}
+                    <div className="text-[10px] text-slate-500 font-bold mb-4 uppercase tracking-widest">Ймовірність: {risk.prob}</div>
+                    {activeRisk === i && (
+                      <div className="text-sm text-slate-400 leading-relaxed animate-in slide-in-from-top-2 duration-300">
+                        {risk.detail}
+                      </div>
+                    )}
+                  </div>
+                ))
+              ) : (
+                <div className="col-span-2 text-center text-slate-600 italic py-12 bg-slate-900 rounded-2xl">
+                   No risks cataloged for this stock yet.
                 </div>
-              ))}
+              )}
             </div>
             <div className="grid md:grid-cols-2 gap-6 mt-8">
               <div className="bg-emerald-950/20 border border-emerald-500/30 p-6 rounded-2xl">
                 <h4 className="text-emerald-400 font-black text-xs uppercase tracking-widest mb-4">✅ Strengths & Moats</h4>
                 <ul className="space-y-2">
-                  {(selectedStock.strengths || ["Pricing Power", "Moat Integrity", "Market Dominance"]).map((s, i) => (
-                    <li key={i} className="text-slate-400 text-sm flex gap-2"><span className="text-emerald-500">→</span> {s}</li>
-                  ))}
+                  {(selectedStock.strengths && selectedStock.strengths.length > 0) ? (
+                    selectedStock.strengths.map((s, i) => (
+                      <li key={i} className="text-slate-400 text-sm flex gap-2"><span className="text-emerald-500">→</span> {s}</li>
+                    ))
+                  ) : (
+                    <li className="text-slate-600 italic text-sm">No recorded strengths.</li>
+                  )}
                 </ul>
               </div>
               <div className="bg-rose-950/20 border border-rose-500/30 p-6 rounded-2xl">
                 <h4 className="text-rose-400 font-black text-xs uppercase tracking-widest mb-4">⛔ Critical Weaknesses</h4>
                 <ul className="space-y-2">
-                  {(selectedStock.weaknesses || ["Valuation Risk", "Macro Dependency", "Execution Risk"]).map((w, i) => (
-                    <li key={i} className="text-slate-400 text-sm flex gap-2"><span className="text-rose-500">→</span> {w}</li>
-                  ))}
+                  {(selectedStock.weaknesses && selectedStock.weaknesses.length > 0) ? (
+                    selectedStock.weaknesses.map((w, i) => (
+                      <li key={i} className="text-slate-400 text-sm flex gap-2"><span className="text-rose-500">→</span> {w}</li>
+                    ))
+                  ) : (
+                    <li className="text-slate-600 italic text-sm">No recorded weaknesses.</li>
+                  )}
                 </ul>
               </div>
             </div>
@@ -759,23 +898,31 @@ export default function App() {
              <div className="absolute top-0 right-0 p-8 opacity-10">
                <svg className="w-64 h-64 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
              </div>
-            <h3 className="text-4xl font-black mb-6 text-white uppercase tracking-tight relative z-10">{selectedStock.verdict ? "Інвестиційний Вердикт" : "Structural Machine"}</h3>
+            <h3 className="text-4xl font-black mb-6 text-white uppercase tracking-tight relative z-10">Інвестиційний Вердикт</h3>
             <p className="text-slate-400 max-w-2xl mx-auto mb-10 text-lg leading-relaxed relative z-10">
-              {selectedStock.verdict || "Fair Isaac continues to leverage its unmatched pricing power. The market already reflects high expectations, making execution in DLP critical."}
+              {selectedStock.verdict || `Глибокий фундаментальний аналіз для ${selectedStock.name} зараз обробляється. Зверніться до знімку для деталей високого рівня.`}
             </p>
-            <div className="flex justify-center gap-6 mb-12 relative z-10">
-              <div className="bg-slate-900/80 backdrop-blur-md p-6 rounded-3xl border border-slate-800 min-w-[140px] shadow-xl">
-                <div className="text-[10px] text-slate-600 font-black uppercase tracking-widest mb-2">Recommendation</div>
-                <div className="text-2xl font-black text-white">{selectedStock.typeLabel?.split(' ')[0] || "Hold"}</div>
+            <div className="flex flex-col md:flex-row justify-center items-center gap-6 mb-12 relative z-10">
+              <div className="bg-slate-900/80 backdrop-blur-md p-8 rounded-3xl border border-slate-800 min-w-[220px] shadow-2xl transform hover:scale-105 transition-transform">
+                <div className="text-[10px] text-slate-500 font-black uppercase tracking-widest mb-3">Consensus Rating</div>
+                <div className={`text-4xl font-black uppercase tracking-tighter ${getRatingColor(selectedStock.rating)}`}>
+                  {selectedStock.rating}
+                </div>
+                <div className="text-[10px] text-slate-600 mt-2 font-bold italic">Standard Practice Recommendation</div>
               </div>
-              <div className="bg-slate-900/80 backdrop-blur-md p-6 rounded-3xl border border-slate-800 min-w-[140px] shadow-xl">
-                <div className="text-[10px] text-slate-600 font-black uppercase tracking-widest mb-2">Target 5Y</div>
-                <div className="text-2xl font-black text-blue-400">${selectedStock.scenarios?.[1]?.price5 || "N/A"}</div>
+              <div className="bg-slate-900/80 backdrop-blur-md p-8 rounded-3xl border border-slate-800 min-w-[220px] shadow-2xl transform hover:scale-105 transition-transform">
+                <div className="text-[10px] text-slate-500 font-black uppercase tracking-widest mb-3">5Y Expected Target</div>
+                <div className="text-4xl font-black text-blue-400 tracking-tighter">
+                  ${selectedStock.scenarios?.[1]?.price5 || "N/A"}
+                </div>
+                <div className="text-[10px] text-slate-600 mt-2 font-bold italic">Based on Base Case Scenario</div>
               </div>
             </div>
-            <button onClick={backToHome} className="bg-blue-600 px-10 py-4 rounded-2xl font-black text-white shadow-lg hover:bg-blue-500 hover:shadow-blue-500/30 transition-all uppercase tracking-widest text-sm relative z-10">
-              Back to Portfolio
-            </button>
+            <div className="flex justify-center gap-4 relative z-10">
+              <button onClick={backToHome} className="bg-slate-800 px-10 py-4 rounded-2xl font-black text-slate-300 shadow-lg hover:bg-slate-700 hover:text-white transition-all uppercase tracking-widest text-xs">
+                Портфоліо
+              </button>
+            </div>
           </div>
         )}
       </div>
@@ -808,7 +955,10 @@ export default function App() {
                 <div className={`${stat.color} font-bold text-sm tracking-tight`}>{stat.value}</div>
               </div>
             ))}
-            <button onClick={backToHome} className="text-slate-400 hover:text-white transition-colors text-xs font-bold px-4 py-2 rounded-xl border border-slate-700 bg-slate-900/50">ДОДОМУ</button>
+            <div className="flex flex-col items-center justify-center bg-slate-900/80 border border-slate-700 rounded-lg px-4 py-1 shadow-inner min-w-[80px]">
+              <div className="text-[8px] text-slate-500 font-black uppercase tracking-widest leading-none mb-1">Stocks RS</div>
+              <div className="text-sm font-black text-emerald-400 leading-none">{selectedStock?.rs || 'N/A'}</div>
+            </div>
           </div>
         )}
       </header>
