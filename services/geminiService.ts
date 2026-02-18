@@ -33,3 +33,37 @@ export async function getAiAnalystInsight(slideContext: string, data: any) {
     return "Аналітика тимчасово недоступна. Спробуйте пізніше.";
   }
 }
+
+export async function getLatestStockData(tickers: string[]) {
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  
+  const prompt = `
+    Використовуючи дані з Yahoo Finance або Google Finance, надай ПОТОЧНУ ринкову ціну та зміну за 24 години (у відсотках) для наступних тікерів: ${tickers.join(", ")}.
+    
+    Відповідь надай ВИКЛЮЧНО у форматі JSON об'єкта, де ключами є тікери, а значеннями — об'єкти з полями "price" та "change".
+    Приклад: {"AAPL": {"price": "$150.25", "change": "+1.2%"}}.
+    Не додавай жодних пояснень, лише чистий JSON. Переконайся, що ціни актуальні на сьогоднішню секунду.
+  `;
+
+  try {
+    const response = await ai.models.generateContent({
+      model: 'gemini-3-flash-preview',
+      contents: prompt,
+      config: {
+        // Use Google Search grounding for real-time accuracy as per guidelines
+        tools: [{ googleSearch: {} }]
+      }
+    });
+    
+    const text = response.text || "";
+    // Clean potential markdown blocks
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      return JSON.parse(jsonMatch[0]);
+    }
+    return null;
+  } catch (error) {
+    console.error("Error fetching stock data via Gemini Search:", error);
+    return null;
+  }
+}
