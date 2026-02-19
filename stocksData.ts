@@ -8,32 +8,39 @@ export const INITIAL_STOCKS: Stock[] = [
     id: 'amat',
     ticker: 'AMAT',
     name: 'Applied Materials, Inc.',
-    price: '$198.50',
-    change: '+0.8%',
+    price: '$366.00',
+    change: '+1.4%',
     color: '#3b82f6',
     logo: 'A',
-    rs: 68,
-    rating: 'Buy',
+    rs: 97,
+    rating: 'Strong Buy',
     beta: 1.45,
-    accelerationProb: "40%",
-    timeToMilestone: "3.0 Years",
-    momentumUpside1Y: "+18%",
-    typeLabel: "Semi CapEx / WFE Leader",
-    dnaTags: ["WFE Leader", "Foundry/Logic Strength", "High ROIC", "Semi Cycle Play"],
+    accelerationProb: "25% (Hurdle 15%)",
+    timeToMilestone: "5.0 Years",
+    momentumUpside1Y: "+22%",
+    typeLabel: "WFE Leader / Structural AI Compounder",
+    dnaTags: ["WFE Leader", "GAA/HBM Share Gains", "Equip GM ~54%", "RS 97"],
     stats: [
-      { label: "ЦІНА", value: "$198.50", color: "text-white" },
-      { label: "BASE TARGET", value: "$245.00", color: "text-blue-400" },
-      { label: "RS RATING", value: "68", color: "text-slate-400" }
+      { label: "ЦІНА", value: "$366.00", color: "text-white" },
+      { label: "BASE TARGET", value: "$483.00", color: "text-blue-400" },
+      { label: "RS RATING", value: "97", color: "text-emerald-400" }
     ],
-    hist: [{ y: "FY23", rev: 26.5, eps: 8.05 }, { y: "FY24", rev: 27.2, eps: 8.35 }],
+    hist: [
+      { y: "FY25A", rev: 27.2, eps: 9.52 },
+      { y: "FY26E", rev: 31.35, eps: 11.10 }
+    ],
     scenarios: [
-      { label: "Bull", color: "#22c55e", price5: 350, prob: 30, driver: "N2 node expansion + GAA adoption" },
-      { label: "Base", color: "#f59e0b", price5: 245, prob: 50, driver: "Steady WFE growth" },
-      { label: "Bear", color: "#ef4444", price5: 155, prob: 20, driver: "China export restriction shock" }
+      { label: "Bull", color: "#22c55e", price5: 638, prob: 25, driver: "AI supercycle extends past CY27. EPS beats consensus ($22). Multiple holds on structural premium." },
+      { label: "Base", color: "#f59e0b", price5: 483, prob: 45, driver: "Consensus delivers ($21). CY26-27 strong, then normalization. Partial P/E compression to 23x." },
+      { label: "Bear", color: "#ef4444", price5: 360, prob: 30, driver: "Cycle breaks, consensus slightly missed ($20). Full multiple compression to historical 18x." }
     ],
-    risks: [{ r: "Geopolitical", prob: "High", impact: "High", detail: "Restrictions on tools." }],
-    verdict: "AMAT — хребет напівпровідникової галузі. Ціна значно нижча за Base Target, що робить її привабливою для входу.",
-    buyThesis: LOREM_IPSUM
+    risks: [
+      { r: "P/E Compression", prob: "High", impact: "Extreme", detail: "The main risk is valuation derating, not earnings failure. Current 33x Fwd is demanding." },
+      { r: "Metering Constraints", prob: "High", impact: "Medium", detail: "Growth metered by cleanroom, supply chain, and engineer supply." },
+      { r: "China Exposure", prob: "Moderate", impact: "High", detail: "27% of revenue combined; rising China mix is a GM headwind." }
+    ],
+    verdict: "Очікувана дохідність від $366 становить ~6–7% CAGR. Сильний бізнес, реальна траєкторія прибутку, але ринок вже заклав це в ціну. Для 12% потрібен вхід по $270–290.",
+    buyThesis: "Кваліфікований buy при 12% таргеті. \n\nБізнес сильний — AGS дає підлогу, equipment GM 54%, GAA/HBM структурні. Ризик не в бізнесі, а в мультиплікаторі — і це краща проблема ніж навпаки. \n\nНе входити на всю позицію одразу. 3-4% портфеля, докуповувати при $300-320 якщо мультиплікатор стиснеться. При 12% hurdle ймовірність ~45-50% — прийнятно для циклічного growth з moat."
   },
   {
     id: 'anet',
@@ -335,32 +342,32 @@ export const INITIAL_STOCKS: Stock[] = [
     rs: 15,
     rating: 'Buy',
     beta: 1.22,
-    accelerationProb: "40%",
-    timeToMilestone: "5.0 Years",
-    momentumUpside1Y: "+11.5%",
-    typeLabel: "Structural Compounder / Cybersecurity",
-    dnaTags: ["Platformization Flywheel", "Cybersecurity Leader", "Execution Story", "RS Weak 🔴"],
+    accelerationProb: "25% (Bull requires 30x+)",
+    timeToMilestone: "4.0 Years",
+    momentumUpside1Y: "+8-11%",
+    typeLabel: "Maturing Compounder / Cybersecurity",
+    dnaTags: ["Platformization Flywheel", "A/D Hybrid", "76% Gross Margin", "RS 15 🔴"],
     stats: [
       { label: "ЦІНА", value: "$150.11", color: "text-white" },
-      { label: "FWD P/E", value: "40.8x", color: "text-slate-400" },
+      { label: "FWD P/E (FY26)", value: "40.1x", color: "text-slate-400" },
       { label: "RS RATING", value: "15", color: "text-rose-500" }
     ],
     hist: [
-      { y: "FY25A", rev: 8.2, eps: 3.12 },
-      { y: "FY26E", rev: 11.3, eps: 3.68 }
+      { y: "FY26E", rev: 11.3, eps: 3.74 },
+      { y: "FY30E", rev: 18.2, eps: 6.66 }
     ],
     scenarios: [
-      { label: "Bull", color: "#22c55e", price5: 350, prob: 25, driver: "Platformization flywheel + AI security transition + 40% FCF margin" },
-      { label: "Base", color: "#f59e0b", price5: 259, prob: 50, driver: "15% EPS CAGR execution at 35x normalized exit multiple" },
-      { label: "Bear", color: "#ef4444", price5: 155, prob: 25, driver: "P/E crush to 25x + CyberArk integration bottlenecks" }
+      { label: "Bull", color: "#22c55e", price5: 283, prob: 25, driver: "EPS beats consensus by 12% ($7.46), P/E holds 38x. AI security tailwind." },
+      { label: "Base", color: "#f59e0b", price5: 200, prob: 50, driver: "EPS in-line with consensus ($6.66), P/E normalizes to 30x. Steady execution." },
+      { label: "Bear", color: "#ef4444", price5: 132, prob: 25, driver: "EPS misses consensus by 10% ($6.00), P/E compresses to 22x. Integration bottlenecks." }
     ],
     risks: [
-      { r: "Multiple Compression", prob: "High", impact: "Extreme", detail: "Derating to 25x exit multiple kills the 15% return story." },
-      { r: "Integration", prob: "Moderate", impact: "High", detail: "CyberArk and Chronosphere integration complexity." },
-      { r: "Capital Allocation", prob: "Low", impact: "Medium", detail: "Dilution from recent M&A and share issuances." }
+      { r: "P/E Compression", prob: "High", impact: "Extreme", detail: "Analysts expect 40x to 23x compression by FY30. If it hits 23x, return is near-flat." },
+      { r: "Revenue Deceleration", prob: "Moderate", impact: "High", detail: "Growth slows to 12-13% post-M&A bump. Maturity phase risk." },
+      { r: "Consensus Path", prob: "High", impact: "Medium", detail: "Consensus path ($6.66 x 23x) leads to $153, essentially flat from current $150." }
     ],
-    verdict: "PANW — це ставка на виконання стратегії (execution bet). При базовому сценарії 15% росту EPS та мультиплікаторів 35x ми отримуємо ціль $259, що дає ~11.5% річних. Головний ризик — стиснення мультиплікаторів.",
-    buyThesis: "Palo Alto is a structural compounder bet on long-term platformization. While the current RS 15 signals institutional skepticism, the underlying business is transitioning into an AI-first security ecosystem. The 'Base case' delivers ~11–12%/yr, but the real alpha lies in the Bull case ($350) where platform dominance leads to 20%/yr returns.\n\nKey triggers for 2026: Successful integration of CyberArk, hitting the 40% FCF margin target by FY28, and proving that 'platformization' isn't just a buzzword but a real churn-killer. Stress tests show that even with 15% EPS growth, a P/E crush to 25x yields only 4%/yr—making entry price and multiple stability the primary swing factors for this position."
+    verdict: "Картина змінилася: при консенсусі ~15% EPS CAGR та стисненні P/E до 23x, базовий сценарій дає 8–11% річних. Це гібрид A/D — структурний компаундер на стадії зрілості.",
+    buyThesis: "Palo Alto is now an A/D hybrid — a structural compounder entering its maturity phase. With consensus EPS CAGR at ~15% and analysts embedding P/E compression from 40x to 23x, the base case return has flattened to 8–11%/yr.\n\nAt $150, you are paying fair value for a top-tier cybersecurity platform (76% Gross Margin, 38% FCF margin) with optionality if AI security or platform execution outperforms. However, the 15%+ CAGR target now requires the 'Bull' scenario where the exit multiple stays above 30x. It is no longer a high-conviction momentum play, but a core strategic holding for a long-term compounder portfolio."
   },
   {
     id: 'smci',
