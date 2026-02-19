@@ -55,6 +55,7 @@ export interface Stock {
   scenarios: Scenario[];
   risks: Risk[];
   verdict: string;
+  buyThesis?: string;
 }
 
 export interface FinancialRow {

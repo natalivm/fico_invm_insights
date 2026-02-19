@@ -37,6 +37,14 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+
+        @keyframes pink-pulse-text {
+            0%, 100% { transform: scale(1); text-shadow: 0 0 0px rgba(236, 72, 153, 0); }
+            50% { transform: scale(1.05); text-shadow: 0 0 15px rgba(236, 72, 153, 0.5); }
+        }
+        .animate-pink-pulse {
+            animation: pink-pulse-text 2s infinite ease-in-out;
+        }
     </style>
 <script type="importmap">
 {

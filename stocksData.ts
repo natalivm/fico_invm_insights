@@ -1,5 +1,7 @@
 import { Stock } from './types';
 
+const LOREM_IPSUM = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.";
+
 export const INITIAL_STOCKS: Stock[] = [
   {
     id: 'amat',
@@ -29,7 +31,8 @@ export const INITIAL_STOCKS: Stock[] = [
       { label: "Bear", color: "#ef4444", price5: 155, prob: 20, driver: "China export restriction shock" }
     ],
     risks: [{ r: "Geopolitical", prob: "High", impact: "High", detail: "Restrictions on tools." }],
-    verdict: "AMAT — хребет напівпровідникової галузі. Ціна значно нижча за Base Target, що робить її привабливою для входу."
+    verdict: "AMAT — хребет напівпровідникової галузі. Ціна значно нижча за Base Target, що робить її привабливою для входу.",
+    buyThesis: LOREM_IPSUM
   },
   {
     id: 'anet',
@@ -59,7 +62,8 @@ export const INITIAL_STOCKS: Stock[] = [
       { label: "Bear", color: "#ef4444", price5: 310, prob: 25, driver: "Hyperscale digestion" }
     ],
     risks: [{ r: "Concentration", prob: "Low", impact: "High", detail: "Exposure to cloud giants." }],
-    verdict: "ANET демонструє високу відносну силу. Значний дисконт до Base Target ($520) підтверджує рейтинг Buy."
+    verdict: "ANET демонструє високу відносну силу. Значний дисконт до Base Target ($520) підтверджує рейтинг Buy.",
+    buyThesis: LOREM_IPSUM
   },
   {
     id: 'aph',
@@ -89,7 +93,8 @@ export const INITIAL_STOCKS: Stock[] = [
       { label: "Bear", color: "#ef4444", price5: 97, prob: 20, driver: "AI cycle fades, multiple derating to 22x" }
     ],
     risks: [{ r: "Multiple Compression", prob: "High", impact: "Extreme", detail: "Derating risk if AI cycle fades." }],
-    verdict: "Винятковий RS (91) та позиція близько до Base Target роблять APH пріоритетним вибором (Strong Buy)."
+    verdict: "Винятковий RS (91) та позиція близько до Base Target роблять APH пріоритетним вибором (Strong Buy).",
+    buyThesis: "It's a BUY! RS 91, 38% organic growth, 77% EPS growth, 26%+ margins expanding, and a 1.31x book-to-bill pointing into 2026. The AI infrastructure cycle is the tailwind — APH makes the physical connectors inside every hyperscaler rack. That's not going away.\n\nEPS at $5+ by 2028 is realistic without heroic assumptions. At 35–38x that's $175–190. The stock does the work through earnings, not hope.\n\nOne thing to watch: IT Datacom quarterly growth rate. If that decelerates, get out early. Everything else is noise."
   },
   {
     id: 'avgo',
@@ -119,7 +124,8 @@ export const INITIAL_STOCKS: Stock[] = [
       { label: "Bear", color: "#ef4444", price5: 145, prob: 15, driver: "Enterprise software slowdown" }
     ],
     risks: [{ r: "Integration Risk", prob: "Low", impact: "Medium", detail: "VMware complexity." }],
-    verdict: "AVGO торгується з дисконтом ~20% до базової цілі. Фундаментальний лідер у мережевих технологіях."
+    verdict: "AVGO торгується з дисконтом ~20% до базової цілі. Фундаментальний лідер у мережевих технологіях.",
+    buyThesis: LOREM_IPSUM
   },
   {
     id: 'cls',
@@ -149,7 +155,8 @@ export const INITIAL_STOCKS: Stock[] = [
       { label: "Bear", color: "#ef4444", price5: 75, prob: 15, driver: "Industrial segment drag" }
     ],
     risks: [{ r: "Cyclical EMS", prob: "Low", impact: "Medium", detail: "Cycle exposure." }],
-    verdict: "Поєднання екстремального RS (94) та позиції значно нижче Base Target робить CLS Strong Buy."
+    verdict: "Поєднання екстремального RS (94) та позиції значно нижче Base Target роблять CLS Strong Buy.",
+    buyThesis: LOREM_IPSUM
   },
   {
     id: 'dash',
@@ -179,7 +186,8 @@ export const INITIAL_STOCKS: Stock[] = [
       { label: "Bear", color: "#ef4444", price5: 130, prob: 20, driver: "Consumer slowdown" }
     ],
     risks: [{ r: "Profitability", prob: "Moderate", impact: "Medium", detail: "Margin compression." }],
-    verdict: "DASH має значний дисконт до Base Target ($225). Логістична монополія створює запас міцності."
+    verdict: "DASH має значний дисконт до Base Target ($225). Логістична монополія створює запас міцності.",
+    buyThesis: LOREM_IPSUM
   },
   {
     id: 'fico', 
@@ -209,7 +217,8 @@ export const INITIAL_STOCKS: Stock[] = [
       { label: "Bear", color: "#ef4444", price5: 1100, prob: 13, driver: "Mortgage cycle delay" }
     ],
     risks: [{ r: "Regulatory", prob: "Low", impact: "High", detail: "FHFA parity risks." }],
-    verdict: "Високий RS (91) та монопольне становище при ціні нижче Base Target роблять FICO Strong Buy."
+    verdict: "Високий RS (91) та монопольне становище при ціні нижче Base Target роблять FICO Strong Buy.",
+    buyThesis: LOREM_IPSUM
   },
   {
     id: 'fn',
@@ -239,7 +248,8 @@ export const INITIAL_STOCKS: Stock[] = [
       { label: "Bear", color: "#ef4444", price5: 190, prob: 20, driver: "Tech transition lag" }
     ],
     risks: [{ r: "Customer Concentration", prob: "High", impact: "High", detail: "Nvidia dependency." }],
-    verdict: "Ціна значно нижча за Base Target. FN залишається ключовим бенефіціаром оптичного буму."
+    verdict: "Ціна значно нижча за Base Target. FN залишається ключовим бенефіціаром оптичного буму.",
+    buyThesis: LOREM_IPSUM
   },
   {
     id: 'meli',
@@ -272,7 +282,8 @@ export const INITIAL_STOCKS: Stock[] = [
       { r: "Margin Compression", prob: "High", impact: "High", detail: "Extended investment mode depressing EPS." },
       { r: "LATAM Macro", prob: "High", impact: "Moderate", detail: "FX volatility in Brazil/Argentina." }
     ],
-    verdict: "При ціні $2,035 MELI торгується нижче Bear Case ($2,136), що створює значну недооціненість попри слабкий RS. Це довгострокова ставка на екосистему LATAM."
+    verdict: "При ціні $2,035 MELI торгується нижче Bear Case ($2,136), що створює значну недооціненість попри слабкий RS. Це довгострокова ставка на екосистему LATAM.",
+    buyThesis: "yes! A stable AI narrative keeps growth multiples elevated and risk appetite open — that's the environment where MELI's 49x P/E is tolerable and institutional money rotates back into quality compounders with weak momentum. RS 22 stops being a problem when the macro tide turns.\n\nMELI's own AI deployment — logistics, credit underwriting, ad targeting — is a real margin lever that's currently invisible in the numbers because the market is fixated on EPS misses. When it shows up, the \"investment mode\" story reframes as an efficiency story, and the multiple holds or expands.\n\nThe bet: decent AI narrative + Q4'25 margin inflection = RS recovery + P/E holds at 38–42x = base case 15%+ CAGR. Size it small now, add when RS crosses 50."
   },
   {
     id: 'nvda',
@@ -302,7 +313,8 @@ export const INITIAL_STOCKS: Stock[] = [
       { label: "Bear", color: "#ef4444", price5: 95, prob: 15, driver: "Cloud client digestion" }
     ],
     risks: [{ r: "Cyclical Peak", prob: "Moderate", impact: "High", detail: "Risk of CapEx overbuild." }],
-    verdict: "Екстремальний RS (98) та величезний дисконт до Base Target ($210) роблять NVDA безальтернативним Strong Buy."
+    verdict: "Екстремальний RS (98) та величезний дисконт до Base Target ($210) роблять NVDA безальтернативним Strong Buy.",
+    buyThesis: LOREM_IPSUM
   },
   {
     id: 'smci',
@@ -332,7 +344,8 @@ export const INITIAL_STOCKS: Stock[] = [
       { label: "Bear", color: "#ef4444", price5: 32, prob: 60, driver: "Floor is found despite structural issues" }
     ],
     risks: [{ r: "Regulatory/Legal", prob: "Extreme", impact: "Extreme", detail: "Audit crisis." }],
-    verdict: "Навіть при рості до $31.80 акція торгується нижче Bear Case ($32) та значно нижче Base Target ($55). Математично це Buy через колосальний асиметричний потенціал."
+    verdict: "Навіть при рості до $31.80 акція торгується нижче Bear Case ($32) та значно нижче Base Target ($55). Математично це Buy через колосальний асиметричний потенціал.",
+    buyThesis: LOREM_IPSUM
   },
   {
     id: 'spot',
@@ -362,7 +375,8 @@ export const INITIAL_STOCKS: Stock[] = [
       { label: "Bear", color: "#ef4444", price5: 400, prob: 25, driver: "Rev slowdown" }
     ],
     risks: [{ r: "Margin Stagnation", prob: "Moderate", impact: "High", detail: "Content costs." }],
-    verdict: "Високий RS (96) та позиція біля Base Target підтверджують преміальний статус Strong Buy."
+    verdict: "Високий RS (96) та позиція біля Base Target підтверджують преміальний статус Strong Buy.",
+    buyThesis: LOREM_IPSUM
   },
   {
     id: 'tln',
@@ -392,7 +406,8 @@ export const INITIAL_STOCKS: Stock[] = [
       { label: "Bear", color: "#ef4444", price5: 140, prob: 20, driver: "Regulatory pushback" }
     ],
     risks: [{ r: "Regulatory", prob: "Moderate", impact: "High", detail: "Grid rulings." }],
-    verdict: "Енергетичний лідер з RS 92. Торгується з дисконтом до Base Target, що робить акцію Strong Buy."
+    verdict: "Енергетичний лідер з RS 92. Торгується з дисконтом до Base Target, що робить акцію Strong Buy.",
+    buyThesis: LOREM_IPSUM
   },
   {
     id: 'wwd',
@@ -422,6 +437,7 @@ export const INITIAL_STOCKS: Stock[] = [
       { label: "Bear", color: "#ef4444", price5: 160, prob: 25, driver: "Defense cuts" }
     ],
     risks: [{ r: "Supply Chain", prob: "Moderate", impact: "Medium", detail: "Delivery issues." }],
-    verdict: "Ціна суттєво нижча за внутрішню вартість (Fair Value $210) та Base Target ($245)."
+    verdict: "Ціна суттєво нижча за внутрішню вартість (Fair Value $210) та Base Target ($245).",
+    buyThesis: LOREM_IPSUM
   }
 ];
