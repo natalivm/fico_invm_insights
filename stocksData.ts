@@ -89,7 +89,7 @@ export const INITIAL_STOCKS: Stock[] = [
     color: '#38bdf8',
     logo: 'A',
     rs: 91,
-    rating: 'Strong Buy',
+    rating: 'Buy',
     beta: 0.95,
     accelerationProb: "55%",
     timeToMilestone: "3.0 Years",
@@ -108,7 +108,7 @@ export const INITIAL_STOCKS: Stock[] = [
       { label: "Bear", color: "#ef4444", price5: 97, prob: 20, driver: "AI cycle fades, multiple derating to 22x" }
     ],
     risks: [{ r: "Multiple Compression", prob: "High", impact: "Extreme", detail: "Derating risk if AI cycle fades." }],
-    verdict: "Винятковий RS (91) та позиція близько до Base Target роблять APH пріоритетним вибором (Strong Buy).",
+    verdict: "Винятковий RS (91) та позиція близько до Base Target роблять APH пріоритетним вибором (Buy).",
     buyThesis: "It's a BUY! RS 91, 38% organic growth, 77% EPS growth, 26%+ margins expanding, and a 1.31x book-to-bill pointing into 2026. The AI infrastructure cycle is the tailwind — APH makes the physical connectors inside every hyperscaler rack. That's not going away.\n\nEPS at $5+ by 2028 is realistic without heroic assumptions. At 35–38x that's $175–190. The stock does the work through earnings, not hope.\n\nOne thing to watch: IT Datacom quarterly growth rate. If that decelerates, get out early. Everything else is noise."
   },
   {
@@ -373,8 +373,8 @@ export const INITIAL_STOCKS: Stock[] = [
     id: 'smci',
     ticker: 'SMCI',
     name: 'Super Micro Computer, Inc.',
-    price: '$31.80',
-    change: '+9.7%',
+    price: '$29.70',
+    change: '-6.6%',
     color: '#3b82f6',
     logo: 'S',
     rs: 11,
@@ -383,25 +383,26 @@ export const INITIAL_STOCKS: Stock[] = [
     accelerationProb: "25%",
     timeToMilestone: "5.0 Years",
     momentumUpside1Y: "+22%",
-    typeLabel: "AI Hardware / High-Density Storage",
-    dnaTags: ["Margin Recovery Bet", "AI Cycle Play", "Audit Risk 🔴", "RS Lagging 🔴"],
+    typeLabel: "AI Hardware / Post-Earnings Cycle",
+    dnaTags: ["63% Client Conc.", "Margin Pressure", "RS 11 🔴", "Audit Risk 🔴"],
     stats: [
-      { label: "ЦІНА", value: "$31.80", color: "text-white" },
-      { label: "FWD P/E", value: "7.1x", color: "text-blue-400" },
+      { label: "ЦІНА", value: "$29.70", color: "text-white" },
+      { label: "FWD P/E (FY26)", value: "14.4x", color: "text-blue-400" },
       { label: "RS RATING", value: "11", color: "text-rose-500" }
     ],
     hist: [{ y: "FY23", rev: 7.1, eps: 1.18 }, { y: "FY24", rev: 14.9, eps: 2.21 }],
     scenarios: [
-      { label: "Bull", color: "#22c55e", price5: 133, prob: 22.5, driver: "Rev CAGR 18% + OpM 7.5% + PE 17x" },
-      { label: "Base", color: "#f59e0b", price5: 65, prob: 45, driver: "Rev CAGR 13% + OpM 6.0% + PE 13x" },
-      { label: "Bear", color: "#ef4444", price5: 26, prob: 32.5, driver: "Rev CAGR 7% + OpM 4.5% + PE 9x" }
+      { label: "Bull", color: "#22c55e", price5: 133, prob: 15, driver: "Rev CAGR 18% + OpM 7.5% + Exit P/E 17x. Client diversification success." },
+      { label: "Base", color: "#f59e0b", price5: 65, prob: 52.5, driver: "Rev CAGR 13% + OpM 6.0% + Exit P/E 13x. Steady AI infrastructure adoption." },
+      { label: "Bear", color: "#ef4444", price5: 26, prob: 32.5, driver: "Rev CAGR 7% + OpM 4.5% + Exit P/E 9x. Margin stagnation + client loss." }
     ],
     risks: [
-      { r: "Gross Margin", prob: "Extreme", impact: "Extreme", detail: "Q2 FY26 at 6.4% is the key variable." },
-      { r: "Audit/Delisting", prob: "High", impact: "Extreme", detail: "Governance and regulatory risks." }
+      { r: "Client Concentration", prob: "Extreme", impact: "Extreme", detail: "63% single-client concentration is the largest revenue risk." },
+      { r: "Margin Compression", prob: "High", impact: "Extreme", detail: "Q2 GM at 6.4% — bull case requires recovery to 8%+." },
+      { r: "Audit/Delisting", prob: "High", impact: "Extreme", detail: "Ongoing governance and regulatory uncertainty." }
     ],
-    verdict: "SMCI - це не гра на оцінку, а ставка на відновлення маржинальності та цикл ШІ. Якщо операційна маржа відновиться до 7-8%, акція покаже суттєвий перегляд ціни.",
-    buyThesis: "Conditional buy, small position (2–4% of portfolio).\n\nAt $30 you're paying ~14.5x forward for margin recovery optionality. If OpM goes from 4.5% → 6–7%, the stock doubles without heroic assumptions. Weighted target ~$55–60.\n\nBut it's a dual bet — AI cycle + margin recovery — with no moat and no floor if both fail. Size accordingly."
+    verdict: "Після звіту: 'гіперзростання + тиск на маржу + 63% концентрації'. Історія виручки сильна, історія якості слабка. Це контрольована циклічна ставка, а не довгостроковий компаундер.",
+    buyThesis: "Post-Earnings Verdict: Before the report: \"hypergrowth + margin upside\". After: \"hypergrowth + margin pressure + 63% concentration\". Revenue story is strong. Quality story is weak. This limits multiple expansion. Bull scenario has narrowed — needs margin recovery beyond consensus, real DCBBS contribution, and client diversification. Base case (~$55–65) is now the anchor. This is a controlled cyclical bet, not deep value, not a compounder. Three catalysts that change the math: GM back to 8%+, DCBBS double-digit profit share, client concentration below 50%."
   },
   {
     id: 'spot',
