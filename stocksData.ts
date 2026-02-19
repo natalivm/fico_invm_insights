@@ -89,7 +89,7 @@ export const INITIAL_STOCKS: Stock[] = [
     color: '#38bdf8',
     logo: 'A',
     rs: 91,
-    rating: 'Buy',
+    rating: 'Strong Buy',
     beta: 0.95,
     accelerationProb: "55%",
     timeToMilestone: "3.0 Years",
@@ -108,70 +108,84 @@ export const INITIAL_STOCKS: Stock[] = [
       { label: "Bear", color: "#ef4444", price5: 97, prob: 20, driver: "AI cycle fades, multiple derating to 22x" }
     ],
     risks: [{ r: "Multiple Compression", prob: "High", impact: "Extreme", detail: "Derating risk if AI cycle fades." }],
-    verdict: "Винятковий RS (91) та позиція близько до Base Target роблять APH пріоритетним вибором (Buy).",
+    verdict: "Винятковий RS (91) та позиція близько до Base Target роблять APH пріоритетним вибором (Strong Buy).",
     buyThesis: "It's a BUY! RS 91, 38% organic growth, 77% EPS growth, 26%+ margins expanding, and a 1.31x book-to-bill pointing into 2026. The AI infrastructure cycle is the tailwind — APH makes the physical connectors inside every hyperscaler rack. That's not going away.\n\nEPS at $5+ by 2028 is realistic without heroic assumptions. At 35–38x that's $175–190. The stock does the work through earnings, not hope.\n\nOne thing to watch: IT Datacom quarterly growth rate. If that decelerates, get out early. Everything else is noise."
   },
   {
     id: 'avgo',
     ticker: 'AVGO',
     name: 'Broadcom Inc.',
-    price: '$174.50',
+    price: '$335.00',
     change: '+1.2%',
     color: '#3b82f6',
     logo: 'B',
-    rs: 84,
+    rs: 76,
     rating: 'Buy',
     beta: 1.48,
-    accelerationProb: "70%",
-    timeToMilestone: "2.0 Years",
-    momentumUpside1Y: "+25%",
-    typeLabel: "AI Infrastructure / Custom Silicon",
-    dnaTags: ["AI Networking Giant", "Custom Silicon Moat", "VMware Synergy", "RS Leader 🟢"],
+    accelerationProb: "40-50% (P(15%+))",
+    timeToMilestone: "5.0 Years",
+    momentumUpside1Y: "+12-16%",
+    typeLabel: "Structural Compounder / AI Infrastructure",
+    dnaTags: ["AI Infra + VMware", "$73B AI Backlog", "Q1 AI +100% YoY", "RS 76"],
     stats: [
-      { label: "ЦІНА", value: "$174.50", color: "text-white" },
-      { label: "BASE TARGET", value: "$215.00", color: "text-blue-400" },
-      { label: "RS RATING", value: "84", color: "text-emerald-400" }
+      { label: "ЦІНА", value: "$335.00", color: "text-white" },
+      { label: "BASE TARGET", value: "$582.00", color: "text-blue-400" },
+      { label: "RS RATING", value: "76", color: "text-emerald-400" }
     ],
-    hist: [{ y: "FY23", rev: 35.8, eps: 4.22 }, { y: "FY24", rev: 51.1, eps: 4.85 }],
+    hist: [
+      { y: "FY26E", rev: 97.0, eps: 10.27 },
+      { y: "FY30E", rev: 135.0, eps: 23.27 }
+    ],
     scenarios: [
-      { label: "Bull", color: "#22c55e", price5: 280, prob: 35, driver: "Custom AI chip explosion" },
-      { label: "Base", color: "#f59e0b", price5: 215, prob: 50, driver: "VMware integration success" },
-      { label: "Bear", color: "#ef4444", price5: 145, prob: 15, driver: "Enterprise software slowdown" }
+      { label: "Bull", color: "#22c55e", price5: 698, prob: 30, driver: "EPS beats street ($25+), P/E holds 30x. AI backlog extends and accelerates." },
+      { label: "Base", color: "#f59e0b", price5: 582, prob: 45, driver: "Street delivers ($23.27), P/E normalizes to 25x. Steady VMware synergy." },
+      { label: "Bear", color: "#ef4444", price5: 465, prob: 25, driver: "EPS miss ($19.7), P/E crushes to 20x. Cycle turns, hyperscaler pause." }
     ],
-    risks: [{ r: "Integration Risk", prob: "Low", impact: "Medium", detail: "VMware complexity." }],
-    verdict: "AVGO торгується з дисконтом ~20% до базової цілі. Фундаментальний лідер у мережевих технологіях.",
-    buyThesis: LOREM_IPSUM
+    risks: [
+      { r: "Multiple Compression", prob: "High", impact: "Extreme", detail: "At 15x FY30 EPS: $349. Valuation is the primary risk." },
+      { r: "GM Decline", prob: "Moderate", impact: "High", detail: "Mix shift to system-level AI sales is a margin headwind." },
+      { r: "Capex Cycle", prob: "Moderate", impact: "High", detail: "Hyperscaler pause could derail the 22.8% CAGR path." }
+    ],
+    verdict: "The debate is no longer 'will growth happen?' — it's 'how much multiple for 22.8% EPS CAGR at mega-cap scale?' Street numbers are now credible. At $335, you get natural P/E compression from 32.6x to 18.7x by FY28 through earnings alone. The biggest risk is the exit multiple, not the business.",
+    buyThesis: "Earnings growth has order-book validation ($73B backlog). Street numbers are now credible. Q1 AI revenue grew ~100% YoY, proving structural demand. The thesis is supported by VMware's sticky recurring software revenue which provides margin floors. \n\nRisk is almost entirely multiple compression — at 20x FY30 EPS, return drops to 6-7% CAGR. However, the probability of 10-12% returns is high (60-70%) given the clear 22.8% EPS growth path. RS 76 suggests the tape is consolidating, not yet leading, offering an entry before the next breakout."
   },
   {
     id: 'cls',
     ticker: 'CLS',
     name: 'Celestica Inc.',
-    price: '$92.10',
+    price: '$284.84',
     change: '+2.1%',
     color: '#06b6d4',
     logo: 'C',
     rs: 94,
-    rating: 'Strong Buy',
+    rating: 'Hold',
     beta: 1.90,
-    accelerationProb: "75%",
-    timeToMilestone: "1.5 Years",
-    momentumUpside1Y: "+40%",
-    typeLabel: "EMS / AI Infrastructure",
-    dnaTags: ["Hyperscale Demand", "Connectivity Leader", "Margin Rerating", "RS Leader 🟢"],
+    accelerationProb: "<50% (P(15%+))",
+    timeToMilestone: "5.0 Years",
+    momentumUpside1Y: "+12%",
+    typeLabel: "Cyclical Growth (B) + Momentum (C)",
+    dnaTags: ["63% Concentration", "CapEx 5x Jump", "800G/1.6T Ramp", "RS 94"],
     stats: [
-      { label: "ЦІНА", value: "$92.10", color: "text-white" },
-      { label: "BASE TARGET", value: "$135.00", color: "text-cyan-400" },
+      { label: "ЦІНА", value: "$284.84", color: "text-white" },
+      { label: "FWD P/E '26", value: "32.6x", color: "text-amber-400" },
       { label: "RS RATING", value: "94", color: "text-emerald-400" }
     ],
-    hist: [{ y: "FY23", rev: 8.0, eps: 2.4 }, { y: "FY24", rev: 9.5, eps: 3.8 }],
-    scenarios: [
-      { label: "Bull", color: "#22c55e", price5: 220, prob: 40, driver: "Hyper-growth in connectivity" },
-      { label: "Base", color: "#f59e0b", price5: 135, prob: 45, driver: "Sustained high margins" },
-      { label: "Bear", color: "#ef4444", price5: 75, prob: 15, driver: "Industrial segment drag" }
+    hist: [
+      { y: "FY25A", rev: 12.4, eps: 6.05 }, 
+      { y: "FY26G", rev: 17.0, eps: 8.75 }
     ],
-    risks: [{ r: "Cyclical EMS", prob: "Low", impact: "Medium", detail: "Cycle exposure." }],
-    verdict: "Поєднання екстремального RS (94) та позиції значно нижче Base Target роблять CLS Strong Buy.",
-    buyThesis: LOREM_IPSUM
+    scenarios: [
+      { label: "Bull", color: "#22c55e", price5: 427, prob: 25, driver: "AI super-cycle sustains + multiple holds 22x. EPS beats consensus." },
+      { label: "Base", color: "#f59e0b", price5: 275, prob: 50, driver: "Street execution ($15.3 EPS), P/E compression to 18x. Steady EMS returns." },
+      { label: "Bear", color: "#ef4444", price5: 179, prob: 25, driver: "Cycle peak, CapEx drag restricts FCF, multiple crushes to 15x." }
+    ],
+    risks: [
+      { r: "CapEx Jump", prob: "Extreme", impact: "Extreme", detail: "5x jump to $1.0B in FY26 restricts FCF growth (only +9% guide)." },
+      { r: "Concentration", prob: "Extreme", impact: "High", detail: "Top-3 clients = 63% of revenue. Not sole-source on TPU (confirmed)." },
+      { r: "Valuation Risk", prob: "High", impact: "High", detail: "P/E 47x trailing for EMS manufacturer is extremely demanding." }
+    ],
+    verdict: "Execution is excellent — but price already reflects it. You're buying the cycle phase, not a structural moat. At 47x trailing for EMS, this is priced well beyond perfection.",
+    buyThesis: "Model shows ~0–2% annual return to 2030 in the base case. Even after strong earnings, the current price embeds very optimistic assumptions. \n\nYou are buying the cycle phase, not a structural moat. Key risk is the massive CapEx jump ($201M -> $1.0B) which restricts FCF conversion significantly. Additionally, the extreme 63% client concentration poses a permanent risk of multiple compression if any client diversifies. CEO confirmation that CLS is not sole-source on major programs (TPU) limits long-term valuation premium."
   },
   {
     id: 'dash',
