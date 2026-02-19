@@ -212,10 +212,9 @@ export const INITIAL_STOCKS: Stock[] = [
       { y: "2030E", rev: 35.0, eps: 13.70 }
     ],
     scenarios: [
-      { label: "Full Bull", color: "#22c55e", price5: 437, prob: 20, driver: "NV margin ≥8% · Ads ≥6% rev · Revenue CAGR ≥20%" },
-      { label: "Partial Bull", color: "#3b82f6", price5: 388, prob: 35, driver: "1-2 levers fire (most likely: NV + tech stack OR ads + tech stack)" },
-      { label: "Base", color: "#f59e0b", price5: 343, prob: 40, driver: "Consensus margin ramp · No lever outperformance" },
-      { label: "Bear", color: "#ef4444", price5: 170, prob: 5, driver: "Revenue growth → 12-14% · P/E crush to 20x" }
+      { label: "Bull", color: "#22c55e", price5: 525, prob: 25, driver: "Blue Sky: NV margin ≥8% · Ads ≥6% rev · Revenue CAGR ≥20% · 30x exit multiple." },
+      { label: "Base", color: "#f59e0b", price5: 343, prob: 50, driver: "Consensus margin ramp · Standard execution path · 25x exit multiple." },
+      { label: "Bear", color: "#ef4444", price5: 170, prob: 25, driver: "Revenue growth slowing → 12-14% · Multiple compression to 18-20x." }
     ],
     risks: [
       { r: "Valuation Risk", prob: "High", impact: "Extreme", detail: "RS 17 unchanged. Significant P/E compression risk if execution falters." },
@@ -223,7 +222,7 @@ export const INITIAL_STOCKS: Stock[] = [
       { r: "Competition", prob: "Moderate", impact: "High", detail: "Dasher pay model + promo pressure on take rate across verticals." }
     ],
     verdict: "DASH торгується біля Base Target ($343) за консенсусом, що дає ~14% CAGR. Проте реальна цінність закладена в 'важелях виконання': прибутковість New Verticals та масштабування реклами можуть вивести EPS на рівень $17.5. RS 17 свідчить про скепсис ринку, що створює вікно для входу до розвороту імпульсу.",
-    buyThesis: "Execution is the story. TIKR consensus $13.7 EPS for 2030 at 25x delivers a 13.8% CAGR - decent, but doesn't clear the high-conviction hurdle. The alpha comes from the three levers: New Verticals (NV) profitability, Ads scaling, and Tech Stack consolidation.\n\nThe Q4'25 call de-risked the NV story significantly with the 'unit economics positive in 2H'26' guide. If NV hits 8% margins and Ads scale to 6% of revenue, EPS targets jump towards $17.5. That's a 19%+ CAGR profile.\n\nRS 17 is the primary near-term headwind; institutional flow hasn't turned yet. However, for a long-term compounder, buying when the execution path is de-risking but the tape is still skeptical is a classic alpha setup. 3-4% position, add on RS recovery >40."
+    buyThesis: "Execution is the story. TIKR consensus $13.7 EPS for 2030 at 25x delivers a 13.8% CAGR - decent, but doesn't clear the high-conviction hurdle. The alpha comes from the three levers: New Verticals (NV) profitability, Ads scaling, and Tech Stack consolidation.\n\nThe Q4'25 call de-risked the NV story significantly with the 'unit economics positive in 2H'26' guide. If NV hits 8% margins and Ads scale to 6% of revenue, EPS targets jump towards $17.5. That's a 24%+ CAGR profile in the Bull case ($525).\n\nRS 17 is the primary near-term headwind; institutional flow hasn't turned yet. However, for a long-term compounder, buying when the execution path is de-risking but the tape is still skeptical is a classic alpha setup. 3-4% position, add on RS recovery >40."
   },
   {
     id: 'fico', 
@@ -267,32 +266,39 @@ export const INITIAL_STOCKS: Stock[] = [
     id: 'fn',
     ticker: 'FN',
     name: 'Fabrinet',
-    price: '$245.00',
-    change: '-0.3%',
+    price: '$513.00',
+    change: '+1.2%',
     color: '#a855f7',
     logo: 'F',
-    rs: 58,
-    rating: 'Buy',
+    rs: 95,
+    rating: 'Strong Buy',
     beta: 1.65,
-    accelerationProb: "50%",
-    timeToMilestone: "2.0 Years",
+    accelerationProb: "60%",
+    timeToMilestone: "5.0 Years",
     momentumUpside1Y: "+25%",
-    typeLabel: "Optical Communications / AI",
-    dnaTags: ["AI Transceiver Play", "NVDA Supply Chain", "Execution Leader"],
+    typeLabel: "Optical Communications / AI Infrastructure",
+    dnaTags: ["RS 95 🟢", "AI/Optical Leader", "HPC Ramp ($86M)", "GM 12.4%", "Record Q2 EPS"],
     stats: [
-      { label: "ЦІНА", value: "$245.00", color: "text-white" },
-      { label: "BASE TARGET", value: "$295.00", color: "text-purple-400" },
-      { label: "RS RATING", value: "58", color: "text-slate-400" }
+      { label: "ЦІНА", value: "$513.00", color: "text-white" },
+      { label: "FWD P/E (FY26)", value: "37.8x", color: "text-purple-400" },
+      { label: "RS RATING", value: "95", color: "text-emerald-400" }
     ],
-    hist: [{ y: "FY23", rev: 2.6, eps: 7.7 }, { y: "FY24", rev: 2.8, eps: 8.3 }],
+    hist: [
+      { y: "FY25A", rev: 3.2, eps: 10.17 }, 
+      { y: "FY26E", rev: 4.54, eps: 13.58 }
+    ],
     scenarios: [
-      { label: "Bull", color: "#22c55e", price5: 410, prob: 35, driver: "800G/1.6T hyper-adoption" },
-      { label: "Base", color: "#f59e0b", price5: 295, prob: 45, driver: "Steady NVDA partnership" },
-      { label: "Bear", color: "#ef4444", price5: 190, prob: 20, driver: "Tech transition lag" }
+      { label: "Bull", color: "#22c55e", price5: 1076, prob: 25, driver: "AI cycle extends 3+ years · HPC >$150M/qtr sustained · Datacom supply unlocked · Op margin 11.5%+" },
+      { label: "Base", color: "#f59e0b", price5: 725, prob: 45, driver: "Moderate AI spend · HPC at $150M plateau · Margins stable 11% · P/E 28x mean" },
+      { label: "Bear", color: "#ef4444", price5: 414, prob: 30, driver: "AI capex slows · HPC doesn't scale · FCF remains pressured · P/E 20x" }
     ],
-    risks: [{ r: "Customer Concentration", prob: "High", impact: "High", detail: "Nvidia dependency." }],
-    verdict: "Ціна значно нижча за Base Target. FN залишається ключовим бенефіціаром оптичного буму.",
-    buyThesis: LOREM_IPSUM
+    risks: [
+      { r: "AI Cycle Cooling", prob: "High", impact: "High", detail: "Primary revenue driver; no structural moat if spend declines." },
+      { r: "Valuation Reversion", prob: "High", impact: "High", detail: "Trading ~38x vs hist mean 28x; mean reversion is significant downside." },
+      { r: "Negative FCF", prob: "Elevated", impact: "Medium", detail: "OCF $46M vs Capex $52M in Q2. Building 10 expansion ongoing." }
+    ],
+    verdict: "Record Q2 results confirm the HPC ramp thesis ($15M -> $86M). While FCF is temporarily pressured by Building 10 capex, the earnings trajectory is accelerating. RS 95 shows leadership.",
+    buyThesis: "The risk/reward is skewed in your favor if you believe the AI cycle extends. HPC ramp is the real deal, moving from $15M to $86M in a single quarter. Management is targeting $150M+ per quarter. While P/E is near historical highs, the EPS acceleration justifies the premium.\n\nQ2 showed record revenue and EPS with margins expanding. Sizing: Core position, expect volatility during the capex build phase (Building 10). Technicals are exceptionally strong with RS 95."
   },
   {
     id: 'meli',
