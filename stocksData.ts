@@ -1,4 +1,3 @@
-
 import { Stock } from './types';
 
 const LOREM_IPSUM = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.";
@@ -40,7 +39,7 @@ export const INITIAL_STOCKS: Stock[] = [
       { r: "China Exposure", prob: "Moderate", impact: "High", detail: "27% of revenue combined; rising China mix is a GM headwind." }
     ],
     verdict: "Очікувана дохідність від $366 становить ~6–7% CAGR. Сильний бізнес, реальна траєкторія прибутку, але ринок вже заклав це в ціну. Для 12% потрібен вхід по $270–290.",
-    buyThesis: "Кваліфікований buy при 12% таргеті. \n\nБізнес сильний — AGS дає підлогу, equipment GM 54%, GAA/HBM структурні. Ризик не в бізнесі, а в мультиплікаторі — і це краща проблема ніж навпаки. \n\nНе входити на всю позицію одразу. 3-4% портфеля, докуповувати при $300-320 якщо мультиплікатор стиснеться. При 12% hurdle ймовірність ~45-50% — прийнятно для циклічного growth з moat."
+    buyThesis: "Кваліфікований buy при 12% таргеті. \n\nБізнес сильний — AGS дає подлогу, equipment GM 54%, GAA/HBM структурні. Ризик не в бізнесі, а в мультиплікаторі — і це краща проблема ніж навпаки. \n\nНе входити на всю позицію одразу. 3-4% портфеля, докуповувати при $300-320 якщо мультиплікаторі стиснеться. При 12% hurdle ймовірність ~45-50% — прийнятно для циклічного growth з moat."
   },
   {
     id: 'anet',
@@ -191,63 +190,78 @@ export const INITIAL_STOCKS: Stock[] = [
     id: 'dash',
     ticker: 'DASH',
     name: 'DoorDash, Inc.',
-    price: '$175.40',
+    price: '$179.60',
     change: '+1.5%',
     color: '#FF3008',
     logo: 'D',
-    rs: 57,
+    rs: 17,
     rating: 'Buy',
     beta: 1.55,
-    accelerationProb: "25%",
-    timeToMilestone: "3.5 Years",
-    momentumUpside1Y: "+12%",
-    typeLabel: "Logistics & Marketplace",
-    dnaTags: ["Market Leader", "Logistic Moat 🟢", "RS Average", "Frequency Driver"],
+    accelerationProb: "20-40% (P(15%+))",
+    timeToMilestone: "5.0 Years",
+    momentumUpside1Y: "+12-19%",
+    typeLabel: "Execution Compounder / Logistics Leader",
+    dnaTags: ["NV Unit Econ+ 2H'26", "Ads 2x/3x Growth", "RS 17 🔴", "Execution Story"],
     stats: [
-      { label: "ЦІНА", value: "$175.40", color: "text-white" },
-      { label: "BASE TARGET", value: "$225.00", color: "text-emerald-400" },
-      { label: "RS RATING", value: "57", color: "text-slate-400" }
+      { label: "ЦІНА", value: "$179.60", color: "text-white" },
+      { label: "BASE TARGET", value: "$343.00", color: "text-emerald-400" },
+      { label: "RS RATING", value: "17", color: "text-rose-500" }
     ],
-    hist: [{ y: "2023", rev: 8.6, eps: -1.4 }, { y: "2024", rev: 10.1, eps: 0.2 }],
+    hist: [
+      { y: "2025E", rev: 13.7, eps: 1.25 },
+      { y: "2030E", rev: 35.0, eps: 13.70 }
+    ],
     scenarios: [
-      { label: "Bull", color: "#22c55e", price5: 350, prob: 30, driver: "Ads revenue scaling" },
-      { label: "Base", color: "#f59e0b", price5: 225, prob: 50, driver: "Steady 15% GOV growth" },
-      { label: "Bear", color: "#ef4444", price5: 130, prob: 20, driver: "Consumer slowdown" }
+      { label: "Full Bull", color: "#22c55e", price5: 437, prob: 20, driver: "NV margin ≥8% · Ads ≥6% rev · Revenue CAGR ≥20%" },
+      { label: "Partial Bull", color: "#3b82f6", price5: 388, prob: 35, driver: "1-2 levers fire (most likely: NV + tech stack OR ads + tech stack)" },
+      { label: "Base", color: "#f59e0b", price5: 343, prob: 40, driver: "Consensus margin ramp · No lever outperformance" },
+      { label: "Bear", color: "#ef4444", price5: 170, prob: 5, driver: "Revenue growth → 12-14% · P/E crush to 20x" }
     ],
-    risks: [{ r: "Profitability", prob: "Moderate", impact: "Medium", detail: "Margin compression." }],
-    verdict: "DASH має значний дисконт до Base Target ($225). Логістична монополія створює запас міцності.",
-    buyThesis: LOREM_IPSUM
+    risks: [
+      { r: "Valuation Risk", prob: "High", impact: "Extreme", detail: "RS 17 unchanged. Significant P/E compression risk if execution falters." },
+      { r: "Extended OpEx", prob: "Moderate", impact: "High", detail: "Platform + autonomy costs could linger longer than modeled." },
+      { r: "Competition", prob: "Moderate", impact: "High", detail: "Dasher pay model + promo pressure on take rate across verticals." }
+    ],
+    verdict: "DASH торгується біля Base Target ($343) за консенсусом, що дає ~14% CAGR. Проте реальна цінність закладена в 'важелях виконання': прибутковість New Verticals та масштабування реклами можуть вивести EPS на рівень $17.5. RS 17 свідчить про скепсис ринку, що створює вікно для входу до розвороту імпульсу.",
+    buyThesis: "Execution is the story. TIKR consensus $13.7 EPS for 2030 at 25x delivers a 13.8% CAGR - decent, but doesn't clear the high-conviction hurdle. The alpha comes from the three levers: New Verticals (NV) profitability, Ads scaling, and Tech Stack consolidation.\n\nThe Q4'25 call de-risked the NV story significantly with the 'unit economics positive in 2H'26' guide. If NV hits 8% margins and Ads scale to 6% of revenue, EPS targets jump towards $17.5. That's a 19%+ CAGR profile.\n\nRS 17 is the primary near-term headwind; institutional flow hasn't turned yet. However, for a long-term compounder, buying when the execution path is de-risking but the tape is still skeptical is a classic alpha setup. 3-4% position, add on RS recovery >40."
   },
   {
     id: 'fico', 
     ticker: 'FICO', 
     name: 'Fair Isaac Corp', 
-    price: '$1,351.60', 
+    price: '$1,341.00', 
     change: '+1.2%', 
     color: '#3b82f6', 
     logo: 'F',
-    rs: 91,
+    rs: 17,
     rating: 'Strong Buy',
     beta: 1.05,
-    accelerationProb: "30%",
-    timeToMilestone: "3.0 - 4.0 Years",
-    momentumUpside1Y: "+10%",
-    typeLabel: "Financial Services / Data Analytics",
-    dnaTags: ["Pricing Power", "Credit Standard", "DLP Growth", "RS Leader 🟢"],
+    accelerationProb: "55-70% (P(15%+))",
+    timeToMilestone: "5.0 Years",
+    momentumUpside1Y: "+12%",
+    typeLabel: "Structural Compounder / Financial Data",
+    dnaTags: ["Pricing Power", "Credit Standard", "DLP Growth", "RS 17 🔴", "Platform +33% ARR"],
     stats: [
-      { label: "ЦІНА", value: "$1,351.60", color: "text-white" },
-      { label: "BASE TARGET", value: "$1,825.00", color: "text-blue-400" },
-      { label: "RS RATING", value: "91", color: "text-emerald-400" }
+      { label: "ЦІНА", value: "$1,341.00", color: "text-white" },
+      { label: "BASE TARGET (5Y)", value: "$2,950.00", color: "text-blue-400" },
+      { label: "RS RATING", value: "17", color: "text-rose-500" }
     ],
-    hist: [{ y: "FY24", rev: 1.71, eps: 23.7 }, { y: "FY25E", rev: 1.99, eps: 29.8 }],
+    hist: [
+      { y: "FY24A", rev: 1.71, eps: 23.7 }, 
+      { y: "FY26E", rev: 1.99, eps: 41.22 }
+    ],
     scenarios: [
-      { label: "Bull", color: "#22c55e", price5: 2548, prob: 55, driver: "DLP live + 10T" },
-      { label: "Base", color: "#f59e0b", price5: 1825, prob: 32, driver: "Organic growth" },
-      { label: "Bear", color: "#ef4444", price5: 1100, prob: 13, driver: "Mortgage cycle delay" }
+      { label: "Bull", color: "#22c55e", price5: 3600, prob: 25, driver: "Strong scenario: 20.5% EPS CAGR (High-conviction platform scaling + Mortgage cycle tailwind) @ 35x multiple." },
+      { label: "Base", color: "#f59e0b", price5: 2950, prob: 55, driver: "Organic pricing power + steady buybacks. 19% EPS CAGR @ 30x multiple." },
+      { label: "Bear", color: "#ef4444", price5: 1736, prob: 20, driver: "Mortgage cycle delay + regulatory pushback. 11% EPS CAGR @ 25x multiple." }
     ],
-    risks: [{ r: "Regulatory", prob: "Low", impact: "High", detail: "FHFA parity risks." }],
-    verdict: "Високий RS (91) та монопольне становище при ціні нижче Base Target роблять FICO Strong Buy.",
-    buyThesis: LOREM_IPSUM
+    risks: [
+      { r: "Mortgage Cycle", prob: "Moderate", impact: "High", detail: "Heavy sensitivity to loan origination volumes and FHFA parity rulings." },
+      { r: "Regulatory Risk", prob: "Moderate", impact: "High", detail: "Ongoing scrutiny of scoring monopolies and data privacy standards." },
+      { r: "Pricing Pressure", prob: "Low", impact: "Medium", detail: "Potential for competitive scoring models to gain niche traction." }
+    ],
+    verdict: "Compounder + cyclical tailwind. At ~32.5x forward EPS, a 15%+ CAGR is achievable even with significant P/E compression to 28-30x. Fundamental/Technical divergence creates entry for high-conviction holders.",
+    buyThesis: "The risk/reward is skewed in your favor at ~32x forward. The moat is real, the pricing power is structural, and Q1 showed both segments working. If you have a 3–5 year horizon and can stomach the weak tape, this is a quality compounder at a reasonable entry.\n\nI'd size it as a core position, not a max-conviction bet — and I wouldn't try to time the technical bottom. FICO is the ultimate pricing power story; scores revenue grew 29% in Q1'26, and the platform side is the hidden engine with 33% ARR growth and 122% NRR.\n\nTechnicals (RS 17) reflect a massive divergence from the underlying earnings momentum. While the tape is cold, the execution is at record highs."
   },
   {
     id: 'fn',
@@ -404,7 +418,7 @@ export const INITIAL_STOCKS: Stock[] = [
       { label: "FWD P/E (FY26)", value: "14.4x", color: "text-blue-400" },
       { label: "RS RATING", value: "11", color: "text-rose-500" }
     ],
-    hist: [{ y: "FY23", rev: 7.1, eps: 1.18 }, { y: "FY24", rev: 14.9, eps: 2.21 }],
+    hist: [{ y: "FY23", rev: 7.1, eps: 1.18 }, { y: "FY24", rev: 2.21, eps: 2.21 }],
     scenarios: [
       { label: "Bull", color: "#22c55e", price5: 133, prob: 15, driver: "Rev CAGR 18% + OpM 7.5% + Exit P/E 17x. Client diversification success." },
       { label: "Base", color: "#f59e0b", price5: 65, prob: 52.5, driver: "Rev CAGR 13% + OpM 6.0% + Exit P/E 13x. Steady AI infrastructure adoption." },
