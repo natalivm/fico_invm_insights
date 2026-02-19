@@ -17,6 +17,23 @@ const TooltipStyle = {
   itemStyle: { color: "#e2e8f0" }
 };
 
+// --- Helpers ---
+
+/**
+ * Parses a probability string like "40%" or "45-55%" and returns a single average string "50%".
+ */
+const formatAccelerationScore = (probStr: string): string => {
+  if (!probStr) return "N/A";
+  // Check for range like 45-55 or 45–55
+  const rangeMatch = probStr.match(/(\d+)\s*[-–]\s*(\d+)/);
+  if (rangeMatch) {
+    const low = parseInt(rangeMatch[1], 10);
+    const high = parseInt(rangeMatch[2], 10);
+    return `${Math.round((low + high) / 2)}%`;
+  }
+  return probStr;
+};
+
 // --- Sub-components ---
 
 const Chip: React.FC<{ label: string; val: string; color: string }> = ({ label, val, color }) => (
@@ -68,46 +85,9 @@ export default function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Sync with Live Data on mount - Exclude RS Rating
+  // Sync with Live Data on mount - PAUSED
   useEffect(() => {
-    const syncData = async () => {
-      setIsSyncing(true);
-      try {
-        const tickers = stocks.map(s => s.ticker);
-        const liveData = await getLatestStockData(tickers);
-        
-        if (liveData) {
-          setStocks(currentStocks => 
-            currentStocks.map(stock => {
-              const live = liveData[stock.ticker];
-              if (live) {
-                // Update ONLY price and change. Do NOT update RS or other stats.
-                const updatedStats = stock.stats.map(stat => {
-                   if (stat.label === "ЦІНА") return { ...stat, value: live.price };
-                   // "RS RATING" is skipped here to take it only from provide model
-                   return stat;
-                });
-
-                return {
-                  ...stock,
-                  price: live.price,
-                  change: live.change,
-                  // rs: stock.rs, // Kept as is from original model
-                  stats: updatedStats
-                };
-              }
-              return stock;
-            })
-          );
-        }
-      } catch (error) {
-        console.error("Sync failed:", error);
-      } finally {
-        setIsSyncing(false);
-      }
-    };
-
-    syncData();
+    // Synchronization is temporarily disabled to keep numbers consistent
   }, []);
 
   const go = useCallback((d: number) => {
@@ -142,8 +122,8 @@ export default function App() {
           <div>
             <h2 className="text-2xl font-black text-white tracking-tight uppercase">Institutional Portfolio</h2>
             <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mt-1">
-              14 Core Positions • Strategic Focus
-              {isSyncing && <span className="ml-2 text-blue-400 animate-pulse">• Updating Prices via Yahoo Finance...</span>}
+              15 Core Positions • Strategic Focus
+              {isSyncing && <span className="ml-2 text-blue-400 animate-pulse">• Updating Prices...</span>}
             </p>
             <div className="h-1 w-12 bg-blue-600 mt-2 rounded-full"></div>
           </div>
@@ -195,6 +175,7 @@ export default function App() {
     const rsRating = selectedStock.rs || 0;
     const rsColor = rsRating >= 80 ? '#10b981' : rsRating < 40 ? '#f43f5e' : '#94a3b8';
     const rsStatus = rsRating >= 80 ? 'Leader' : rsRating < 40 ? 'Lagging' : 'Consolidating';
+    const is3Y = selectedStock.ticker === 'ANET';
 
     return (
       <div className="max-w-6xl mx-auto space-y-12 animate-in fade-in duration-500 pb-24">
@@ -213,11 +194,14 @@ export default function App() {
               )}
             </div>
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-5">
-              {selectedStock.stats.map((st, idx) => (
-                <Chip key={idx} label={st.label} val={st.value} color={st.label.includes('TARGET') ? '#10b981' : '#3b82f6'} />
+            <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-5">
+              {selectedStock.stats.filter(s => s.label !== "RS RATING").map((st, idx) => (
+                <Chip key={idx} label={st.label} val={st.value} color={st.label.includes('TARGET') || st.label.includes('VALUE') ? '#10b981' : '#3b82f6'} />
               ))}
               <Chip label="BETA" val={selectedStock.beta.toString()} color="#a855f7" />
+              <Chip label="UPSIDE (1Y)" val={selectedStock.momentumUpside1Y} color="#38bdf8" />
+              <Chip label="EST. VELOCITY" val={selectedStock.timeToMilestone} color="#f59e0b" />
+              
               <div className="bg-slate-900 border-t-2 rounded-2xl p-4 shadow-xl" style={{ borderColor: rsColor }}>
                 <div className="text-slate-500 text-[10px] uppercase font-bold tracking-widest mb-1">RS RATING</div>
                 <div className="text-2xl font-black tabular-nums" style={{ color: rsColor }}>{rsRating}</div>
@@ -252,7 +236,7 @@ export default function App() {
 
         {slide === 2 && (
           <div className="space-y-10">
-            <h2 className="text-4xl font-black text-white tracking-tight">5-Year Valuation Modeling</h2>
+            <h2 className="text-4xl font-black text-white tracking-tight">{is3Y ? '3-Year' : '5-Year'} Valuation Modeling</h2>
             <div className="grid md:grid-cols-3 gap-8">
               {scenariosData.map((s, i) => (
                 <div key={i} className="bg-[#0e1829] border-t-4 p-8 rounded-[2rem] shadow-2xl transition-all hover:bg-[#111d32]" style={{borderColor: s.color}}>
@@ -329,17 +313,25 @@ export default function App() {
               <div className="text-slate-300 max-w-4xl mx-auto mb-16 text-xl md:text-2xl leading-relaxed font-medium italic">"{selectedStock.verdict}"</div>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-                <div className="bg-slate-900/60 backdrop-blur-sm p-10 rounded-[2.5rem] border border-slate-800 shadow-xl">
-                  <div className="text-[10px] text-slate-500 font-black uppercase tracking-[0.2em] mb-4">5Y Base Target</div>
-                  <div className="text-5xl font-black text-blue-400 tracking-tighter tabular-nums">${(scenariosData.find(s => s.label === 'Base')?.price5 || "N/A")}</div>
+                <div className="bg-slate-900/60 backdrop-blur-sm p-10 rounded-[2.5rem] border border-slate-800 shadow-xl flex flex-col justify-center">
+                  <div className="text-[10px] text-slate-500 font-black uppercase tracking-[0.2em] mb-4">{is3Y ? '3Y' : '5Y'} Base Target</div>
+                  <div className="text-5xl font-black text-blue-400 tracking-tighter tabular-nums mb-6">${(scenariosData.find(s => s.label === 'Base')?.price5 || "N/A")}</div>
+                  <div className="pt-5 border-t border-slate-800/50 flex justify-between items-center">
+                    <div className="text-[9px] text-slate-500 font-black uppercase tracking-widest">Bull Target</div>
+                    <div className="text-xl font-black text-emerald-400 tabular-nums">${(scenariosData.find(s => s.label === 'Bull')?.price5 || "N/A")}</div>
+                  </div>
                 </div>
-                <div className="bg-blue-600/10 backdrop-blur-sm p-10 rounded-[2.5rem] border border-blue-500/30 shadow-xl scale-110 relative z-10">
+                <div className="bg-blue-600/10 backdrop-blur-sm p-10 rounded-[2.5rem] border border-blue-500/30 shadow-xl scale-110 relative z-10 flex flex-col justify-center items-center">
                   <div className="text-[10px] text-blue-400 font-black uppercase tracking-[0.2em] mb-4">Momentum Upside</div>
                   <div className="text-5xl font-black text-blue-400 tracking-tighter">{selectedStock.momentumUpside1Y}</div>
+                  <div className="mt-4 pt-4 border-t border-blue-500/20 w-full text-center">
+                    <div className="text-[9px] text-slate-500 font-black uppercase tracking-widest mb-1">Est. Time to Target</div>
+                    <div className="text-sm font-bold text-slate-300">{selectedStock.timeToMilestone}</div>
+                  </div>
                 </div>
                 <div className="bg-slate-900/60 backdrop-blur-sm p-10 rounded-[2.5rem] border border-slate-800 shadow-xl">
                   <div className="text-[10px] text-slate-500 font-black uppercase tracking-[0.2em] mb-4">Prob of Acceleration</div>
-                  <div className="text-5xl font-black text-emerald-400 tracking-tighter">{selectedStock.accelerationProb}</div>
+                  <div className="text-5xl font-black text-emerald-400 tracking-tighter">{formatAccelerationScore(selectedStock.accelerationProb)}</div>
                 </div>
               </div>
               
@@ -372,7 +364,7 @@ export default function App() {
                 <div className="flex justify-between items-start mb-8 relative z-10">
                    <div>
                      <h3 className="text-pink-500 font-black uppercase tracking-[0.2em] text-xs mb-2">Exclusive Institutional Insight</h3>
-                     <h2 className="text-white text-4xl md:text-5xl font-black tracking-tighter">{selectedStock.ticker} Buy Thesis</h2>
+                     <h2 className="text-white text-4xl md:text-5xl font-black tracking-tighter">{selectedStock.ticker} Thesis</h2>
                    </div>
                    <button 
                      onClick={() => setShowBuyPopup(false)}

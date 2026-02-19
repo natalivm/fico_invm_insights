@@ -1,3 +1,4 @@
+
 import { Stock } from './types';
 
 const LOREM_IPSUM = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.";
@@ -38,32 +39,39 @@ export const INITIAL_STOCKS: Stock[] = [
     id: 'anet',
     ticker: 'ANET',
     name: 'Arista Networks, Inc.',
-    price: '$405.00',
-    change: '+1.2%',
+    price: '$135.90',
+    change: '+0.4%',
     color: '#10b981',
     logo: 'A',
-    rs: 88,
-    rating: 'Buy',
+    rs: 80,
+    rating: 'Hold',
     beta: 1.42,
-    accelerationProb: "40%",
-    timeToMilestone: "1.8 - 2.5 Years",
-    momentumUpside1Y: "+35%",
-    typeLabel: "Structural Compounder / AI Networking",
-    dnaTags: ["Cloud Giant Partner", "Software-Driven", "Margin Leader", "RS Leader 🟢"],
+    accelerationProb: "38%",
+    timeToMilestone: "3.0 Years",
+    momentumUpside1Y: "+12%",
+    typeLabel: "AI Networking Leader / Post-Earnings",
+    dnaTags: ["AI Networking $3.25B", "Cloud Giant Partner", "Software-Driven", "RS 80"],
     stats: [
-      { label: "ЦІНА", value: "$405.00", color: "text-white" },
-      { label: "BASE TARGET", value: "$520.00", color: "text-emerald-400" },
-      { label: "RS RATING", value: "88", color: "text-emerald-400" }
+      { label: "ЦІНА", value: "$135.90", color: "text-white" },
+      { label: "BASE TARGET", value: "$135.50", color: "text-amber-400" },
+      { label: "RS RATING", value: "80", color: "text-emerald-400" }
     ],
-    hist: [{ y: "FY23", rev: 5.8, eps: 6.9 }, { y: "FY24", rev: 7.1, eps: 8.4 }],
+    hist: [
+      { y: "FY25A", rev: 7.1, eps: 2.75 },
+      { y: "FY26E", rev: 11.25, eps: 3.19 }
+    ],
     scenarios: [
-      { label: "Bull", color: "#22c55e", price5: 750, prob: 30, driver: "AI Networking dominance" },
-      { label: "Base", color: "#f59e0b", price5: 520, prob: 45, driver: "Steady 20% CAGR" },
-      { label: "Bear", color: "#ef4444", price5: 310, prob: 25, driver: "Hyperscale digestion" }
+      { label: "Bull", color: "#22c55e", price5: 195, prob: 25, driver: "AI supercycle extends + 1.6T ramps in 2027 + margin recovery" },
+      { label: "Base", color: "#f59e0b", price5: 135, prob: 50, driver: "Execution holds but P/E compresses from 49x to 30x (flat return)" },
+      { label: "Bear", color: "#ef4444", price5: 95, prob: 25, driver: "Growth halves + memory/silicon squeeze + market re-rates to 25x" }
     ],
-    risks: [{ r: "Concentration", prob: "Low", impact: "High", detail: "Exposure to cloud giants." }],
-    verdict: "ANET демонструє високу відносну силу. Значний дисконт до Base Target ($520) підтверджує рейтинг Buy.",
-    buyThesis: LOREM_IPSUM
+    risks: [
+      { r: "Multiple Compression", prob: "High", impact: "Extreme", detail: "P/E derating from 49x to 30x can erase all EPS growth gains." },
+      { r: "Concentration", prob: "Moderate", impact: "High", detail: "Heavy reliance on hyperscaler CapEx cycles." },
+      { r: "Memory Pricing", prob: "Moderate", impact: "Medium", detail: "Supply chain costs impacting gross margins (62-64% guide)." }
+    ],
+    verdict: "ANET — це циклічне зростання + структурний рів. Проблема не в бізнесі, а в оцінці: стиснення мультиплікатора з 49x до 30x може обнулити весь ріст EPS. Базовий сценарій — флет.",
+    buyThesis: "the base case gives you ~0% CAGR over 3 years. EPS grows from $3.19 to $4.51 — solid business execution — but P/E compression from 49x to 30x eats all of it. You hold for three years and get your money back.\n\nEven the bull case only delivers ~8-9% on a 3Y hold, and that requires the AI supercycle to extend, 1.6T to hit production on time, margins to recover, AND the market to keep paying 35x. That's a lot of \"ands\" for single-digit returns. Becomes interesting at $100–110. Until then, watchlist."
   },
   {
     id: 'aph',
@@ -262,7 +270,7 @@ export const INITIAL_STOCKS: Stock[] = [
     rs: 22,
     rating: 'Buy',
     beta: 1.62,
-    accelerationProb: "45–55%",
+    accelerationProb: "50%",
     timeToMilestone: "3.0 - 5.0 Years",
     momentumUpside1Y: "+41%",
     typeLabel: "A) Structural Compounder / LATAM Giant",
@@ -315,6 +323,44 @@ export const INITIAL_STOCKS: Stock[] = [
     risks: [{ r: "Cyclical Peak", prob: "Moderate", impact: "High", detail: "Risk of CapEx overbuild." }],
     verdict: "Екстремальний RS (98) та величезний дисконт до Base Target ($210) роблять NVDA безальтернативним Strong Buy.",
     buyThesis: LOREM_IPSUM
+  },
+  {
+    id: 'panw',
+    ticker: 'PANW',
+    name: 'Palo Alto Networks, Inc.',
+    price: '$150.11',
+    change: '-0.45%',
+    color: '#3b82f6',
+    logo: 'P',
+    rs: 15,
+    rating: 'Buy',
+    beta: 1.22,
+    accelerationProb: "40%",
+    timeToMilestone: "5.0 Years",
+    momentumUpside1Y: "+11.5%",
+    typeLabel: "Structural Compounder / Cybersecurity",
+    dnaTags: ["Platformization Flywheel", "Cybersecurity Leader", "Execution Story", "RS Weak 🔴"],
+    stats: [
+      { label: "ЦІНА", value: "$150.11", color: "text-white" },
+      { label: "FWD P/E", value: "40.8x", color: "text-slate-400" },
+      { label: "RS RATING", value: "15", color: "text-rose-500" }
+    ],
+    hist: [
+      { y: "FY25A", rev: 8.2, eps: 3.12 },
+      { y: "FY26E", rev: 11.3, eps: 3.68 }
+    ],
+    scenarios: [
+      { label: "Bull", color: "#22c55e", price5: 350, prob: 25, driver: "Platformization flywheel + AI security transition + 40% FCF margin" },
+      { label: "Base", color: "#f59e0b", price5: 259, prob: 50, driver: "15% EPS CAGR execution at 35x normalized exit multiple" },
+      { label: "Bear", color: "#ef4444", price5: 155, prob: 25, driver: "P/E crush to 25x + CyberArk integration bottlenecks" }
+    ],
+    risks: [
+      { r: "Multiple Compression", prob: "High", impact: "Extreme", detail: "Derating to 25x exit multiple kills the 15% return story." },
+      { r: "Integration", prob: "Moderate", impact: "High", detail: "CyberArk and Chronosphere integration complexity." },
+      { r: "Capital Allocation", prob: "Low", impact: "Medium", detail: "Dilution from recent M&A and share issuances." }
+    ],
+    verdict: "PANW — це ставка на виконання стратегії (execution bet). При базовому сценарії 15% росту EPS та мультиплікаторів 35x ми отримуємо ціль $259, що дає ~11.5% річних. Головний ризик — стиснення мультиплікаторів.",
+    buyThesis: "Palo Alto is a structural compounder bet on long-term platformization. While the current RS 15 signals institutional skepticism, the underlying business is transitioning into an AI-first security ecosystem. The 'Base case' delivers ~11–12%/yr, but the real alpha lies in the Bull case ($350) where platform dominance leads to 20%/yr returns.\n\nKey triggers for 2026: Successful integration of CyberArk, hitting the 40% FCF margin target by FY28, and proving that 'platformization' isn't just a buzzword but a real churn-killer. Stress tests show that even with 15% EPS growth, a P/E crush to 25x yields only 4%/yr—making entry price and multiple stability the primary swing factors for this position."
   },
   {
     id: 'smci',
@@ -402,7 +448,7 @@ export const INITIAL_STOCKS: Stock[] = [
       { label: "BASE TARGET", value: "$230.00", color: "text-amber-400" },
       { label: "RS RATING", value: "92", color: "text-emerald-400" }
     ],
-    hist: [{ y: "2023", rev: 2.1, eps: 4.5 }, { y: "2024", rev: 2.4, eps: 6.8 }],
+    hist: [{ y: "2023", rev: 2.1, fcf: 4.5 }, { y: "2024", rev: 2.4, fcf: 6.8 }],
     scenarios: [
       { label: "Bull", color: "#22c55e", price5: 320, prob: 35, driver: "Amazon deal expansion" },
       { label: "Base", color: "#f59e0b", price5: 230, prob: 45, driver: "Steady nuclear execution" },
