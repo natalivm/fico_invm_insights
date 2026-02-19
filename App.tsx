@@ -9,7 +9,7 @@ import { Stock, InvestmentRating } from './types';
 import { INITIAL_STOCKS } from './stocksData';
 
 // --- Constants ---
-const STORAGE_KEY = 'insight_portfolio_v24'; 
+const STORAGE_KEY = 'insight_portfolio_v32'; 
 
 const TooltipStyle = { 
   contentStyle: { background: "#0f172a", border: "1px solid #1e293b", borderRadius: "12px", fontSize: "12px", boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)" },
@@ -81,7 +81,7 @@ export default function App() {
       <div className="max-w-7xl mx-auto">
         <header className="mb-8">
           <h2 className="text-2xl font-black text-white tracking-tight uppercase">Institutional Portfolio</h2>
-          <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mt-1">13 Core Positions • Strategic Focus</p>
+          <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mt-1">14 Core Positions • Strategic Focus</p>
           <div className="h-1 w-12 bg-blue-600 mt-2 rounded-full"></div>
         </header>
         

@@ -2,96 +2,6 @@ import { Stock } from './types';
 
 export const INITIAL_STOCKS: Stock[] = [
   {
-    id: 'nvda',
-    ticker: 'NVDA',
-    name: 'NVIDIA Corporation',
-    price: '$132.50',
-    change: '+2.8%',
-    color: '#76b900',
-    logo: 'N',
-    rs: 98,
-    rating: 'Strong Buy',
-    beta: 1.85,
-    accelerationProb: "85%",
-    timeToMilestone: "1.0 Year",
-    momentumUpside1Y: "+45%",
-    typeLabel: "AI Compute / Data Center Standard",
-    dnaTags: ["AI Sovereign Moat 🟢", "CUDA Ecosystem", "85% Data Center Share", "Margin Leader 🟢"],
-    stats: [
-      { label: "ЦІНА", value: "$132.50", color: "text-white" },
-      { label: "FWD P/E", value: "35.2x", color: "text-slate-400" },
-      { label: "RS RATING", value: "98", color: "text-emerald-400" }
-    ],
-    hist: [{ y: "FY24", rev: 60.9, eps: 1.19 }, { y: "FY25E", rev: 125.8, eps: 2.84 }],
-    scenarios: [
-      { label: "Bull", color: "#22c55e", price5: 350, prob: 40, driver: "Blackwell cycle acceleration + Software rev" },
-      { label: "Base", color: "#f59e0b", price5: 210, prob: 45, driver: "Sustained AI capex at 15% growth" },
-      { label: "Bear", color: "#ef4444", price5: 95, prob: 15, driver: "Major cloud client digestion phase" }
-    ],
-    risks: [{ r: "Cyclical Peak", prob: "Moderate", impact: "High", detail: "Risk of hyperscaler CapEx overbuild." }],
-    verdict: "NVDA залишається безальтернативним лідером AI-епохи. Blackwell — це не просто чіп, а нова обчислювальна платформа."
-  },
-  {
-    id: 'avgo',
-    ticker: 'AVGO',
-    name: 'Broadcom Inc.',
-    price: '$174.50',
-    change: '+1.2%',
-    color: '#3b82f6',
-    logo: 'B',
-    rs: 84,
-    rating: 'Strong Buy',
-    beta: 1.48,
-    accelerationProb: "70%",
-    timeToMilestone: "2.0 Years",
-    momentumUpside1Y: "+25%",
-    typeLabel: "AI Infrastructure / Custom Silicon",
-    dnaTags: ["AI Networking Giant", "Custom Silicon Moat", "VMware Synergy", "RS Leader 🟢"],
-    stats: [
-      { label: "ЦІНА", value: "$174.50", color: "text-white" },
-      { label: "BASE TARGET", value: "$215.00", color: "text-blue-400" },
-      { label: "RS RATING", value: "84", color: "text-emerald-400" }
-    ],
-    hist: [{ y: "FY23", rev: 35.8, eps: 4.22 }, { y: "FY24", rev: 51.1, eps: 4.85 }],
-    scenarios: [
-      { label: "Bull", color: "#22c55e", price5: 280, prob: 35, driver: "Custom AI chip explosion" },
-      { label: "Base", color: "#f59e0b", price5: 215, prob: 50, driver: "VMware integration success" },
-      { label: "Bear", color: "#ef4444", price5: 145, prob: 15, driver: "Enterprise software slowdown" }
-    ],
-    risks: [{ r: "Integration Risk", prob: "Low", impact: "Medium", detail: "VMware complexity." }],
-    verdict: "AVGO — другий за значимістю гравець в AI після Nvidia завдяки домінуванню в мережевих технологіях."
-  },
-  {
-    id: 'tln',
-    ticker: 'TLN',
-    name: 'Talen Energy Corporation',
-    price: '$185.20',
-    change: '+3.4%',
-    color: '#f59e0b',
-    logo: 'T',
-    rs: 92,
-    rating: 'Buy',
-    beta: 1.35,
-    accelerationProb: "60%",
-    timeToMilestone: "2.0 Years",
-    momentumUpside1Y: "+30%",
-    typeLabel: "Independent Power / Data Center",
-    dnaTags: ["Nuclear Base Load", "Data Center Co-location", "Regulatory Moat", "RS Leader 🟢"],
-    stats: [
-      { label: "ЦІНА", value: "$185.20", color: "text-white" },
-      { label: "BASE TARGET", value: "$230.00", color: "text-amber-400" },
-      { label: "RS RATING", value: "92", color: "text-emerald-400" }
-    ],
-    hist: [{ y: "2023", rev: 2.1, eps: 4.5 }, { y: "2024", rev: 2.4, eps: 6.8 }],
-    scenarios: [
-      { label: "Bull", color: "#22c55e", price5: 320, prob: 35, driver: "Amazon deal expansion" },
-      { label: "Base", color: "#f59e0b", price5: 230, prob: 45, driver: "Steady nuclear contract execution" },
-      { label: "Bear", color: "#ef4444", price5: 140, prob: 20, driver: "FERC regulatory pushback" }
-    ],
-    risks: [{ r: "Regulatory", prob: "Moderate", impact: "High", detail: "Grid interconnection rulings." }],
-    verdict: "TLN — унікальний актив у секторі енергетики завдяки атомній генерації."
-  },
-  {
     id: 'amat',
     ticker: 'AMAT',
     name: 'Applied Materials, Inc.',
@@ -119,37 +29,7 @@ export const INITIAL_STOCKS: Stock[] = [
       { label: "Bear", color: "#ef4444", price5: 155, prob: 20, driver: "China export restriction shock" }
     ],
     risks: [{ r: "Geopolitical", prob: "High", impact: "High", detail: "Restrictions on tools." }],
-    verdict: "AMAT — хребет напівпровідникової галузі з найширшим портфелем інструментів."
-  },
-  {
-    id: 'dash',
-    ticker: 'DASH',
-    name: 'DoorDash, Inc.',
-    price: '$175.40',
-    change: '+1.5%',
-    color: '#FF3008',
-    logo: 'D',
-    rs: 57,
-    rating: 'Hold',
-    beta: 1.55,
-    accelerationProb: "25%",
-    timeToMilestone: "3.5 Years",
-    momentumUpside1Y: "+12%",
-    typeLabel: "Logistics & Marketplace",
-    dnaTags: ["Market Leader", "Logistic Moat 🟢", "RS Average", "Frequency Driver"],
-    stats: [
-      { label: "ЦІНА", value: "$175.40", color: "text-white" },
-      { label: "BASE TARGET", value: "$225.00", color: "text-emerald-400" },
-      { label: "RS RATING", value: "57", color: "text-slate-400" }
-    ],
-    hist: [{ y: "2023", rev: 8.6, eps: -1.4 }, { y: "2024", rev: 10.1, eps: 0.2 }],
-    scenarios: [
-      { label: "Bull", color: "#22c55e", price5: 350, prob: 30, driver: "Ads revenue scaling" },
-      { label: "Base", color: "#f59e0b", price5: 225, prob: 50, driver: "Steady 15% GOV growth" },
-      { label: "Bear", color: "#ef4444", price5: 130, prob: 20, driver: "Consumer slowdown" }
-    ],
-    risks: [{ r: "Profitability", prob: "Moderate", impact: "Medium", detail: "Margin compression in logistics." }],
-    verdict: "DASH демонструє силу в логістиці, але потребує вищої маржинальності."
+    verdict: "AMAT — хребет напівпровідникової галузі. Ціна значно нижча за Base Target, що робить її привабливою для входу."
   },
   {
     id: 'anet',
@@ -179,67 +59,67 @@ export const INITIAL_STOCKS: Stock[] = [
       { label: "Bear", color: "#ef4444", price5: 310, prob: 25, driver: "Hyperscale digestion" }
     ],
     risks: [{ r: "Concentration", prob: "Low", impact: "High", detail: "Exposure to cloud giants." }],
-    verdict: "ANET — це найякісніший play на AI networking. RS 88 підтверджує лідерство."
+    verdict: "ANET демонструє високу відносну силу. Значний дисконт до Base Target ($520) підтверджує рейтинг Buy."
   },
   {
-    id: 'wwd',
-    ticker: 'WWD',
-    name: 'Woodward, Inc.',
-    price: '$182.40',
-    change: '+0.4%',
-    color: '#3b82f6',
-    logo: 'W',
-    rs: 72,
-    rating: 'Buy',
-    beta: 1.15,
-    accelerationProb: "35%",
-    timeToMilestone: "3.5 Years",
-    momentumUpside1Y: "+15%",
-    typeLabel: "Aerospace & Energy Cycle",
-    dnaTags: ["Aerospace Cycle", "High OE Exposure", "Margin Expansion", "Industrial Moat"],
+    id: 'aph',
+    ticker: 'APH',
+    name: 'Amphenol Corporation',
+    price: '$147.70',
+    change: '+0.2%',
+    color: '#38bdf8',
+    logo: 'A',
+    rs: 91,
+    rating: 'Strong Buy',
+    beta: 0.95,
+    accelerationProb: "55%",
+    timeToMilestone: "3.0 Years",
+    momentumUpside1Y: "+18%",
+    typeLabel: "Electronic Components / AI Infrastructure",
+    dnaTags: ["IT Datacom (AI) 36%", "B2B Leader 1.31x", "Margin Expansion 🟢", "RS Leader 🟢"],
     stats: [
-      { label: "ЦІНА", value: "$182.40", color: "text-white" },
-      { label: "FAIR VALUE", value: "$210.00", color: "text-blue-400" },
-      { label: "RS RATING", value: "72", color: "text-slate-400" }
+      { label: "ЦІНА", value: "$147.70", color: "text-white" },
+      { label: "FWD P/E", value: "44.2x", color: "text-slate-400" },
+      { label: "RS RATING", value: "91", color: "text-emerald-400" }
     ],
-    hist: [{ y: "FY23", rev: 2.9, eps: 4.1 }, { y: "FY24", rev: 3.3, eps: 5.8 }],
+    hist: [{ y: "FY25A", rev: 23.1, eps: 3.34 }, { y: "FY26E", rev: 27.2, eps: 3.49 }],
     scenarios: [
-      { label: "Bull", color: "#22c55e", price5: 320, prob: 25, driver: "Aerospace production surge" },
-      { label: "Base", color: "#f59e0b", price5: 245, prob: 50, driver: "Steady margin expansion" },
-      { label: "Bear", color: "#ef4444", price5: 160, prob: 25, driver: "Defense budget cuts" }
+      { label: "Bull", color: "#22c55e", price5: 254, prob: 30, driver: "AI supercycle + defense, premium multiple" },
+      { label: "Base", color: "#f59e0b", price5: 168, prob: 50, driver: "AI datacom sustains, stable margins" },
+      { label: "Bear", color: "#ef4444", price5: 97, prob: 20, driver: "AI cycle fades, multiple derating to 22x" }
     ],
-    risks: [{ r: "Supply Chain", prob: "Moderate", impact: "Medium", detail: "Component delivery issues." }],
-    verdict: "WWD — стійкий промисловий гравець з високою часткою оригінального обладнання."
+    risks: [{ r: "Multiple Compression", prob: "High", impact: "Extreme", detail: "Derating risk if AI cycle fades." }],
+    verdict: "Винятковий RS (91) та позиція близько до Base Target роблять APH пріоритетним вибором (Strong Buy)."
   },
   {
-    id: 'fn',
-    ticker: 'FN',
-    name: 'Fabrinet',
-    price: '$245.00',
-    change: '-0.3%',
-    color: '#a855f7',
-    logo: 'F',
-    rs: 58,
-    rating: 'Hold',
-    beta: 1.65,
-    accelerationProb: "50%",
+    id: 'avgo',
+    ticker: 'AVGO',
+    name: 'Broadcom Inc.',
+    price: '$174.50',
+    change: '+1.2%',
+    color: '#3b82f6',
+    logo: 'B',
+    rs: 84,
+    rating: 'Buy',
+    beta: 1.48,
+    accelerationProb: "70%",
     timeToMilestone: "2.0 Years",
     momentumUpside1Y: "+25%",
-    typeLabel: "Optical Communications / AI",
-    dnaTags: ["AI Transceiver Play", "NVDA Supply Chain", "Execution Leader"],
+    typeLabel: "AI Infrastructure / Custom Silicon",
+    dnaTags: ["AI Networking Giant", "Custom Silicon Moat", "VMware Synergy", "RS Leader 🟢"],
     stats: [
-      { label: "ЦІНА", value: "$245.00", color: "text-white" },
-      { label: "BASE TARGET", value: "$295.00", color: "text-purple-400" },
-      { label: "RS RATING", value: "58", color: "text-slate-400" }
+      { label: "ЦІНА", value: "$174.50", color: "text-white" },
+      { label: "BASE TARGET", value: "$215.00", color: "text-blue-400" },
+      { label: "RS RATING", value: "84", color: "text-emerald-400" }
     ],
-    hist: [{ y: "FY23", rev: 2.6, eps: 7.7 }, { y: "FY24", rev: 2.8, eps: 8.3 }],
+    hist: [{ y: "FY23", rev: 35.8, eps: 4.22 }, { y: "FY24", rev: 51.1, eps: 4.85 }],
     scenarios: [
-      { label: "Bull", color: "#22c55e", price5: 410, prob: 35, driver: "800G/1.6T hyper-adoption" },
-      { label: "Base", color: "#f59e0b", price5: 295, prob: 45, driver: "Steady NVDA partnership" },
-      { label: "Bear", color: "#ef4444", price5: 190, prob: 20, driver: "Tech transition lag" }
+      { label: "Bull", color: "#22c55e", price5: 280, prob: 35, driver: "Custom AI chip explosion" },
+      { label: "Base", color: "#f59e0b", price5: 215, prob: 50, driver: "VMware integration success" },
+      { label: "Bear", color: "#ef4444", price5: 145, prob: 15, driver: "Enterprise software slowdown" }
     ],
-    risks: [{ r: "Customer Concentration", prob: "High", impact: "High", detail: "Nvidia dependency." }],
-    verdict: "FN — ключовий партнер Nvidia в оптиці. Має чудовий FCF."
+    risks: [{ r: "Integration Risk", prob: "Low", impact: "Medium", detail: "VMware complexity." }],
+    verdict: "AVGO торгується з дисконтом ~20% до базової цілі. Фундаментальний лідер у мережевих технологіях."
   },
   {
     id: 'cls',
@@ -269,7 +149,190 @@ export const INITIAL_STOCKS: Stock[] = [
       { label: "Bear", color: "#ef4444", price5: 75, prob: 15, driver: "Industrial segment drag" }
     ],
     risks: [{ r: "Cyclical EMS", prob: "Low", impact: "Medium", detail: "Cycle exposure." }],
-    verdict: "CLS переживає фундаментальне переосмислення ринком — до AI-партнера з високою маржею."
+    verdict: "Поєднання екстремального RS (94) та позиції значно нижче Base Target робить CLS Strong Buy."
+  },
+  {
+    id: 'dash',
+    ticker: 'DASH',
+    name: 'DoorDash, Inc.',
+    price: '$175.40',
+    change: '+1.5%',
+    color: '#FF3008',
+    logo: 'D',
+    rs: 57,
+    rating: 'Buy',
+    beta: 1.55,
+    accelerationProb: "25%",
+    timeToMilestone: "3.5 Years",
+    momentumUpside1Y: "+12%",
+    typeLabel: "Logistics & Marketplace",
+    dnaTags: ["Market Leader", "Logistic Moat 🟢", "RS Average", "Frequency Driver"],
+    stats: [
+      { label: "ЦІНА", value: "$175.40", color: "text-white" },
+      { label: "BASE TARGET", value: "$225.00", color: "text-emerald-400" },
+      { label: "RS RATING", value: "57", color: "text-slate-400" }
+    ],
+    hist: [{ y: "2023", rev: 8.6, eps: -1.4 }, { y: "2024", rev: 10.1, eps: 0.2 }],
+    scenarios: [
+      { label: "Bull", color: "#22c55e", price5: 350, prob: 30, driver: "Ads revenue scaling" },
+      { label: "Base", color: "#f59e0b", price5: 225, prob: 50, driver: "Steady 15% GOV growth" },
+      { label: "Bear", color: "#ef4444", price5: 130, prob: 20, driver: "Consumer slowdown" }
+    ],
+    risks: [{ r: "Profitability", prob: "Moderate", impact: "Medium", detail: "Margin compression." }],
+    verdict: "DASH має значний дисконт до Base Target ($225). Логістична монополія створює запас міцності."
+  },
+  {
+    id: 'fico', 
+    ticker: 'FICO', 
+    name: 'Fair Isaac Corp', 
+    price: '$1,351.60', 
+    change: '+1.2%', 
+    color: '#3b82f6', 
+    logo: 'F',
+    rs: 91,
+    rating: 'Strong Buy',
+    beta: 1.05,
+    accelerationProb: "30%",
+    timeToMilestone: "3.0 - 4.0 Years",
+    momentumUpside1Y: "+10%",
+    typeLabel: "Financial Services / Data Analytics",
+    dnaTags: ["Pricing Power", "Credit Standard", "DLP Growth", "RS Leader 🟢"],
+    stats: [
+      { label: "ЦІНА", value: "$1,351.60", color: "text-white" },
+      { label: "BASE TARGET", value: "$1,825.00", color: "text-blue-400" },
+      { label: "RS RATING", value: "91", color: "text-emerald-400" }
+    ],
+    hist: [{ y: "FY24", rev: 1.71, eps: 23.7 }, { y: "FY25E", rev: 1.99, eps: 29.8 }],
+    scenarios: [
+      { label: "Bull", color: "#22c55e", price5: 2548, prob: 55, driver: "DLP live + 10T" },
+      { label: "Base", color: "#f59e0b", price5: 1825, prob: 32, driver: "Organic growth" },
+      { label: "Bear", color: "#ef4444", price5: 1100, prob: 13, driver: "Mortgage cycle delay" }
+    ],
+    risks: [{ r: "Regulatory", prob: "Low", impact: "High", detail: "FHFA parity risks." }],
+    verdict: "Високий RS (91) та монопольне становище при ціні нижче Base Target роблять FICO Strong Buy."
+  },
+  {
+    id: 'fn',
+    ticker: 'FN',
+    name: 'Fabrinet',
+    price: '$245.00',
+    change: '-0.3%',
+    color: '#a855f7',
+    logo: 'F',
+    rs: 58,
+    rating: 'Buy',
+    beta: 1.65,
+    accelerationProb: "50%",
+    timeToMilestone: "2.0 Years",
+    momentumUpside1Y: "+25%",
+    typeLabel: "Optical Communications / AI",
+    dnaTags: ["AI Transceiver Play", "NVDA Supply Chain", "Execution Leader"],
+    stats: [
+      { label: "ЦІНА", value: "$245.00", color: "text-white" },
+      { label: "BASE TARGET", value: "$295.00", color: "text-purple-400" },
+      { label: "RS RATING", value: "58", color: "text-slate-400" }
+    ],
+    hist: [{ y: "FY23", rev: 2.6, eps: 7.7 }, { y: "FY24", rev: 2.8, eps: 8.3 }],
+    scenarios: [
+      { label: "Bull", color: "#22c55e", price5: 410, prob: 35, driver: "800G/1.6T hyper-adoption" },
+      { label: "Base", color: "#f59e0b", price5: 295, prob: 45, driver: "Steady NVDA partnership" },
+      { label: "Bear", color: "#ef4444", price5: 190, prob: 20, driver: "Tech transition lag" }
+    ],
+    risks: [{ r: "Customer Concentration", prob: "High", impact: "High", detail: "Nvidia dependency." }],
+    verdict: "Ціна значно нижча за Base Target. FN залишається ключовим бенефіціаром оптичного буму."
+  },
+  {
+    id: 'meli',
+    ticker: 'MELI',
+    name: 'MercadoLibre, Inc.',
+    price: '$2,035.00',
+    change: '-1.2%',
+    color: '#f59e0b',
+    logo: 'M',
+    rs: 22,
+    rating: 'Buy',
+    beta: 1.62,
+    accelerationProb: "45–55%",
+    timeToMilestone: "3.0 - 5.0 Years",
+    momentumUpside1Y: "+41%",
+    typeLabel: "A) Structural Compounder / LATAM Giant",
+    dnaTags: ["E-commerce Moat", "Fintech Leader 🟢", "RS Lagging 🔴", "FCF Machine 🟢"],
+    stats: [
+      { label: "ЦІНА", value: "$2,035.00", color: "text-white" },
+      { label: "BASE TARGET", value: "$2,878.00", color: "text-amber-400" },
+      { label: "RS RATING", value: "22", color: "text-rose-500" }
+    ],
+    hist: [{ y: "FY23", rev: 14.5, eps: 19.46 }, { y: "FY24", rev: 20.8, eps: 38.40 }],
+    scenarios: [
+      { label: "Bull", color: "#22c55e", price5: 3500, prob: 25, driver: "Margin inflection + re-rating" },
+      { label: "Base", color: "#f59e0b", price5: 2878, prob: 45, driver: "Execution holds, margin delay" },
+      { label: "Bear", color: "#ef4444", price5: 2136, prob: 30, driver: "Decel + multiple compression" }
+    ],
+    risks: [
+      { r: "Margin Compression", prob: "High", impact: "High", detail: "Extended investment mode depressing EPS." },
+      { r: "LATAM Macro", prob: "High", impact: "Moderate", detail: "FX volatility in Brazil/Argentina." }
+    ],
+    verdict: "При ціні $2,035 MELI торгується нижче Bear Case ($2,136), що створює значну недооціненість попри слабкий RS. Це довгострокова ставка на екосистему LATAM."
+  },
+  {
+    id: 'nvda',
+    ticker: 'NVDA',
+    name: 'NVIDIA Corporation',
+    price: '$132.50',
+    change: '+2.8%',
+    color: '#76b900',
+    logo: 'N',
+    rs: 98,
+    rating: 'Strong Buy',
+    beta: 1.85,
+    accelerationProb: "85%",
+    timeToMilestone: "1.0 Year",
+    momentumUpside1Y: "+45%",
+    typeLabel: "AI Compute / Data Center Standard",
+    dnaTags: ["AI Sovereign Moat 🟢", "CUDA Ecosystem", "85% Data Center Share", "Margin Leader 🟢"],
+    stats: [
+      { label: "ЦІНА", value: "$132.50", color: "text-white" },
+      { label: "FWD P/E", value: "35.2x", color: "text-slate-400" },
+      { label: "RS RATING", value: "98", color: "text-emerald-400" }
+    ],
+    hist: [{ y: "FY24", rev: 60.9, eps: 1.19 }, { y: "FY25E", rev: 125.8, eps: 2.84 }],
+    scenarios: [
+      { label: "Bull", color: "#22c55e", price5: 350, prob: 40, driver: "Blackwell cycle acceleration" },
+      { label: "Base", color: "#f59e0b", price5: 210, prob: 45, driver: "Sustained AI capex" },
+      { label: "Bear", color: "#ef4444", price5: 95, prob: 15, driver: "Cloud client digestion" }
+    ],
+    risks: [{ r: "Cyclical Peak", prob: "Moderate", impact: "High", detail: "Risk of CapEx overbuild." }],
+    verdict: "Екстремальний RS (98) та величезний дисконт до Base Target ($210) роблять NVDA безальтернативним Strong Buy."
+  },
+  {
+    id: 'smci',
+    ticker: 'SMCI',
+    name: 'Super Micro Computer, Inc.',
+    price: '$31.80',
+    change: '+9.7%',
+    color: '#3b82f6',
+    logo: 'S',
+    rs: 11,
+    rating: 'Buy',
+    beta: 2.10,
+    accelerationProb: "15%",
+    timeToMilestone: "5.0+ Years",
+    momentumUpside1Y: "+40%",
+    typeLabel: "AI Hardware / High-Density Storage",
+    dnaTags: ["Recovering Momentum 🟢", "Audit Risk 🔴", "RS Lagging 🔴", "Growth Cushion"],
+    stats: [
+      { label: "ЦІНА", value: "$31.80", color: "text-white" },
+      { label: "FWD P/E", value: "7.1x", color: "text-blue-400" },
+      { label: "RS RATING", value: "11", color: "text-rose-500" }
+    ],
+    hist: [{ y: "FY23", rev: 7.1, eps: 1.18 }, { y: "FY24", rev: 14.9, eps: 2.21 }],
+    scenarios: [
+      { label: "Bull", color: "#22c55e", price5: 110, prob: 10, driver: "Clean audit + liquid cooling shift" },
+      { label: "Base", color: "#f59e0b", price5: 55, prob: 30, driver: "Avoids delisting, low multiple" },
+      { label: "Bear", color: "#ef4444", price5: 32, prob: 60, driver: "Floor is found despite structural issues" }
+    ],
+    risks: [{ r: "Regulatory/Legal", prob: "Extreme", impact: "Extreme", detail: "Audit crisis." }],
+    verdict: "Навіть при рості до $31.80 акція торгується нижче Bear Case ($32) та значно нижче Base Target ($55). Математично це Buy через колосальний асиметричний потенціал."
   },
   {
     id: 'spot',
@@ -299,96 +362,66 @@ export const INITIAL_STOCKS: Stock[] = [
       { label: "Bear", color: "#ef4444", price5: 400, prob: 25, driver: "Rev slowdown" }
     ],
     risks: [{ r: "Margin Stagnation", prob: "Moderate", impact: "High", detail: "Content costs." }],
-    verdict: "SPOT — фундаментальна ракета. База клієнтів монолітна."
+    verdict: "Високий RS (96) та позиція біля Base Target підтверджують преміальний статус Strong Buy."
   },
   {
-    id: 'fico', 
-    ticker: 'FICO', 
-    name: 'Fair Isaac Corp', 
-    price: '$1,351.60', 
-    change: '+1.2%', 
-    color: '#3b82f6', 
-    logo: 'F',
-    rs: 91,
-    rating: 'Hold',
-    beta: 1.05,
-    accelerationProb: "30%",
-    timeToMilestone: "3.0 - 4.0 Years",
-    momentumUpside1Y: "+10%",
-    typeLabel: "Financial Services / Data Analytics",
-    dnaTags: ["Pricing Power", "Credit Standard", "DLP Growth", "RS Leader 🟢"],
+    id: 'tln',
+    ticker: 'TLN',
+    name: 'Talen Energy Corporation',
+    price: '$185.20',
+    change: '+3.4%',
+    color: '#f59e0b',
+    logo: 'T',
+    rs: 92,
+    rating: 'Strong Buy',
+    beta: 1.35,
+    accelerationProb: "60%",
+    timeToMilestone: "2.0 Years",
+    momentumUpside1Y: "+30%",
+    typeLabel: "Independent Power / Data Center",
+    dnaTags: ["Nuclear Base Load", "Data Center Co-location", "Regulatory Moat", "RS Leader 🟢"],
     stats: [
-      { label: "ЦІНА", value: "$1,351.60", color: "text-white" },
-      { label: "BASE TARGET", value: "$1,825.00", color: "text-blue-400" },
-      { label: "RS RATING", value: "91", color: "text-emerald-400" }
+      { label: "ЦІНА", value: "$185.20", color: "text-white" },
+      { label: "BASE TARGET", value: "$230.00", color: "text-amber-400" },
+      { label: "RS RATING", value: "92", color: "text-emerald-400" }
     ],
-    hist: [{ y: "FY24", rev: 1.71, eps: 23.7 }, { y: "FY25E", rev: 1.99, eps: 29.8 }],
+    hist: [{ y: "2023", rev: 2.1, eps: 4.5 }, { y: "2024", rev: 2.4, eps: 6.8 }],
     scenarios: [
-      { label: "Bull", color: "#22c55e", price5: 2548, prob: 55, driver: "DLP live + 10T" },
-      { label: "Base", color: "#f59e0b", price5: 1825, prob: 32, driver: "Organic growth" },
-      { label: "Bear", color: "#ef4444", price5: 1100, prob: 13, driver: "Mortgage cycle delay" }
+      { label: "Bull", color: "#22c55e", price5: 320, prob: 35, driver: "Amazon deal expansion" },
+      { label: "Base", color: "#f59e0b", price5: 230, prob: 45, driver: "Steady nuclear execution" },
+      { label: "Bear", color: "#ef4444", price5: 140, prob: 20, driver: "Regulatory pushback" }
     ],
-    risks: [{ r: "Regulatory", prob: "Low", impact: "High", detail: "FHFA parity risks." }],
-    verdict: "Монопольне становище у сфері кредитних рейтингів робить FICO ідеальним compounder."
+    risks: [{ r: "Regulatory", prob: "Moderate", impact: "High", detail: "Grid rulings." }],
+    verdict: "Енергетичний лідер з RS 92. Торгується з дисконтом до Base Target, що робить акцію Strong Buy."
   },
   {
-    id: 'smci',
-    ticker: 'SMCI',
-    name: 'Super Micro Computer, Inc.',
-    price: '$45.20',
-    change: '-2.4%',
-    color: '#ef4444',
-    logo: 'S',
-    rs: 13,
-    rating: 'Sell',
-    beta: 2.10,
-    accelerationProb: "15%",
-    timeToMilestone: "5.0+ Years",
-    momentumUpside1Y: "-20%",
-    typeLabel: "AI Hardware / High-Density Storage",
-    dnaTags: ["Governance Concerns 🔴", "Audit Risk 🔴", "RS Lagging 🔴", "Margin Pressure"],
-    stats: [
-      { label: "ЦІНА", value: "$45.20", color: "text-white" },
-      { label: "FWD P/E", value: "8.5x", color: "text-rose-500" },
-      { label: "RS RATING", value: "13", color: "text-rose-500" }
-    ],
-    hist: [{ y: "FY23", rev: 7.1, eps: 1.18 }, { y: "FY24", rev: 14.9, eps: 2.21 }],
-    scenarios: [
-      { label: "Bull", color: "#22c55e", price5: 110, prob: 10, driver: "Clean audit + massive liquid cooling shift" },
-      { label: "Base", color: "#f59e0b", price5: 55, prob: 30, driver: "Ongoing volatility, low multiple" },
-      { label: "Bear", color: "#ef4444", price5: 20, prob: 60, driver: "Exchange delisting + forensic audit findings" }
-    ],
-    risks: [{ r: "Regulatory/Legal", prob: "Extreme", impact: "Extreme", detail: "SEC investigations and auditor resignation." }],
-    verdict: "SMCI залишається найбільш ризикованим активом. Поки корпоративне управління не буде виправлено, це пастка для покупців."
-  },
-  {
-    id: 'aph',
-    ticker: 'APH',
-    name: 'Amphenol Corporation',
-    price: '$147.70',
-    change: '+0.2%',
-    color: '#38bdf8',
-    logo: 'A',
-    rs: 91,
+    id: 'wwd',
+    ticker: 'WWD',
+    name: 'Woodward, Inc.',
+    price: '$182.40',
+    change: '+0.4%',
+    color: '#3b82f6',
+    logo: 'W',
+    rs: 72,
     rating: 'Buy',
-    beta: 0.95,
-    accelerationProb: "55%",
-    timeToMilestone: "3.0 Years",
-    momentumUpside1Y: "+18%",
-    typeLabel: "Electronic Components / AI Infrastructure",
-    dnaTags: ["IT Datacom (AI) 36%", "B2B Leader 1.31x", "Margin Expansion 🟢", "RS Leader 🟢"],
+    beta: 1.15,
+    accelerationProb: "35%",
+    timeToMilestone: "3.5 Years",
+    momentumUpside1Y: "+15%",
+    typeLabel: "Aerospace & Energy Cycle",
+    dnaTags: ["Aerospace Cycle", "High OE Exposure", "Margin Expansion", "Industrial Moat"],
     stats: [
-      { label: "ЦІНА", value: "$147.70", color: "text-white" },
-      { label: "FWD P/E", value: "44.2x", color: "text-slate-400" },
-      { label: "RS RATING", value: "91", color: "text-emerald-400" }
+      { label: "ЦІНА", value: "$182.40", color: "text-white" },
+      { label: "FAIR VALUE", value: "$210.00", color: "text-blue-400" },
+      { label: "RS RATING", value: "72", color: "text-slate-400" }
     ],
-    hist: [{ y: "FY25A", rev: 23.1, eps: 3.34 }, { y: "FY26E", rev: 27.2, eps: 3.49 }],
+    hist: [{ y: "FY23", rev: 2.9, eps: 4.1 }, { y: "FY24", rev: 3.3, eps: 5.8 }],
     scenarios: [
-      { label: "Bull", color: "#22c55e", price5: 254, prob: 30, driver: "AI supercycle + defense, premium multiple" },
-      { label: "Base", color: "#f59e0b", price5: 168, prob: 50, driver: "AI datacom sustains, stable margins" },
-      { label: "Bear", color: "#ef4444", price5: 97, prob: 20, driver: "AI cycle fades, multiple derating to 22x" }
+      { label: "Bull", color: "#22c55e", price5: 320, prob: 25, driver: "Aerospace surge" },
+      { label: "Base", color: "#f59e0b", price5: 245, prob: 50, driver: "Steady expansion" },
+      { label: "Bear", color: "#ef4444", price5: 160, prob: 25, driver: "Defense cuts" }
     ],
-    risks: [{ r: "Multiple Compression", prob: "High", impact: "Extreme", detail: "Derating from 44x to 22x is a 50% price risk." }],
-    verdict: "APH — це високоякісний бенефіціар AI-інфраструктури. 36% доходу від Datacom та рекордний Book-to-Bill (1.31x) роблять її стійкою до циклів."
+    risks: [{ r: "Supply Chain", prob: "Moderate", impact: "Medium", detail: "Delivery issues." }],
+    verdict: "Ціна суттєво нижча за внутрішню вартість (Fair Value $210) та Base Target ($245)."
   }
 ];
