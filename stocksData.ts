@@ -1,52 +1,35 @@
-
 import { Stock } from './types';
-
-export const GLOSSARY: Record<string, string> = {
-  "GM": "Gross Margin (Валова маржа) — % прибутку після витрат на виробництво. Низька маржа (як 6.4% у SMCI) означає відсутність цінової влади.",
-  "FCF": "Free Cash Flow (Вільний грошовий потік) — реальні гроші, які залишаються після всіх витрат та інвестицій.",
-  "RS": "Relative Strength (Відносна сила) — показник того, наскільки акція сильніша за ринок за останні 12 місяців (1-99).",
-  "Moat": "Economic Moat (Економічний рів) — конкурентна перевага, що захищає прибутки компанії.",
-  "DLP": "Deep Learning Platform / Data Loop — технологічна перевага в обробці даних.",
-  "WFE": "Wafer Fab Equipment — обладнання для виробництва напівпровідникових пластин.",
-  "Client Conc.": "Концентрація клієнтів — ризик залежності від одного або декількох великих покупців.",
-  "Pricing Power": "Цінова влада — здатність компанії підвищувати ціни без втрати частки ринку.",
-  "Beta": "Бета — міра волатильності акції відносно ринку. >1.0 означає вищу волатильність.",
-  "XPU": "Custom AI Accelerators (TPU/LPU) — спеціалізовані чіпи для ШІ, де Broadcom є лідером проектування.",
-};
 
 export const INITIAL_STOCKS: Stock[] = [
   {
-    id: 'smci',
-    ticker: 'SMCI',
-    name: 'Super Micro Computer, Inc.',
-    price: '$29.70',
-    change: '-2.4%',
-    color: '#ef4444',
-    logo: 'S',
-    rs: 13,
-    rating: 'Sell',
-    beta: 2.15,
-    accelerationProb: "15%",
-    timeToMilestone: "5+ Years",
-    momentumUpside1Y: "-15%",
-    typeLabel: "Cyclical Hardware / Turnaround",
-    dnaTags: ["AI-Capex Amplifier", "63% Client Conc.", "GM 6.4% 🔴", "FCF Negative Q2"],
+    id: 'nvda',
+    ticker: 'NVDA',
+    name: 'NVIDIA Corporation',
+    price: '$132.50',
+    change: '+2.8%',
+    color: '#76b900',
+    logo: 'N',
+    rs: 98,
+    rating: 'Strong Buy',
+    beta: 1.85,
+    accelerationProb: "85%",
+    timeToMilestone: "1.0 Year",
+    momentumUpside1Y: "+45%",
+    typeLabel: "AI Compute / Data Center Standard",
+    dnaTags: ["AI Sovereign Moat 🟢", "CUDA Ecosystem", "85% Data Center Share", "Margin Leader 🟢"],
     stats: [
-      { label: "ЦІНА", value: "$29.70", color: "text-white" },
-      { label: "BASE TARGET", value: "$28.80", color: "text-amber-400" },
-      { label: "RS RATING", value: "13", color: "text-rose-500" }
+      { label: "ЦІНА", value: "$132.50", color: "text-white" },
+      { label: "FWD P/E", value: "35.2x", color: "text-slate-400" },
+      { label: "RS RATING", value: "98", color: "text-emerald-400" }
     ],
-    hist: [{ y: "Q1 FY26", rev: 5.9, eps: 0.75 }, { y: "Q2 FY26", rev: 12.7, eps: 2.20 }],
+    hist: [{ y: "FY24", rev: 60.9, eps: 1.19 }, { y: "FY25E", rev: 125.8, eps: 2.84 }],
     scenarios: [
-      { label: "Bull", color: "#22c55e", price5: 66, prob: 20, driver: "DCBBS Scaling + GM Recovery" },
-      { label: "Base", color: "#f59e0b", price5: 29, prob: 42, driver: "Competitive pressure + thin margins" },
-      { label: "Bear", color: "#ef4444", price5: 12, prob: 38, driver: "Client concentration event + de-rating" }
+      { label: "Bull", color: "#22c55e", price5: 350, prob: 40, driver: "Blackwell cycle acceleration + Software rev" },
+      { label: "Base", color: "#f59e0b", price5: 210, prob: 45, driver: "Sustained AI capex at 15% growth" },
+      { label: "Bear", color: "#ef4444", price5: 95, prob: 15, driver: "Major cloud client digestion phase" }
     ],
-    risks: [
-      { r: "Client Concentration", prob: "High", impact: "Extreme", detail: "One client accounts for ~63% of revenue. Binary risk profile." },
-      { r: "Margin Structural Decline", prob: "High", impact: "High", detail: "Gross margins fell to 6.4% at record revenue, indicating zero pricing power." }
-    ],
-    verdict: "SMCI — це гра на виживання в циклі hardware. RS=13 та падіння маржі до 6.4% сигналізують про структурні проблеми."
+    risks: [{ r: "Cyclical Peak", prob: "Moderate", impact: "High", detail: "Risk of hyperscaler CapEx overbuild." }],
+    verdict: "NVDA залишається безальтернативним лідером AI-епохи. Blackwell — це не просто чіп, а нова обчислювальна платформа."
   },
   {
     id: 'avgo',
@@ -67,16 +50,16 @@ export const INITIAL_STOCKS: Stock[] = [
     stats: [
       { label: "ЦІНА", value: "$174.50", color: "text-white" },
       { label: "BASE TARGET", value: "$215.00", color: "text-blue-400" },
-      { label: "DIV YIELD", value: "1.2%", color: "text-slate-400" }
+      { label: "RS RATING", value: "84", color: "text-emerald-400" }
     ],
     hist: [{ y: "FY23", rev: 35.8, eps: 4.22 }, { y: "FY24", rev: 51.1, eps: 4.85 }],
     scenarios: [
-      { label: "Bull", color: "#22c55e", price5: 280, prob: 35, driver: "Ethernet scale-out + Custom AI chip explosion" },
-      { label: "Base", color: "#f59e0b", price5: 215, prob: 50, driver: "VMware integration success + 15% growth" },
+      { label: "Bull", color: "#22c55e", price5: 280, prob: 35, driver: "Custom AI chip explosion" },
+      { label: "Base", color: "#f59e0b", price5: 215, prob: 50, driver: "VMware integration success" },
       { label: "Bear", color: "#ef4444", price5: 145, prob: 15, driver: "Enterprise software slowdown" }
     ],
-    risks: [{ r: "Integration Risk", prob: "Low", impact: "Medium", detail: "Complexity of fully absorbing VMware operations." }],
-    verdict: "AVGO — другий за значимістю гравець в AI після Nvidia завдяки домінуванню в мережевих технологіях та кастомних чіпах (XPU)."
+    risks: [{ r: "Integration Risk", prob: "Low", impact: "Medium", detail: "VMware complexity." }],
+    verdict: "AVGO — другий за значимістю гравець в AI після Nvidia завдяки домінуванню в мережевих технологіях."
   },
   {
     id: 'tln',
@@ -101,12 +84,12 @@ export const INITIAL_STOCKS: Stock[] = [
     ],
     hist: [{ y: "2023", rev: 2.1, eps: 4.5 }, { y: "2024", rev: 2.4, eps: 6.8 }],
     scenarios: [
-      { label: "Bull", color: "#22c55e", price5: 320, prob: 35, driver: "Amazon deal expansion + hyper-scaling" },
+      { label: "Bull", color: "#22c55e", price5: 320, prob: 35, driver: "Amazon deal expansion" },
       { label: "Base", color: "#f59e0b", price5: 230, prob: 45, driver: "Steady nuclear contract execution" },
       { label: "Bear", color: "#ef4444", price5: 140, prob: 20, driver: "FERC regulatory pushback" }
     ],
-    risks: [{ r: "Regulatory", prob: "Moderate", impact: "High", detail: "Grid interconnection rulings remain a key variable." }],
-    verdict: "TLN — унікальний актив у секторі енергетики завдяки атомній генерації та прямому підключенню дата-центрів."
+    risks: [{ r: "Regulatory", prob: "Moderate", impact: "High", detail: "Grid interconnection rulings." }],
+    verdict: "TLN — унікальний актив у секторі енергетики завдяки атомній генерації."
   },
   {
     id: 'amat',
@@ -127,7 +110,7 @@ export const INITIAL_STOCKS: Stock[] = [
     stats: [
       { label: "ЦІНА", value: "$198.50", color: "text-white" },
       { label: "BASE TARGET", value: "$245.00", color: "text-blue-400" },
-      { label: "PE RATIO", value: "22.5x", color: "text-slate-400" }
+      { label: "RS RATING", value: "68", color: "text-slate-400" }
     ],
     hist: [{ y: "FY23", rev: 26.5, eps: 8.05 }, { y: "FY24", rev: 27.2, eps: 8.35 }],
     scenarios: [
@@ -135,8 +118,8 @@ export const INITIAL_STOCKS: Stock[] = [
       { label: "Base", color: "#f59e0b", price5: 245, prob: 50, driver: "Steady WFE growth" },
       { label: "Bear", color: "#ef4444", price5: 155, prob: 20, driver: "China export restriction shock" }
     ],
-    risks: [{ r: "Geopolitical", prob: "High", impact: "High", detail: "Restrictions on advanced tool exports to China." }],
-    verdict: "AMAT — хребет напівпровідникової галузі. Володіє найширшим портфелем інструментів для наступного покоління чіпів."
+    risks: [{ r: "Geopolitical", prob: "High", impact: "High", detail: "Restrictions on tools." }],
+    verdict: "AMAT — хребет напівпровідникової галузі з найширшим портфелем інструментів."
   },
   {
     id: 'dash',
@@ -146,27 +129,27 @@ export const INITIAL_STOCKS: Stock[] = [
     change: '+1.5%',
     color: '#FF3008',
     logo: 'D',
-    rs: 17,
+    rs: 57,
     rating: 'Hold',
     beta: 1.55,
     accelerationProb: "25%",
     timeToMilestone: "3.5 Years",
     momentumUpside1Y: "+12%",
     typeLabel: "Logistics & Marketplace",
-    dnaTags: ["Market Leader", "Logistic Moat 🟢", "RS Lagging 🔴", "Frequency Driver"],
+    dnaTags: ["Market Leader", "Logistic Moat 🟢", "RS Average", "Frequency Driver"],
     stats: [
       { label: "ЦІНА", value: "$175.40", color: "text-white" },
       { label: "BASE TARGET", value: "$225.00", color: "text-emerald-400" },
-      { label: "RS RATING", value: "17", color: "text-rose-500" }
+      { label: "RS RATING", value: "57", color: "text-slate-400" }
     ],
     hist: [{ y: "2023", rev: 8.6, eps: -1.4 }, { y: "2024", rev: 10.1, eps: 0.2 }],
     scenarios: [
-      { label: "Bull", color: "#22c55e", price5: 350, prob: 30, driver: "Ads revenue scaling + grocery dominance" },
+      { label: "Bull", color: "#22c55e", price5: 350, prob: 30, driver: "Ads revenue scaling" },
       { label: "Base", color: "#f59e0b", price5: 225, prob: 50, driver: "Steady 15% GOV growth" },
-      { label: "Bear", color: "#ef4444", price5: 130, prob: 20, driver: "Consumer slowdown + regulatory pressure" }
+      { label: "Bear", color: "#ef4444", price5: 130, prob: 20, driver: "Consumer slowdown" }
     ],
-    risks: [{ r: "Technical Breakdown", prob: "High", impact: "Medium", detail: "RS rating of 17 indicates significant relative underperformance." }],
-    verdict: "DASH демонструє фундаментальну силу, але технічний RS 17 свідчить про глибоку консолідацію або втрату інтересу покупців."
+    risks: [{ r: "Profitability", prob: "Moderate", impact: "Medium", detail: "Margin compression in logistics." }],
+    verdict: "DASH демонструє силу в логістиці, але потребує вищої маржинальності."
   },
   {
     id: 'anet',
@@ -195,8 +178,8 @@ export const INITIAL_STOCKS: Stock[] = [
       { label: "Base", color: "#f59e0b", price5: 520, prob: 45, driver: "Steady 20% CAGR" },
       { label: "Bear", color: "#ef4444", price5: 310, prob: 25, driver: "Hyperscale digestion" }
     ],
-    risks: [{ r: "Concentration", prob: "Low", impact: "High", detail: "Exposure to top 3 cloud giants." }],
-    verdict: "ANET — це найякісніший play на AI networking. RS (88) підтверджує лідерство."
+    risks: [{ r: "Concentration", prob: "Low", impact: "High", detail: "Exposure to cloud giants." }],
+    verdict: "ANET — це найякісніший play на AI networking. RS 88 підтверджує лідерство."
   },
   {
     id: 'wwd',
@@ -217,7 +200,7 @@ export const INITIAL_STOCKS: Stock[] = [
     stats: [
       { label: "ЦІНА", value: "$182.40", color: "text-white" },
       { label: "FAIR VALUE", value: "$210.00", color: "text-blue-400" },
-      { label: "EBITDA", value: "22%", color: "text-slate-400" }
+      { label: "RS RATING", value: "72", color: "text-slate-400" }
     ],
     hist: [{ y: "FY23", rev: 2.9, eps: 4.1 }, { y: "FY24", rev: 3.3, eps: 5.8 }],
     scenarios: [
@@ -225,7 +208,7 @@ export const INITIAL_STOCKS: Stock[] = [
       { label: "Base", color: "#f59e0b", price5: 245, prob: 50, driver: "Steady margin expansion" },
       { label: "Bear", color: "#ef4444", price5: 160, prob: 25, driver: "Defense budget cuts" }
     ],
-    risks: [{ r: "Supply Chain", prob: "Moderate", impact: "Medium", detail: "Lumpy component delivery." }],
+    risks: [{ r: "Supply Chain", prob: "Moderate", impact: "Medium", detail: "Component delivery issues." }],
     verdict: "WWD — стійкий промисловий гравець з високою часткою оригінального обладнання."
   },
   {
@@ -247,7 +230,7 @@ export const INITIAL_STOCKS: Stock[] = [
     stats: [
       { label: "ЦІНА", value: "$245.00", color: "text-white" },
       { label: "BASE TARGET", value: "$295.00", color: "text-purple-400" },
-      { label: "FCF YIELD", value: "4.8%", color: "text-slate-400" }
+      { label: "RS RATING", value: "58", color: "text-slate-400" }
     ],
     hist: [{ y: "FY23", rev: 2.6, eps: 7.7 }, { y: "FY24", rev: 2.8, eps: 8.3 }],
     scenarios: [
@@ -285,7 +268,7 @@ export const INITIAL_STOCKS: Stock[] = [
       { label: "Base", color: "#f59e0b", price5: 135, prob: 45, driver: "Sustained high margins" },
       { label: "Bear", color: "#ef4444", price5: 75, prob: 15, driver: "Industrial segment drag" }
     ],
-    risks: [{ r: "Cyclical EMS", prob: "Low", impact: "Medium", detail: "Broader cycle exposure." }],
+    risks: [{ r: "Cyclical EMS", prob: "Low", impact: "Medium", detail: "Cycle exposure." }],
     verdict: "CLS переживає фундаментальне переосмислення ринком — до AI-партнера з високою маржею."
   },
   {
@@ -296,7 +279,7 @@ export const INITIAL_STOCKS: Stock[] = [
     change: '+0.5%',
     color: '#1DB954',
     logo: 'S',
-    rs: 13,
+    rs: 96,
     rating: 'Strong Buy',
     beta: 1.25,
     accelerationProb: "65%",
@@ -307,7 +290,7 @@ export const INITIAL_STOCKS: Stock[] = [
     stats: [
       { label: "ЦІНА", value: "$478.00", color: "text-white" },
       { label: "BASE TARGET", value: "$550.00", color: "text-emerald-400" },
-      { label: "EV/FCF", value: "25.2x", color: "text-blue-400" }
+      { label: "RS RATING", value: "96", color: "text-emerald-400" }
     ],
     hist: [{ y: "2023", rev: 13.2, fcf: 0.8 }, { y: "2024", rev: 16.1, fcf: 2.2 }],
     scenarios: [
@@ -315,7 +298,7 @@ export const INITIAL_STOCKS: Stock[] = [
       { label: "Base", color: "#f59e0b", price5: 550, prob: 45, driver: "Steady subscription growth" },
       { label: "Bear", color: "#ef4444", price5: 400, prob: 25, driver: "Rev slowdown" }
     ],
-    risks: [{ r: "Margin Stagnation", prob: "Moderate", impact: "High", detail: "Content costs variable." }],
+    risks: [{ r: "Margin Stagnation", prob: "Moderate", impact: "High", detail: "Content costs." }],
     verdict: "SPOT — фундаментальна ракета. База клієнтів монолітна."
   },
   {
@@ -326,18 +309,18 @@ export const INITIAL_STOCKS: Stock[] = [
     change: '+1.2%', 
     color: '#3b82f6', 
     logo: 'F',
-    rs: 17,
+    rs: 91,
     rating: 'Hold',
     beta: 1.05,
     accelerationProb: "30%",
     timeToMilestone: "3.0 - 4.0 Years",
     momentumUpside1Y: "+10%",
     typeLabel: "Financial Services / Data Analytics",
-    dnaTags: ["Pricing Power", "Credit Standard", "DLP Growth", "Industrial Moat"],
+    dnaTags: ["Pricing Power", "Credit Standard", "DLP Growth", "RS Leader 🟢"],
     stats: [
       { label: "ЦІНА", value: "$1,351.60", color: "text-white" },
       { label: "BASE TARGET", value: "$1,825.00", color: "text-blue-400" },
-      { label: "RS RATING", value: "17", color: "text-rose-500" }
+      { label: "RS RATING", value: "91", color: "text-emerald-400" }
     ],
     hist: [{ y: "FY24", rev: 1.71, eps: 23.7 }, { y: "FY25E", rev: 1.99, eps: 29.8 }],
     scenarios: [
@@ -347,5 +330,65 @@ export const INITIAL_STOCKS: Stock[] = [
     ],
     risks: [{ r: "Regulatory", prob: "Low", impact: "High", detail: "FHFA parity risks." }],
     verdict: "Монопольне становище у сфері кредитних рейтингів робить FICO ідеальним compounder."
+  },
+  {
+    id: 'smci',
+    ticker: 'SMCI',
+    name: 'Super Micro Computer, Inc.',
+    price: '$45.20',
+    change: '-2.4%',
+    color: '#ef4444',
+    logo: 'S',
+    rs: 13,
+    rating: 'Sell',
+    beta: 2.10,
+    accelerationProb: "15%",
+    timeToMilestone: "5.0+ Years",
+    momentumUpside1Y: "-20%",
+    typeLabel: "AI Hardware / High-Density Storage",
+    dnaTags: ["Governance Concerns 🔴", "Audit Risk 🔴", "RS Lagging 🔴", "Margin Pressure"],
+    stats: [
+      { label: "ЦІНА", value: "$45.20", color: "text-white" },
+      { label: "FWD P/E", value: "8.5x", color: "text-rose-500" },
+      { label: "RS RATING", value: "13", color: "text-rose-500" }
+    ],
+    hist: [{ y: "FY23", rev: 7.1, eps: 1.18 }, { y: "FY24", rev: 14.9, eps: 2.21 }],
+    scenarios: [
+      { label: "Bull", color: "#22c55e", price5: 110, prob: 10, driver: "Clean audit + massive liquid cooling shift" },
+      { label: "Base", color: "#f59e0b", price5: 55, prob: 30, driver: "Ongoing volatility, low multiple" },
+      { label: "Bear", color: "#ef4444", price5: 20, prob: 60, driver: "Exchange delisting + forensic audit findings" }
+    ],
+    risks: [{ r: "Regulatory/Legal", prob: "Extreme", impact: "Extreme", detail: "SEC investigations and auditor resignation." }],
+    verdict: "SMCI залишається найбільш ризикованим активом. Поки корпоративне управління не буде виправлено, це пастка для покупців."
+  },
+  {
+    id: 'aph',
+    ticker: 'APH',
+    name: 'Amphenol Corporation',
+    price: '$147.70',
+    change: '+0.2%',
+    color: '#38bdf8',
+    logo: 'A',
+    rs: 91,
+    rating: 'Buy',
+    beta: 0.95,
+    accelerationProb: "55%",
+    timeToMilestone: "3.0 Years",
+    momentumUpside1Y: "+18%",
+    typeLabel: "Electronic Components / AI Infrastructure",
+    dnaTags: ["IT Datacom (AI) 36%", "B2B Leader 1.31x", "Margin Expansion 🟢", "RS Leader 🟢"],
+    stats: [
+      { label: "ЦІНА", value: "$147.70", color: "text-white" },
+      { label: "FWD P/E", value: "44.2x", color: "text-slate-400" },
+      { label: "RS RATING", value: "91", color: "text-emerald-400" }
+    ],
+    hist: [{ y: "FY25A", rev: 23.1, eps: 3.34 }, { y: "FY26E", rev: 27.2, eps: 3.49 }],
+    scenarios: [
+      { label: "Bull", color: "#22c55e", price5: 254, prob: 30, driver: "AI supercycle + defense, premium multiple" },
+      { label: "Base", color: "#f59e0b", price5: 168, prob: 50, driver: "AI datacom sustains, stable margins" },
+      { label: "Bear", color: "#ef4444", price5: 97, prob: 20, driver: "AI cycle fades, multiple derating to 22x" }
+    ],
+    risks: [{ r: "Multiple Compression", prob: "High", impact: "Extreme", detail: "Derating from 44x to 22x is a 50% price risk." }],
+    verdict: "APH — це високоякісний бенефіціар AI-інфраструктури. 36% доходу від Datacom та рекордний Book-to-Bill (1.31x) роблять її стійкою до циклів."
   }
 ];
