@@ -327,11 +327,11 @@ export const INITIAL_STOCKS: Stock[] = [
     rs: 11,
     rating: 'Buy',
     beta: 2.10,
-    accelerationProb: "15%",
-    timeToMilestone: "5.0+ Years",
-    momentumUpside1Y: "+40%",
+    accelerationProb: "25%",
+    timeToMilestone: "5.0 Years",
+    momentumUpside1Y: "+22%",
     typeLabel: "AI Hardware / High-Density Storage",
-    dnaTags: ["Recovering Momentum 🟢", "Audit Risk 🔴", "RS Lagging 🔴", "Growth Cushion"],
+    dnaTags: ["Margin Recovery Bet", "AI Cycle Play", "Audit Risk 🔴", "RS Lagging 🔴"],
     stats: [
       { label: "ЦІНА", value: "$31.80", color: "text-white" },
       { label: "FWD P/E", value: "7.1x", color: "text-blue-400" },
@@ -339,13 +339,16 @@ export const INITIAL_STOCKS: Stock[] = [
     ],
     hist: [{ y: "FY23", rev: 7.1, eps: 1.18 }, { y: "FY24", rev: 14.9, eps: 2.21 }],
     scenarios: [
-      { label: "Bull", color: "#22c55e", price5: 110, prob: 10, driver: "Clean audit + liquid cooling shift" },
-      { label: "Base", color: "#f59e0b", price5: 55, prob: 30, driver: "Avoids delisting, low multiple" },
-      { label: "Bear", color: "#ef4444", price5: 32, prob: 60, driver: "Floor is found despite structural issues" }
+      { label: "Bull", color: "#22c55e", price5: 133, prob: 22.5, driver: "Rev CAGR 18% + OpM 7.5% + PE 17x" },
+      { label: "Base", color: "#f59e0b", price5: 65, prob: 45, driver: "Rev CAGR 13% + OpM 6.0% + PE 13x" },
+      { label: "Bear", color: "#ef4444", price5: 26, prob: 32.5, driver: "Rev CAGR 7% + OpM 4.5% + PE 9x" }
     ],
-    risks: [{ r: "Regulatory/Legal", prob: "Extreme", impact: "Extreme", detail: "Audit crisis." }],
-    verdict: "Навіть при рості до $31.80 акція торгується нижче Bear Case ($32) та значно нижче Base Target ($55). Математично це Buy через колосальний асиметричний потенціал.",
-    buyThesis: LOREM_IPSUM
+    risks: [
+      { r: "Gross Margin", prob: "Extreme", impact: "Extreme", detail: "Q2 FY26 at 6.4% is the key variable." },
+      { r: "Audit/Delisting", prob: "High", impact: "Extreme", detail: "Governance and regulatory risks." }
+    ],
+    verdict: "SMCI - це не гра на оцінку, а ставка на відновлення маржинальності та цикл ШІ. Якщо операційна маржа відновиться до 7-8%, акція покаже суттєвий перегляд ціни.",
+    buyThesis: "Conditional buy, small position (2–4% of portfolio).\n\nAt $30 you're paying ~14.5x forward for margin recovery optionality. If OpM goes from 4.5% → 6–7%, the stock doubles without heroic assumptions. Weighted target ~$55–60.\n\nBut it's a dual bet — AI cycle + margin recovery — with no moat and no floor if both fail. Size accordingly."
   },
   {
     id: 'spot',

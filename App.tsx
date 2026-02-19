@@ -1,3 +1,4 @@
+
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
@@ -6,6 +7,7 @@ import { SLIDES } from './constants';
 import { AiInsightBox } from './components/AiInsightBox';
 import { Stock, InvestmentRating } from './types';
 import { INITIAL_STOCKS } from './stocksData';
+import { getLatestStockData } from './services/geminiService';
 
 // --- Constants ---
 const STORAGE_KEY = 'insight_portfolio_v34'; 
@@ -43,7 +45,7 @@ const Tag: React.FC<{ label: string }> = ({ label }) => {
 export default function App() {
   const [view, setView] = useState<'HOME' | 'ANALYSIS'>('HOME');
   const [selectedStock, setSelectedStock] = useState<Stock | null>(null);
-  const [stocks] = useState<Stock[]>(() => {
+  const [stocks, setStocks] = useState<Stock[]>(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
     return saved ? JSON.parse(saved) : INITIAL_STOCKS;
   });
@@ -51,6 +53,7 @@ export default function App() {
   const [showBuyPopup, setShowBuyPopup] = useState(false);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(stocks));
@@ -60,9 +63,51 @@ export default function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setFadeOut(true);
-      setTimeout(() => setIsInitialLoading(false), 400); // Slightly longer fade for smoothness
-    }, 2800); // 2.8 seconds display time
+      setTimeout(() => setIsInitialLoading(false), 400); 
+    }, 2800); 
     return () => clearTimeout(timer);
+  }, []);
+
+  // Sync with Live Data on mount - Exclude RS Rating
+  useEffect(() => {
+    const syncData = async () => {
+      setIsSyncing(true);
+      try {
+        const tickers = stocks.map(s => s.ticker);
+        const liveData = await getLatestStockData(tickers);
+        
+        if (liveData) {
+          setStocks(currentStocks => 
+            currentStocks.map(stock => {
+              const live = liveData[stock.ticker];
+              if (live) {
+                // Update ONLY price and change. Do NOT update RS or other stats.
+                const updatedStats = stock.stats.map(stat => {
+                   if (stat.label === "ЦІНА") return { ...stat, value: live.price };
+                   // "RS RATING" is skipped here to take it only from provide model
+                   return stat;
+                });
+
+                return {
+                  ...stock,
+                  price: live.price,
+                  change: live.change,
+                  // rs: stock.rs, // Kept as is from original model
+                  stats: updatedStats
+                };
+              }
+              return stock;
+            })
+          );
+        }
+      } catch (error) {
+        console.error("Sync failed:", error);
+      } finally {
+        setIsSyncing(false);
+      }
+    };
+
+    syncData();
   }, []);
 
   const go = useCallback((d: number) => {
@@ -93,10 +138,15 @@ export default function App() {
   const renderHome = () => (
     <div className="flex-1 overflow-y-auto px-6 py-10 md:px-12 animate-in fade-in duration-700">
       <div className="max-w-7xl mx-auto">
-        <header className="mb-8">
-          <h2 className="text-2xl font-black text-white tracking-tight uppercase">Institutional Portfolio</h2>
-          <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mt-1">14 Core Positions • Strategic Focus</p>
-          <div className="h-1 w-12 bg-blue-600 mt-2 rounded-full"></div>
+        <header className="mb-8 flex justify-between items-end">
+          <div>
+            <h2 className="text-2xl font-black text-white tracking-tight uppercase">Institutional Portfolio</h2>
+            <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mt-1">
+              14 Core Positions • Strategic Focus
+              {isSyncing && <span className="ml-2 text-blue-400 animate-pulse">• Updating Prices via Yahoo Finance...</span>}
+            </p>
+            <div className="h-1 w-12 bg-blue-600 mt-2 rounded-full"></div>
+          </div>
         </header>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -106,7 +156,6 @@ export default function App() {
               onClick={() => { setSelectedStock(stock); setView('ANALYSIS'); setSlide(0); }} 
               className="group bg-[#0e1829] border border-[#1e293b] rounded-[2rem] p-7 cursor-pointer hover:border-blue-500/40 hover:bg-[#111d32] transition-all duration-300 hover:-translate-y-1 relative overflow-hidden shadow-2xl"
             >
-              {/* Top Row: Ticker & Price */}
               <div className="flex justify-between items-start mb-1">
                 <div className="min-w-0">
                   <div className="text-white text-5xl font-black tracking-tighter leading-none mb-1">{stock.ticker}</div>
@@ -120,10 +169,8 @@ export default function App() {
                 </div>
               </div>
               
-              {/* Tightened Spacer */}
               <div className="h-6"></div>
               
-              {/* Bottom Row: Rating & RS */}
               <div className="flex items-center justify-between">
                 <div className={`text-sm font-black uppercase tracking-[0.2em] ${getRatingColor(stock.rating)}`}>
                   {stock.rating}
@@ -133,7 +180,6 @@ export default function App() {
                 </div>
               </div>
               
-              {/* Subtle background detail */}
               <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-blue-500/5 rounded-full blur-3xl pointer-events-none"></div>
             </div>
           ))}
@@ -314,14 +360,12 @@ export default function App() {
           </div>
         )}
 
-        {/* --- High-End Buy Thesis Popup --- */}
         {showBuyPopup && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-300">
              <div 
                className="bg-[#0e1829] border border-pink-500/30 w-full max-w-2xl rounded-[3rem] p-10 md:p-16 relative shadow-[0_0_100px_-20px_rgba(236,72,153,0.3)] animate-in zoom-in-95 duration-300 overflow-hidden"
                onClick={(e) => e.stopPropagation()}
              >
-                {/* Background Decor */}
                 <div className="absolute top-0 right-0 w-64 h-64 bg-pink-500/5 rounded-full blur-[100px] pointer-events-none -mr-32 -mt-32"></div>
                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/5 rounded-full blur-[100px] pointer-events-none -ml-32 -mb-32"></div>
 
@@ -364,7 +408,6 @@ export default function App() {
 
   return (
     <>
-      {/* Initial Loading Splash Screen - Enhanced Brighter Pink and Longer */}
       {isInitialLoading && (
         <div className={`fixed inset-0 z-[200] bg-[#080d1a] flex items-center justify-center transition-opacity duration-400 ${fadeOut ? 'opacity-0' : 'opacity-100'}`}>
           <div className="text-center space-y-2">

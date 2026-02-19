@@ -1,3 +1,4 @@
+
 import { GoogleGenAI } from "@google/genai";
 
 /**
@@ -65,10 +66,13 @@ export async function getLatestStockData(tickers: string[]) {
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   
   const prompt = `
-    Використовуючи Google Search, знайди ПОТОЧНУ ринкову ціну, зміну за 24 години та RS Rating (Relative Strength за шкалою 1-99 відносно S&P 500, орієнтуйся на дані Investing.com або IBD) для наступних тікерів: ${tickers.join(", ")}.
+    Знайди ПОТОЧНУ ринкову ціну та зміну за сьогодні (%) для наступних тікерів: ${tickers.join(", ")}.
     
-    Відповідь надай ВИКЛЮЧНО у форматі JSON об'єкта, де ключами є тікери, а значеннями — об'єкти з полями "price", "change" та "rs" (число 1-99).
-    Приклад: {"AAPL": {"price": "$150.25", "change": "+1.2%", "rs": 85}}.
+    Пріоритетним джерелом даних є Yahoo Finance. Переконайся, що ціни актуальні. 
+    НЕ шукай RS Rating, ігноруй його.
+    
+    Відповідь надай ВИКЛЮЧНО у форматі JSON об'єкта, де ключами є тікери, а значеннями — об'єкти з полями "price" та "change".
+    Приклад: {"AAPL": {"price": "$150.25", "change": "+1.2%"}}.
     Не додавай жодних пояснень, лише чистий JSON.
   `;
 
