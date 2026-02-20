@@ -338,32 +338,41 @@ export const INITIAL_STOCKS: Stock[] = [
     id: 'nvda',
     ticker: 'NVDA',
     name: 'NVIDIA Corporation',
-    price: '$132.50',
-    change: '+2.8%',
+    price: '$187.00',
+    change: '+1.5%',
     color: '#76b900',
     logo: 'N',
-    rs: 98,
+    rs: 74,
     rating: 'Strong Buy',
     beta: 1.85,
-    accelerationProb: "85%",
-    timeToMilestone: "1.0 Year",
+    accelerationProb: "75%",
+    timeToMilestone: "5.0 Years",
     momentumUpside1Y: "+45%",
-    typeLabel: "AI Compute / Data Center Standard",
-    dnaTags: ["AI Sovereign Moat 🟢", "CUDA Ecosystem", "85% Data Center Share", "Margin Leader 🟢"],
+    typeLabel: "A + B Hybrid: Structural Compounder + Capex Cycle",
+    dnaTags: ["AI Sovereign Moat", "CUDA Ecosystem", "85% Data Center Share", "Networking +162%", "BW + Rubin"],
     stats: [
-      { label: "ЦІНА", value: "$132.50", color: "text-white" },
-      { label: "FWD P/E", value: "35.2x", color: "text-slate-400" },
-      { label: "RS RATING", value: "98", color: "text-emerald-400" }
+      { label: "ЦІНА", value: "$187.00", color: "text-white" },
+      { label: "FWD P/E", value: "26.1x", color: "text-slate-400" },
+      { label: "RS RATING", value: "74", color: "text-emerald-400" }
     ],
-    hist: [{ y: "FY24", rev: 60.9, eps: 1.19 }, { y: "FY25E", rev: 125.8, eps: 2.84 }],
+    hist: [
+      { y: "FY24", rev: 130.5, eps: 2.13 },
+      { y: "FY25", rev: 213.6, eps: 2.94 },
+      { y: "FY26E", rev: 327.3, eps: 4.59 },
+      { y: "FY27E", rev: 419.1, eps: 7.17 }
+    ],
     scenarios: [
-      { label: "Bull", color: "#22c55e", price5: 350, prob: 40, driver: "Blackwell cycle acceleration" },
-      { label: "Base", color: "#f59e0b", price5: 210, prob: 45, driver: "Sustained AI capex" },
-      { label: "Bear", color: "#ef4444", price5: 95, prob: 15, driver: "Cloud client digestion" }
+      { label: "Bull", color: "#22c55e", price5: 919, prob: 30, driver: "Blackwell cycle acceleration + Rubin ramp 2H 2026. EPS CAGR 32% @ 32x." },
+      { label: "Base", color: "#f59e0b", price5: 612, prob: 55, driver: "Sustained AI capex + $0.5T visibility. EPS CAGR 25% @ 28x." },
+      { label: "Bear", color: "#ef4444", price5: 252, prob: 15, driver: "Capex digestion / power constraints. EPS CAGR 12% @ 20x." }
     ],
-    risks: [{ r: "Cyclical Peak", prob: "Moderate", impact: "High", detail: "Risk of CapEx overbuild." }],
-    verdict: "Екстремальний RS (98) та величезний дисконт до Base Target ($210) роблять NVDA безальтернативним Strong Buy.",
-    buyThesis: LOREM_IPSUM
+    risks: [
+      { r: "Capex Digestion", prob: "Moderate", impact: "High", detail: "Risk of hyperscaler pause or power constraints." },
+      { r: "Multiple Compression", prob: "High", impact: "Extreme", detail: "Derating from 64x trailing to 25x forward." },
+      { r: "Enterprise Adoption", prob: "Moderate", impact: "High", detail: "Slower than expected ROI for non-hyperscaler clients." }
+    ],
+    verdict: "NVDA — це структурний монополіст ШІ-інфраструктури. Очікувана дохідність (CAGR) становить 15-18% на 5 років. Ризик стиснення мультиплікатора значною мірою абсорбований поточною ціною ($179 — стрес-підлога), тому весь апсайд залежить від виконання планів по EPS.",
+    buyThesis: "NVDA is a structural AI infrastructure monopolist priced near perfection. Both EPS and FCF models converge on a 15-18% expected CAGR over 5 years. The stress floor (~$179 at 25× FY27E EPS) sits near current price, meaning P/E compression risk is largely absorbed — all upside is EPS execution. $0.5T visibility with Blackwell and Rubin ramps provides strong fundamental support. RS 74 reflects healthy consolidation before the next leg up."
   },
   {
     id: 'panw',
@@ -530,5 +539,43 @@ export const INITIAL_STOCKS: Stock[] = [
     risks: [{ r: "Supply Chain", prob: "Moderate", impact: "Medium", detail: "Delivery issues." }],
     verdict: "Ціна суттєво нижча за внутрішню вартість (Fair Value $210) та Base Target ($245).",
     buyThesis: LOREM_IPSUM
+  },
+  {
+    id: 'enva',
+    ticker: 'ENVA',
+    name: 'Enova International',
+    price: '$145.00',
+    change: '+0.0%',
+    color: '#2563eb',
+    logo: 'E',
+    rs: 87,
+    rating: 'Buy',
+    beta: 1.25,
+    accelerationProb: "62%",
+    timeToMilestone: "5.0 Years",
+    momentumUpside1Y: "+15%",
+    typeLabel: "B · Cyclical Growth / Fintech Leader",
+    dnaTags: ["SMB Power", "Credit Quality", "Bank Charter", "Growth", "Cyclical"],
+    stats: [
+      { label: "ЦІНА", value: "$145.00", color: "text-white" },
+      { label: "BASE TARGET", value: "$285.00", color: "text-blue-400" },
+      { label: "RS RATING", value: "87", color: "text-emerald-400" }
+    ],
+    hist: [
+      { y: "FY25A", rev: 3.2, eps: 11.52 },
+      { y: "FY26E", rev: 3.68, eps: 15.50 }
+    ],
+    scenarios: [
+      { label: "Bull", color: "#22c55e", price5: 525, prob: 30, driver: "Stable credit + Grasshopper fully realized + P/E re-rate for bank charter" },
+      { label: "Base", color: "#f59e0b", price5: 285, prob: 45, driver: "Conservative vs mgmt ≥20% guide — pricing in cycle normalization" },
+      { label: "Bear", color: "#ef4444", price5: 140, prob: 25, driver: "Recession → charge-offs spike → multiple compression. GH deal uncertain." }
+    ],
+    risks: [
+      { r: "Credit Cycle", prob: "Moderate", impact: "High", detail: "Consumer NCO 16% — spikes fast in downturn. Mgmt assumes stable macro." },
+      { r: "Regulation", prob: "Moderate", impact: "Medium", detail: "CFPB ambient threat to non-prime lending practices." },
+      { r: "Integration", prob: "Moderate", impact: "High", detail: "Grasshopper integration execution and regulatory approval timeline." }
+    ],
+    verdict: "ENVA — це циклічне зростання з опціональністю Grasshopper. При ≥20% EPS CAGR та поточному 9x P/E, 5Y таргет дає значний апсайд. Основний ризик — макроекономічний шок та ріст списань.",
+    buyThesis: "Conviction ↑. P(15%+ CAGR) ≈ 60–65%. Mgmt ≥20% EPS guide (ex-GH), improving credit quality, declining CoF, record portfolio. SMB dominance (68%) is structurally positive. Grasshopper acquisition provides a bank charter and lower funding costs, which could lead to a multiple re-rating."
   }
 ];
