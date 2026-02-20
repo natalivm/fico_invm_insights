@@ -378,7 +378,7 @@ export default function App() {
 
                 <div className="relative z-10 text-center">
                    <div className="h-px w-12 bg-pink-500 mb-8 mx-auto"></div>
-                   <div className="text-slate-200 text-lg md:text-xl leading-relaxed font-medium space-y-6 text-center">
+                   <div className="text-slate-200 text-sm md:text-base leading-relaxed font-light space-y-6 text-center">
                       {selectedStock.buyThesis?.split('\n\n').map((para, i) => (
                         <p key={i}>{para}</p>
                       ))}
