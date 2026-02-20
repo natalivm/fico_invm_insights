@@ -4,10 +4,8 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
 import { SLIDES } from './constants';
-import { AiInsightBox } from './components/AiInsightBox';
 import { Stock, InvestmentRating } from './types';
 import { INITIAL_STOCKS } from './stocksData';
-import { getLatestStockData } from './services/geminiService';
 
 // --- Constants ---
 const STORAGE_KEY = 'insight_portfolio_v34'; 
@@ -36,14 +34,14 @@ const formatAccelerationScore = (probStr: string): string => {
 
 // --- Sub-components ---
 
-const Chip: React.FC<{ label: string; val: string; color: string }> = ({ label, val, color }) => (
+const Chip = React.memo<{ label: string; val: string; color: string }>(({ label, val, color }) => (
   <div className="bg-slate-900/80 backdrop-blur-sm border-t-2 rounded-2xl p-4 transition-all hover:bg-slate-800 shadow-xl" style={{ borderColor: color }}>
     <div className="text-slate-500 text-[10px] uppercase font-bold tracking-widest mb-1">{label}</div>
     <div className="text-2xl font-black tabular-nums" style={{ color }}>{val}</div>
   </div>
-);
+));
 
-const Tag: React.FC<{ label: string }> = ({ label }) => {
+const Tag = React.memo<{ label: string }>(({ label }) => {
   const isAlert = label.includes('🔴') || label.includes('Risk') || label.includes('Lagging');
   const isPositive = label.includes('🟢') || label.includes('Moat') || label.includes('Power') || label.includes('Leader');
   
@@ -57,6 +55,49 @@ const Tag: React.FC<{ label: string }> = ({ label }) => {
       {label}
     </span>
   );
+});
+
+const StockCard = React.memo<{ stock: Stock; onClick: () => void; getRatingColor: (r: InvestmentRating) => string }>(({ stock, onClick, getRatingColor }) => (
+  <div 
+    onClick={onClick} 
+    className="group bg-[#0e1829] border border-[#1e293b] rounded-[2rem] p-7 cursor-pointer hover:border-blue-500/40 hover:bg-[#111d32] transition-all duration-300 hover:-translate-y-1 relative overflow-hidden shadow-2xl"
+  >
+    <div className="flex justify-between items-start mb-1">
+      <div className="min-w-0">
+        <div className="text-white text-5xl font-black tracking-tighter leading-none mb-1">{stock.ticker}</div>
+        <div className="text-slate-500 text-xs font-medium truncate max-w-[180px]">{stock.name}</div>
+      </div>
+      <div className="text-right shrink-0">
+        <div className="text-white font-bold text-2xl tabular-nums leading-none mb-1.5">{stock.price}</div>
+        <div className={`text-sm font-bold tabular-nums ${stock.change.startsWith('+') ? 'text-emerald-400' : 'text-rose-500'}`}>
+          {stock.change}
+        </div>
+      </div>
+    </div>
+    
+    <div className="h-6"></div>
+    
+    <div className="flex items-center justify-between">
+      <div className={`text-sm font-black uppercase tracking-[0.2em] ${getRatingColor(stock.rating)}`}>
+        {stock.rating}
+      </div>
+      <div className={`text-[10px] font-black uppercase px-4 py-1.5 rounded-lg bg-slate-950/40 border border-white/5 ${stock.rs >= 80 ? 'text-emerald-400' : stock.rs < 40 ? 'text-rose-500' : 'text-slate-400'}`}>
+        RS {stock.rs}
+      </div>
+    </div>
+    
+    <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-blue-500/5 rounded-full blur-3xl pointer-events-none"></div>
+  </div>
+));
+
+const getRatingColor = (rating: InvestmentRating) => {
+  switch (rating) {
+    case 'Strong Buy': return 'text-emerald-400';
+    case 'Buy': return 'text-blue-500';
+    case 'Hold': return 'text-amber-500';
+    case 'Sell': return 'text-rose-500';
+    default: return 'text-white';
+  }
 };
 
 export default function App() {
@@ -70,18 +111,17 @@ export default function App() {
   const [showBuyPopup, setShowBuyPopup] = useState(false);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
-  const [isSyncing, setIsSyncing] = useState(false);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(stocks));
   }, [stocks]);
 
-  // Initial splash effect - Extended duration
+  // Initial splash effect - Shortened for performance
   useEffect(() => {
     const timer = setTimeout(() => {
       setFadeOut(true);
-      setTimeout(() => setIsInitialLoading(false), 400); 
-    }, 2800); 
+      setTimeout(() => setIsInitialLoading(false), 300); 
+    }, 1000); 
     return () => clearTimeout(timer);
   }, []);
 
@@ -96,16 +136,6 @@ export default function App() {
     setShowBuyPopup(false);
   }, []);
 
-  const getRatingColor = (rating: InvestmentRating) => {
-    switch (rating) {
-      case 'Strong Buy': return 'text-emerald-400';
-      case 'Buy': return 'text-blue-500';
-      case 'Hold': return 'text-amber-500';
-      case 'Sell': return 'text-rose-500';
-      default: return 'text-white';
-    }
-  };
-
   const alertTags = useMemo(() => 
     selectedStock?.dnaTags?.filter(t => t.includes('🔴') || t.includes('GM') || t.includes('Risk') || t.includes('Conc.')) || []
   , [selectedStock]);
@@ -118,7 +148,6 @@ export default function App() {
             <h2 className="text-2xl font-black text-white tracking-tight uppercase">Institutional Portfolio</h2>
             <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mt-1">
               15 Core Positions • Strategic Focus
-              {isSyncing && <span className="ml-2 text-blue-400 animate-pulse">• Updating Prices...</span>}
             </p>
             <div className="h-1 w-12 bg-blue-600 mt-2 rounded-full"></div>
           </div>
@@ -126,37 +155,12 @@ export default function App() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {stocks.map(stock => (
-            <div 
+            <StockCard 
               key={stock.id} 
+              stock={stock} 
               onClick={() => { setSelectedStock(stock); setView('ANALYSIS'); setSlide(0); }} 
-              className="group bg-[#0e1829] border border-[#1e293b] rounded-[2rem] p-7 cursor-pointer hover:border-blue-500/40 hover:bg-[#111d32] transition-all duration-300 hover:-translate-y-1 relative overflow-hidden shadow-2xl"
-            >
-              <div className="flex justify-between items-start mb-1">
-                <div className="min-w-0">
-                  <div className="text-white text-5xl font-black tracking-tighter leading-none mb-1">{stock.ticker}</div>
-                  <div className="text-slate-500 text-xs font-medium truncate max-w-[180px]">{stock.name}</div>
-                </div>
-                <div className="text-right shrink-0">
-                  <div className="text-white font-bold text-2xl tabular-nums leading-none mb-1.5">{stock.price}</div>
-                  <div className={`text-sm font-bold tabular-nums ${stock.change.startsWith('+') ? 'text-emerald-400' : 'text-rose-500'}`}>
-                    {stock.change}
-                  </div>
-                </div>
-              </div>
-              
-              <div className="h-6"></div>
-              
-              <div className="flex items-center justify-between">
-                <div className={`text-sm font-black uppercase tracking-[0.2em] ${getRatingColor(stock.rating)}`}>
-                  {stock.rating}
-                </div>
-                <div className={`text-[10px] font-black uppercase px-4 py-1.5 rounded-lg bg-slate-950/40 border border-white/5 ${stock.rs >= 80 ? 'text-emerald-400' : stock.rs < 40 ? 'text-rose-500' : 'text-slate-400'}`}>
-                  RS {stock.rs}
-                </div>
-              </div>
-              
-              <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-blue-500/5 rounded-full blur-3xl pointer-events-none"></div>
-            </div>
+              getRatingColor={getRatingColor}
+            />
           ))}
         </div>
       </div>
@@ -206,7 +210,6 @@ export default function App() {
                 <div className="text-slate-600 text-[9px] mt-2 font-black uppercase tracking-widest">{rsStatus}</div>
               </div>
             </div>
-            <AiInsightBox slideTitle="Summary" slideData={histData} stockId={selectedStock.id} ticker={selectedStock.ticker} />
           </div>
         )}
 
@@ -228,7 +231,6 @@ export default function App() {
                   </BarChart>
                 </ResponsiveContainer>
              </div>
-             <AiInsightBox slideTitle="Financial Analysis" slideData={histData} stockId={selectedStock.id} ticker={selectedStock.ticker} />
            </div>
         )}
 
@@ -251,7 +253,6 @@ export default function App() {
                 </div>
               ))}
             </div>
-            <AiInsightBox slideTitle="Valuation & Scenarios" slideData={scenariosData} stockId={selectedStock.id} ticker={selectedStock.ticker} />
           </div>
         )}
 
@@ -304,7 +305,6 @@ export default function App() {
                   </div>
                 ))}
              </div>
-             <AiInsightBox slideTitle="Risk Profile" slideData={selectedStock.risks} stockId={selectedStock.id} ticker={selectedStock.ticker} />
            </div>
         )}
 
@@ -351,8 +351,6 @@ export default function App() {
                 </button>
               </div>
             </div>
-
-            <AiInsightBox slideTitle="Verdict Analysis" slideData={{verdict: selectedStock.verdict, scenarios: scenariosData}} stockId={selectedStock.id} ticker={selectedStock.ticker} />
           </div>
         )}
 
