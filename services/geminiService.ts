@@ -4,7 +4,7 @@ import { GoogleGenAI } from "@google/genai";
 /**
  * Utility function to handle API calls with exponential backoff for retriable errors (like 429).
  */
-async function callWithRetry(apiCall: () => Promise<any>, maxRetries = 3, initialDelay = 2000) {
+async function callWithRetry(apiCall: () => Promise<any>, maxRetries = 2, initialDelay = 3000) {
   let lastError: any;
   
   for (let i = 0; i < maxRetries; i++) {
@@ -12,16 +12,23 @@ async function callWithRetry(apiCall: () => Promise<any>, maxRetries = 3, initia
       return await apiCall();
     } catch (error: any) {
       lastError = error;
-      const isRateLimit = error?.message?.includes('429') || error?.status === 'RESOURCE_EXHAUSTED';
+      
+      // Check for rate limit in various error formats
+      const errorStr = JSON.stringify(error).toLowerCase();
+      const isRateLimit = 
+        error?.status === 429 || 
+        error?.message?.includes('429') || 
+        errorStr.includes('resource_exhausted') ||
+        errorStr.includes('quota');
       
       if (isRateLimit && i < maxRetries - 1) {
-        const delay = initialDelay * Math.pow(2, i); // Exponential backoff
-        console.warn(`Gemini API rate limit hit. Retrying in ${delay}ms... (Attempt ${i + 1}/${maxRetries})`);
+        const delay = initialDelay * Math.pow(2, i) + (Math.random() * 1000); // Exponential backoff + jitter
+        console.warn(`Gemini API rate limit hit. Retrying in ${Math.round(delay)}ms... (Attempt ${i + 1}/${maxRetries})`);
         await new Promise(resolve => setTimeout(resolve, delay));
         continue;
       }
       
-      throw error; // Re-throw if not a rate limit or we've exhausted retries
+      throw error;
     }
   }
   throw lastError;
@@ -47,18 +54,19 @@ export async function getAiAnalystInsight(ticker: string, slideContext: string, 
       model: 'gemini-3-flash-preview',
       contents: prompt,
       config: {
-        temperature: 0.6,
-        topP: 0.9,
+        temperature: 0.4,
+        topP: 0.8,
       }
     }));
 
     return response.text;
   } catch (error: any) {
     console.error("Gemini API Insight Error:", error);
-    if (error?.message?.includes('429')) {
-      return "Система зараз перевантажена (перевищено квоту запитів). Будь ласка, зачекайте хвилину та оновіть сторінку.";
+    const errorStr = JSON.stringify(error).toLowerCase();
+    if (error?.status === 429 || error?.message?.includes('429') || errorStr.includes('resource_exhausted')) {
+      return "Система зараз перевантажена (перевищено квоту запитів API). Будь ласка, зачекайте 60 секунд. Це обмеження безкоштовного рівня Gemini.";
     }
-    return "Аналітика тимчасово недоступна. Спробуйте пізніше.";
+    return "Аналітика тимчасово недоступна через технічну помилку з'єднання з сервером.";
   }
 }
 
@@ -67,13 +75,8 @@ export async function getLatestStockData(tickers: string[]) {
   
   const prompt = `
     Знайди ПОТОЧНУ ринкову ціну та зміну за сьогодні (%) для наступних тікерів: ${tickers.join(", ")}.
-    
-    Пріоритетним джерелом даних є Yahoo Finance. Переконайся, що ціни актуальні. 
-    НЕ шукай RS Rating, ігноруй його.
-    
     Відповідь надай ВИКЛЮЧНО у форматі JSON об'єкта, де ключами є тікери, а значеннями — об'єкти з полями "price" та "change".
     Приклад: {"AAPL": {"price": "$150.25", "change": "+1.2%"}}.
-    Не додавай жодних пояснень, лише чистий JSON.
   `;
 
   try {
@@ -83,7 +86,7 @@ export async function getLatestStockData(tickers: string[]) {
       config: {
         tools: [{ googleSearch: {} }]
       }
-    }));
+    }), 1, 5000); // Fewer retries for search to save quota
     
     const text = response.text || "";
     const jsonMatch = text.match(/\{[\s\S]*\}/);

@@ -85,11 +85,6 @@ export default function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Sync with Live Data on mount - PAUSED
-  useEffect(() => {
-    // Synchronization is temporarily disabled to keep numbers consistent
-  }, []);
-
   const go = useCallback((d: number) => {
     setSlide(s => Math.max(0, Math.min(SLIDES.length - 1, s + d)));
   }, []);
@@ -217,7 +212,10 @@ export default function App() {
 
         {slide === 1 && (
            <div className="space-y-10">
-             <h2 className="text-4xl font-black text-white tracking-tight">Financial Performance Trends</h2>
+             <div className="text-center">
+               <span className="text-blue-500 text-[10px] font-black uppercase tracking-[0.3em] mb-4 block">Performance Audit</span>
+               <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight">Financial Performance Trends</h2>
+             </div>
              <div className="h-[450px] bg-[#0e1829]/50 backdrop-blur-md p-8 rounded-[2rem] border border-slate-800 shadow-2xl relative overflow-hidden">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={histData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
@@ -236,7 +234,10 @@ export default function App() {
 
         {slide === 2 && (
           <div className="space-y-10">
-            <h2 className="text-4xl font-black text-white tracking-tight">{is3Y ? '3-Year' : '5-Year'} Valuation Modeling</h2>
+            <div className="text-center">
+              <span className="text-blue-500 text-[10px] font-black uppercase tracking-[0.3em] mb-4 block">Market Projection</span>
+              <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight">{is3Y ? '3-Year' : '5-Year'} Valuation Modeling</h2>
+            </div>
             <div className="grid md:grid-cols-3 gap-8">
               {scenariosData.map((s, i) => (
                 <div key={i} className="bg-[#0e1829] border-t-4 p-8 rounded-[2rem] shadow-2xl transition-all hover:bg-[#111d32]" style={{borderColor: s.color}}>
@@ -256,7 +257,10 @@ export default function App() {
 
         {slide === 3 && (
            <div className="space-y-10">
-             <h2 className="text-4xl font-black text-white tracking-tight">Risk Map & Vulnerability Profile</h2>
+             <div className="text-center">
+               <span className="text-rose-500 text-[10px] font-black uppercase tracking-[0.3em] mb-4 block">Risk Assessment</span>
+               <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight">Risk Map & Vulnerability Profile</h2>
+             </div>
              
              {alertTags.length > 0 && (
               <div className="bg-rose-950/20 border border-rose-500/20 rounded-[2rem] p-8 mb-10 shadow-[0_0_50px_-10px_rgba(244,63,94,0.1)]">
@@ -266,7 +270,7 @@ export default function App() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
                      </svg>
                   </div>
-                  <div>
+                  <div className="text-left">
                     <h3 className="text-rose-500 font-black uppercase tracking-widest text-sm">Critical Risk Indicators</h3>
                     <p className="text-slate-500 text-xs mt-1 font-bold">Identified structural bottlenecks with asymmetric downside potential.</p>
                   </div>
@@ -309,8 +313,8 @@ export default function App() {
             <div className="bg-gradient-to-br from-[#1e1b4b] to-[#080d1a] p-16 md:p-24 rounded-[3rem] text-center border border-blue-500/20 shadow-2xl relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent"></div>
               
-              <h3 className="text-5xl md:text-6xl font-black mb-8 text-white uppercase tracking-tighter">Investment Verdict</h3>
-              <div className="text-slate-300 max-w-4xl mx-auto mb-16 text-xl md:text-2xl leading-relaxed font-medium italic">"{selectedStock.verdict}"</div>
+              <h3 className="text-5xl md:text-6xl font-black mb-8 text-white uppercase tracking-tighter text-center">Investment Verdict</h3>
+              <div className="text-slate-300 max-w-4xl mx-auto mb-16 text-xl md:text-2xl leading-relaxed font-medium italic text-center">"{selectedStock.verdict}"</div>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
                 <div className="bg-slate-900/60 backdrop-blur-sm p-10 rounded-[2.5rem] border border-slate-800 shadow-xl flex flex-col justify-center">
@@ -361,29 +365,27 @@ export default function App() {
                 <div className="absolute top-0 right-0 w-64 h-64 bg-pink-500/5 rounded-full blur-[100px] pointer-events-none -mr-32 -mt-32"></div>
                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/5 rounded-full blur-[100px] pointer-events-none -ml-32 -mb-32"></div>
 
-                <div className="flex justify-between items-start mb-8 relative z-10">
-                   <div>
-                     <h3 className="text-pink-500 font-black uppercase tracking-[0.2em] text-xs mb-2">Exclusive Institutional Insight</h3>
-                     <h2 className="text-white text-4xl md:text-5xl font-black tracking-tighter">{selectedStock.ticker} Thesis</h2>
-                   </div>
+                <div className="flex flex-col items-center mb-8 relative z-10 text-center">
+                   <h3 className="text-pink-500 font-black uppercase tracking-[0.2em] text-xs mb-2">Exclusive Institutional Insight</h3>
+                   <h2 className="text-white text-4xl md:text-5xl font-black tracking-tighter">{selectedStock.ticker} Thesis</h2>
                    <button 
                      onClick={() => setShowBuyPopup(false)}
-                     className="text-slate-500 hover:text-white transition-colors p-2 rounded-full bg-slate-900/50"
+                     className="absolute top-0 right-0 text-slate-500 hover:text-white transition-colors p-2 rounded-full bg-slate-900/50"
                    >
                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12"/></svg>
                    </button>
                 </div>
 
-                <div className="relative z-10">
-                   <div className="h-px w-12 bg-pink-500 mb-8"></div>
-                   <div className="text-slate-200 text-lg md:text-xl leading-relaxed font-medium space-y-6">
+                <div className="relative z-10 text-center">
+                   <div className="h-px w-12 bg-pink-500 mb-8 mx-auto"></div>
+                   <div className="text-slate-200 text-lg md:text-xl leading-relaxed font-medium space-y-6 text-center">
                       {selectedStock.buyThesis?.split('\n\n').map((para, i) => (
                         <p key={i}>{para}</p>
                       ))}
                    </div>
                 </div>
 
-                <div className="mt-12 flex justify-end relative z-10">
+                <div className="mt-12 flex justify-center relative z-10">
                   <button 
                     onClick={() => setShowBuyPopup(false)}
                     className="bg-white text-slate-950 px-10 py-4 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-pink-500 hover:text-white transition-all shadow-xl"
